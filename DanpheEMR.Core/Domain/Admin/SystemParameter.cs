@@ -1,0 +1,12 @@
+﻿using DanpheEMR.Core.Domain.Base;
+
+namespace DanpheEMR.Core.Domain.Admin
+{
+    public class SystemParameter : BaseEntity
+    {
+        public int Id { get; set; }
+        public string ParameterName { get; set; }
+        public string ParameterValue { get; set; }
+        public string ValueType { get; set; } // Ví dụ: "string", "int", "bool", v.v.
+    }
+}
