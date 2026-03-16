@@ -2,7 +2,7 @@
 using DanpheEMR.Core.Iterface.Base;
 using System.Numerics;
 
-namespace DanpheEMR.Core.Iterfaces.AppointmentRepository
+namespace DanpheEMR.Core.Iterfaces.Appointment
 {
     public interface  IDoctorScheduleRepository : IGenericRepository<DoctorSchedule>
     {

@@ -1,17 +1,17 @@
 ﻿using DanpheEMR.Core.Domain.Appointment;
-using DanpheEMR.Core.Domain.Nums;
-using DanpheEMR.Core.Iterface.Base;
 
-namespace DanpheEMR.Core.Iterfaces.BillingRepository
+namespace DanpheEMR.Core.Domain.Billing
 {
-    public interface IReceiptRepository : IGenericRepository<Receipt>
+    public interface IReceiptRepository
     {
-        Task<Receipt> GetByReceiptNumberAsync(string receiptNumber);
+        Task<Receipt> GetByIdAsync(int id);
+        Task<Receipt> AddAsync(Receipt receipt);
 
-        // Hủy biên lai (kèm lý do)
+        // Biên lai in ra rồi không được phép Sửa (Update) hay Xóa (Delete). Chỉ được phép Hủy (Cancel).
         Task CancelReceiptAsync(int receiptId, string reason);
 
-        // Báo cáo chốt ca cuối ngày: Tính tổng tiền thu được theo từng Hình thức thanh toán (Tiền mặt, Chuyển khoản...)
-        Task<decimal> GetTotalCollectionByPaymentModeAsync(PaymentStatus mode, DateTime fromDate, DateTime toDate);
+        // Truy xuất
+        Task<Receipt> GetByReceiptNumberAsync(string receiptNumber);
+        Task<IEnumerable<Receipt>> GetReceiptsByTransactionIdAsync(int transactionId);
     }
 }

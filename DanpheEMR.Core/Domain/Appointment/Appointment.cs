@@ -1,8 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
-using DanpheEMR.Core.Domain.ADTModels;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Nums;
-
+using DanpheEMR.Core.Domain.Patients;
 namespace DanpheEMR.Core.Domain.Appointment
 {
     public class Appointment : BaseEntity

@@ -1,7 +1,8 @@
 ﻿using DanpheEMR.Core.Domain.Appointment;
+using DanpheEMR.Core.Domain.BloodBank;
 using DanpheEMR.Core.Iterface.Base;
 
-namespace DanpheEMR.Core.Iterfaces.BloodBankRepository
+namespace DanpheEMR.Core.Iterfaces.BloodBank
 {
     public interface IBloodGroupRepository 
      {

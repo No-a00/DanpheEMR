@@ -1,11 +1,13 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
-using DanpheEMR.Core.Domain.ADTModels;
-using DanpheEMR.Core.Domain.Base;
 
-namespace DanpheEMR.Core.Domain.Appointment
+using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Patients;
+
+namespace DanpheEMR.Core.Domain.EMR
 {
     public class ProgressNote : BaseEntity
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public DateTime NoteDate { get; set; }
         public string Subjective { get; set; }

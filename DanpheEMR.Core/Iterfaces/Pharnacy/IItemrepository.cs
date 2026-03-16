@@ -1,0 +1,22 @@
+﻿using DanpheEMR.Core.Domain.Pharnacy;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace DanpheEMR.Core.Domain.Pharmacy
+{
+    public interface IItemRepository
+    {
+        Task<Item> GetByIdAsync(int id);
+        Task<Item> AddAsync(Item item);
+        Task UpdateAsync(Item item);
+        Task DeactivateItemAsync(int id);
+
+        // Lọc danh sách theo Nhóm thuốc 
+        Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId);
+        // Tìm kiếm linh hoạt để Dược sĩ gõ tên tìm thuốc nhanh
+        Task<IEnumerable<Item>> SearchItemsAsync(string keyword);
+
+        // QUAN TRỌNG: Lọc ra các loại thuốc sắp hết (Tồn kho < ReorderLevel) để đi mua thêm
+        Task<IEnumerable<Item>> GetItemsNearingReorderLevelAsync();
+    }
+}

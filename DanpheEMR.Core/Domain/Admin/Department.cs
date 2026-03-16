@@ -1,5 +1,6 @@
-﻿using DanpheEMR.Core.Domain.ADTModels;
+﻿
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.Admin
 {

@@ -1,6 +1,6 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Billing
 {
     public class BillingSearchFilter
     {

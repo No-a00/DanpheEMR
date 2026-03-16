@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using DanpheEMR.Core.Domain.ADTModels;
-using DanpheEMR.Core.Domain.Base;
+﻿using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Nums;
+using DanpheEMR.Core.Domain.Patients;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Billing
 {
     public class BillingTransaction : BaseEntity
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Admin; 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Billing
 {
     public class BillingTransactionItem : BaseEntity
     {

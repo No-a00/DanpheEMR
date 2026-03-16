@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.BloodBank
 {
     public class BloodDonor : BaseEntity
     {

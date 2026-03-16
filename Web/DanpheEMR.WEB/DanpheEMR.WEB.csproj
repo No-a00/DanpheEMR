@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DanpheEMR.Application\DanpheEMR.Application.csproj" />
     <ProjectReference Include="..\..\DanpheEMR.Core\DanpheEMR.Core.csproj" />
+    <ProjectReference Include="..\..\DanpheEMR.DataAccess\DanpheEMR.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Billing;
 using System.ComponentModel.DataAnnotations;
 
 namespace DanpheEMR.Core.Domain.Appointment

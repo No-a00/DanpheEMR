@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Appointment;
 using DanpheEMR.Core.Iterface.Base;
 
-namespace DanpheEMR.Core.Iterfaces.AppointmentRepository
+namespace DanpheEMR.Core.Iterfaces.Appointment
 {
     public interface IHolidayRepository : IGenericRepository<Holiday>
     {

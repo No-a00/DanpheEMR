@@ -1,7 +1,8 @@
 ﻿using DanpheEMR.Core.Domain.Appointment;
+using DanpheEMR.Core.Domain.Billing;
 using DanpheEMR.Core.Iterface.Base;
 
-namespace DanpheEMR.Core.Iterfaces.BillingRepository
+namespace DanpheEMR.Core.Iterfaces.Billing
 {
     public interface IServiceItemRepository : IGenericRepository<ServiceItem>
     {

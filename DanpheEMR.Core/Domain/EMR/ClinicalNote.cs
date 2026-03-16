@@ -1,9 +1,9 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
-using DanpheEMR.Core.Domain.ADTModels;
 using DanpheEMR.Core.Domain.Base;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using DanpheEMR.Core.Domain.Patients;
 
-namespace DanpheEMR.Core.Domain.Appointment
+
+namespace DanpheEMR.Core.Domain.EMR
 {
     public class ClinicalNote : BaseEntity
     {

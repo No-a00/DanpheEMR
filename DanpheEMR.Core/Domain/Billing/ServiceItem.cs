@@ -1,8 +1,9 @@
-﻿using DanpheEMR.Core.Domain.Base;
+﻿using DanpheEMR.Core.Domain.Appointment;
+using DanpheEMR.Core.Domain.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Billing
 {
     // 1. Nhớ kế thừa BaseEntity
     public class ServiceItem : BaseEntity

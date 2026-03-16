@@ -1,17 +1,22 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
-using DanpheEMR.Core.Iterface.Base;
 
-namespace DanpheEMR.Core.Iterfaces.IAdminRepository
+namespace DanpheEMR.Core.Domain.Admin
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository
     {
-        // Quản trị viên khóa tài khoản (Thay vì xóa vật lý)
-        Task DeactivateUserAsync(int userId);
-        // 1. Tải User KÈM THEO toàn bộ Vai trò (Roles) và Quyền hạn (Permissions) của họ
+        
+        Task<User> GetByIdAsync(int id);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User> AddAsync(User user);
+        Task UpdateAsync(User user);
+
+        // Khóa tài khoản thay vì xóa
+        Task DeactivateUserAsync(int id);
+
+        // Nghiệp vụ đăng nhập & phân quyền
+        Task<User> GetByUsernameAsync(string username);
         Task<User> GetUserWithRolesAndPermissionsAsync(int userId);
-        // 2. Kiểm tra trực tiếp: User A có quyền làm Hành động B trên Tài nguyên C không?
         Task<bool> CheckUserPermissionAsync(int userId, string action, string resource);
-        // 3. Lấy thông tin Tài khoản KÈM THEO hồ sơ nhân sự (Employee)
         Task<User> GetUserWithEmployeeDetailsAsync(int userId);
     }
 }

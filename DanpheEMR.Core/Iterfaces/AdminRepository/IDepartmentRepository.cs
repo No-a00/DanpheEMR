@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Iterface.Base;
 
-namespace DanpheEMR.Core.Iterfaces.IAdminRepository
+namespace DanpheEMR.Core.Iterfaces.Admin
 {
     public interface IDepartmentRepository : IGenericRepository<Department>
     {

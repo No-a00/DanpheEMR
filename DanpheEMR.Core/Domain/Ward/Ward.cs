@@ -1,14 +1,16 @@
-﻿using DanpheEMR.Core.Domain.Admin;
+﻿using DanpheEMR.Core.Domain.Base;
+using System.Collections.Generic;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Ward
 {
-    public class Ward
+    public class Ward : BaseEntity
     {
         public int Id { get; set; }
-        public string WardCode { get; set; } // Mã khoa/phòng
-        public string WardName { get; set; } // Tên khoa/phòng
-        public int Floor { get; set; } // Tầng
-        public int DepartmentId { get; set; } // Khóa ngoại đến Department
-        public Department Department { get; set; } // Navigation property đến Department
+        public string WardCode { get; set; } // Mã buồng/khoa (VD: "ICU-01", "NOI-A")
+        public string WardName { get; set; } // Tên buồng/khoa (VD: "Khoa Hồi sức tích cực", "Buồng Nội A")
+        public string WardLocation { get; set; } // Vị trí (VD: "Tầng 3, Tòa nhà B")
+        public int TotalBeds { get; set; } // Tổng công suất giường của khoa này
+        public bool IsActive { get; set; } = true;
+        public ICollection<Bed> Beds { get; set; }
     }
 }

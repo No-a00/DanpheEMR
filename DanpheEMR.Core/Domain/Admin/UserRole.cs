@@ -1,5 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+
 
 namespace DanpheEMR.Core.Domain.Admin
 {

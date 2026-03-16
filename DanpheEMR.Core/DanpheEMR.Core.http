@@ -1,6 +1,0 @@
-@DanpheEMR.Core_HostAddress = http://localhost:5152
-
-GET {{DanpheEMR.Core_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

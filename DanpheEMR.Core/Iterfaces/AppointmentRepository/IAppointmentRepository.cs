@@ -1,15 +1,19 @@
-﻿using DanpheEMR.Core.Iterface.Base;
-using DanpheEMR.Core.Domain.Appointment;
+﻿using DanpheEMR.Core.Domain.Appointment;
 
-namespace DanpheEMR.Core.Iterface.AppointmentRepository
+namespace DanpheEMR.Core.Domain.Appointment
 {
-    public interface IAppointmentRepository : IGenericRepository<Appointment>
+    public interface IAppointmentRepository
     {
-        // Lấy danh sách cuộc hẹn của một Bác sĩ trong ngày
-        Task<IEnumerable<Appointment>> GetByProviderIdAsync(int providerId, DateTime date);
+        Task<Appointment> GetByIdAsync(int id);
+        Task<Appointment> AddAsync(Appointment appointment);
+        Task UpdateAsync(Appointment appointment);
 
-        // Kiểm tra xem bệnh nhân đã có lịch hẹn trùng giờ chưa
-        Task<bool> IsSlotAvailableAsync(int providerId, DateTime date, TimeSpan time);
+        // Hủy lịch hẹn thay vì xóa
+        Task CancelAppointmentAsync(int id, string cancelReason);
 
+        // Lọc lịch khám có phân trang hoặc điều kiện
+        Task<IEnumerable<Appointment>> GetAppointmentsByDateAsync(DateTime date);
+        Task<IEnumerable<Appointment>> GetAppointmentsByPatientAsync(int patientId);
+        Task<IEnumerable<Appointment>> GetAppointmentsByDoctorAsync(int doctorId, DateTime date);
     }
 }

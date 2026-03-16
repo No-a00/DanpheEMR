@@ -1,7 +1,8 @@
 ﻿using DanpheEMR.Core.Domain.Appointment;
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Pharnacy;
 
-namespace DanpheEMR.Core.Domain.Radiology
+namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class Stock : BaseEntity
     {

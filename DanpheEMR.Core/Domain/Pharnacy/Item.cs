@@ -1,6 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Pharmacy;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Pharnacy
 {
     public class Item : BaseEntity
     {
@@ -11,5 +12,6 @@ namespace DanpheEMR.Core.Domain.Appointment
         public string UOM { get; set; }        
         public int ReorderLevel { get; set; }
         public int SubCategoryId { get; set; }
+        public SubCategory SubCategory { get; set; }
     }
 }

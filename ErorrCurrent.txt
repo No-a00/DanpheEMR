@@ -1,0 +1,8 @@
+Lỗi: Multiple Cascade Paths (Xung đột đường dẫn xóa phân cấp)
+Mã lỗi: SqlException (0x80131904): Introducing FOREIGN KEY constraint ... may cause cycles or multiple cascade paths.
+
+Nguyên nhân: Xảy ra do mô hình quan hệ "hình kim cương". Một bảng con (như Diagnosis, Visit, Admission) nhận lệnh xóa tự động (CASCADE) từ nhiều bảng cha khác nhau. SQL Server không cho phép điều này để đảm bảo tính toàn vẹn dữ liệu.
+
+Cách đã xử lý: * Sử dụng Fluent API trong OnModelCreating để chuyển DeleteBehavior từ Cascade sang Restrict cho các quan hệ gây xung đột.
+
+Giải pháp tổng lực: Áp dụng vòng lặp trong OnModelCreating để tắt Cascade Delete cho toàn bộ các khóa ngoại trong Database, buộc hệ thống phải quản lý xóa thủ công hoặc dùng Soft Delete để an toàn dữ liệu y tế.

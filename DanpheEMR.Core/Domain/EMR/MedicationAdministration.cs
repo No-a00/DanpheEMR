@@ -1,7 +1,8 @@
-﻿using DanpheEMR.Core.Domain.ADTModels;
+﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Patients;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.EMR
 {
     public class MedicationAdministration : BaseEntity
     {
@@ -14,7 +15,8 @@ namespace DanpheEMR.Core.Domain.Appointment
         public Admission Admission { get; set; }
         public int PrescriptionItemId { get; set; }
         public PrescriptionItem PrescriptionItem { get; set; }
-        public int NurdeId { get; set; }   
-      
+        public int NurseId { get; set; }
+        public Employee Nurse { get; set; }
+
     }
 }

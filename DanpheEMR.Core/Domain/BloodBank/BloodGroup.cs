@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 using System.ComponentModel.DataAnnotations;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.BloodBank
 {
     public class BloodGroup : BaseEntity
     {

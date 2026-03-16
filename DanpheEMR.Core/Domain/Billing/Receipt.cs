@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Nums;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.Billing
 {
     public class Receipt : BaseEntity
     {

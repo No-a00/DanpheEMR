@@ -1,12 +1,13 @@
-﻿using DanpheEMR.Core.Domain.ADTModels;
+﻿
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Patients;
 
-namespace DanpheEMR.Core.Domain.Appointment
+namespace DanpheEMR.Core.Domain.EMR
 {
     public class Vitals : BaseEntity
     {
         public int Id { get; set; }
-        public DateTime RecordedAt { get; set; } = DateTime.Now; // Thời điểm ghi nhận
+        public DateTime RecordedAt { get; set; }  // Thời điểm ghi nhận
         public int HeartRate { get; set; } // Nhịp tim (bpm)
         public string BloodPressure { get; set; } // Huyết áp (ví dụ: "120/80 mmHg")
         public decimal Temperature { get; set; } // Nhiệt độ cơ thể (°C)
