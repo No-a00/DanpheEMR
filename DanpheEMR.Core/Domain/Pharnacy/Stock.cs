@@ -1,4 +1,4 @@
-﻿using DanpheEMR.Core.Domain.Appointment;
+﻿
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Pharnacy;
 
