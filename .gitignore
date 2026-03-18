@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DanpheEMR.DataAccess/Repositories/Admin/AuditLogRepository.cs
