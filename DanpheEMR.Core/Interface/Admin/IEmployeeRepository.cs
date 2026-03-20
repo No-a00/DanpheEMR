@@ -1,17 +1,9 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
+using DanpheEMR.Core.Interface.Base;
 namespace DanpheEMR.Core.Interface.Admin
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-       
-        Task<Employee> GetByIdAsync(int id);
-        Task<IEnumerable<Employee>> GetAllAsync();
-        Task<Employee> AddAsync(Employee employee);
-        Task UpdateAsync(Employee employee);
-
-        Task DeactivateAsync(int id);
-
-        // Các hàm nghiệp vụ đặc thù
         Task<IEnumerable<Employee>> SearchByNameOrContactAsync(string keyword);
         Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(int departmentId);
         Task<Employee> GetEmployeeByUserIdAsync(int userId);

@@ -19,6 +19,11 @@ namespace DanpheEMR.Core.Domain.Billing
         public PaymentStatus PaymentMode { get; set; }
         [Required, MaxLength(50)]
         public TransactionType TransactionType { get; set; }
+        //Hủy hoặc cập nhật
+        public string statusPayment { get; set; }
+        public string cancelReason { get; set; }
+        public bool isActive { get; set; }
+        //
 
         // --- CÁC TRƯỜNG TIỀN TỆ (Quy định rõ decimal 18,2 để không sai số) ---
         [Column(TypeName = "decimal(18,2)")]

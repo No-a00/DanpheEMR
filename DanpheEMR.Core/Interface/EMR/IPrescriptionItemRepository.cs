@@ -14,7 +14,7 @@ namespace DanpheEMR.Core.Interface.EMR
 
        
         Task UpdateAsync(PrescriptionItem item);
-        Task CancelItemAsync(int id, string cancelReason);
+        Task CancelItemAsync(int id, string cancelReason,int userIdCancel);
         //  Lấy toàn bộ các loại thuốc CỦA MỘT TỜ ĐƠN cụ thể
         Task<IEnumerable<PrescriptionItem>> GetItemsByPrescriptionIdAsync(int prescriptionId);
 

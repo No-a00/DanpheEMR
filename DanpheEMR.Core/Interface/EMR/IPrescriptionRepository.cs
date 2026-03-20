@@ -12,7 +12,7 @@ namespace DanpheEMR.Core.Interface.EMR
         Task<Prescription> AddAsync(Prescription prescription);
         Task UpdateAsync(Prescription prescription);
         // Bác sĩ lỡ tay kê nhầm, hoặc bệnh nhân dị ứng thuốc -> Hủy đơn
-        Task CancelPrescriptionAsync(int prescriptionId, string cancelReason);
+        Task CancelPrescriptionAsync(int prescriptionId, string cancelReason, int userIdCancel);
 
         // Mở hồ sơ bệnh án của ngày hôm nay lên xem có kê đơn gì không
         Task<IEnumerable<Prescription>> GetPrescriptionsByVisitIdAsync(int visitId);

@@ -9,7 +9,9 @@ namespace DanpheEMR.Core.Domain.Wards
         public string Description { get; set; }
         public decimal BedPrice { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
+        public string CancelReason { get; set; }
+        public int? CancelledByUserId { get; set; }
 
         // Navigation Property: Một loại giường (VD: VIP) được áp dụng cho nhiều cái Giường thực tế khác nhau
         public ICollection<Bed> Beds { get; set; }

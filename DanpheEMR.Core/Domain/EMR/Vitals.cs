@@ -16,6 +16,11 @@ namespace DanpheEMR.Core.Domain.EMR
         public decimal Weight { get; set; } // Cân nặng (kg)
         public decimal Height { get; set; } // Chiều cao (cm)
         public decimal BMI { get; set; } // Chỉ số khối cơ thể (BMI)
+        //hủy và lí do
+        public bool IsActive { get; set; }
+        public string voidReason { get; set; }
+        public int voidedByUserId { get; set; }
+        //
         public int VisitId { get; set; } // Khóa ngoại liên kết với Visit
         public int PatientId { get; set; } // Khóa ngoại liên kết với Patient
         public Visit Visit { get; set; } // Navigation property đến Visit

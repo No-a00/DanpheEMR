@@ -2,6 +2,7 @@
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Nums;
 using DanpheEMR.Core.Domain.Patients;
+using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Appointments
 {
     public class Appointment : BaseEntity
@@ -11,6 +12,11 @@ namespace DanpheEMR.Core.Domain.Appointments
         public TimeSpan AppointmentTime { get; set; }
         public VisitStatus Status { get; set; } // e.g., Scheduled, Completed, Canceled
         public int PatientId { get; set; }
+        // Hủy lịch hẹn thay vì xóa
+        public bool IsCanceled { get; set; }
+        [Required]
+        public string CancelReason  { get; set; }
+
         public int ProviderId { get; set; }
         public int DepartmentId { get; set; }
         public Patient Patient { get; set; }

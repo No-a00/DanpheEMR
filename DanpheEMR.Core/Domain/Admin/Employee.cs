@@ -3,11 +3,15 @@ using DanpheEMR.Core.Domain.Base;
 
 namespace DanpheEMR.Core.Domain.Admin
 {
-    public class Employee : BaseEntity
+    public class Employee : BaseEntity, ISoftDelete
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        //soft delete
+        public bool IsDeleted { get; set; }
+
         public DateTime DOB { get; set; }
         public string Gender { get; set; }
         public string ContactNumber { get; set; }

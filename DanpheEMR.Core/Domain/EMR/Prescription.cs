@@ -12,6 +12,11 @@ namespace DanpheEMR.Core.Domain.EMR
         public DateTime PrescriptionDate { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
+        //hủy và lí do
+        public bool IsActive { get; set; }
+        public string CancelReason { get; set; }
+        public int UserIdCancel {  get; set; }
+        //
         public int VisitId { get; set; }
         public Visit Visit { get; set; }
         public int PatientId { get; set; }

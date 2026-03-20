@@ -12,7 +12,12 @@ namespace DanpheEMR.Core.Domain.EMR
         public string ICD10Code { get; set; } // Mã ICD-10
         public string Description { get; set; } // Mô tả chẩn đoán
         public bool IsPrimary { get; set; } // Chẩn đoán chính hay phụ
-        public int VisitId { get; set; } // Khóa ngoại đến Visit
+        // hủy 
+        public string reason { get; set; }
+        public bool isDelete { get; set; }
+        public int VoidedBy { get; set; }
+        //
+         public int VisitId { get; set; } // Khóa ngoại đến Visit
         public Visit Visit { get; set; } // Navigation property đến Visit
         public int PatientId { get; set; } // Khóa ngoại đến Patient
         public Patient Patient { get; set; } // Navigation property đến Patient

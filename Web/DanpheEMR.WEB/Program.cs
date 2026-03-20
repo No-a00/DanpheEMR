@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 // Add DbContext with SQL Server provider
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// open RAM cache for SystemParameterRepository 
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 

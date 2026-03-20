@@ -6,22 +6,26 @@ namespace DanpheEMR.Core.Interface.Billing
     {
         public int? PatientId { get; set; }
         public int? VisitId { get; set; }
-        public string PaymentStatus { get; set; }
+        public string? PaymentStatus { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
     }
-
     public interface IBillingTransactionRepository
     {
-        // Thay cho hàm Delete: Đánh dấu hóa đơn bị hủy và ghi lại lý do
+        Task AddAsync(BillingTransaction transaction);
+
+        // Cập nhật hóa đơn (Chỉ nên dùng khi hóa đơn đang ở trạng thái "Nháp" - Draft)
+        void Update(BillingTransaction transaction);
+        Task<BillingTransaction?> GetByIdAsync(int id);
+
+        // Lấy hóa đơn KÈM THEO danh sách chi tiết (Rất hay dùng khi In hóa đơn)
+        Task<BillingTransaction?> GetTransactionWithDetailsAsync(int id);
+        // Tuyệt đối KHÔNG có hàm Delete. Thay vào đó là hàm Hủy hóa đơn.
         Task CancelTransactionAsync(int id, string cancelReason);
+        // Bắt buộc phải tìm kiếm có điều kiện (Filter) để tránh tải hàng triệu dòng
+        Task<IEnumerable<BillingTransaction>> SearchTransactionsAsync(BillingSearchFilter filter, int pageNumber, int pageSize);
 
-        // --- Nhóm 2: Truy vấn & Báo cáo ---
-
-        // Hàm tìm kiếm tổng hợp dùng cho màn hình Quản lý thu ngân
-        Task<IEnumerable<BillingTransaction>> SearchTransactionsAsync(BillingSearchFilter filter);
-
-        // Báo cáo doanh thu theo Bác sĩ (Dựa vào ProviderId ở tầng TransactionItem)
+        // Báo cáo doanh thu theo Bác sĩ
         Task<decimal> CalculateTotalRevenueByProviderAsync(int providerId, DateTime fromDate, DateTime toDate);
     }
 }

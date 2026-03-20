@@ -27,6 +27,6 @@ namespace DanpheEMR.Core.Domain.Billing
         public int ServiceCategoryId { get; set; }
 
         [ForeignKey("ServiceCategoryId")]
-        public ServiceCategory Category { get; set; } // Liên kết sang bảng Nhóm Dịch Vụ
+        public ServiceCategory ServiceCategory { get; set; } // Liên kết sang bảng Nhóm Dịch Vụ
     }
 }

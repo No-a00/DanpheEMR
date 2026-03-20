@@ -14,6 +14,10 @@ namespace DanpheEMR.Core.Domain.EMR
         public string Objective { get; set; }
         public string Assessment { get; set; }
         public string Plan { get; set; }
+        //hủy và lí do
+        public bool IsActive { get; set; }
+        public string voidReason { get; set; }
+        public int voidedByUserId { get; set; }
         public int AdmissionId { get; set; }
         public Admission Admission { get; set; }
         public int ProviderId { get; set; } 

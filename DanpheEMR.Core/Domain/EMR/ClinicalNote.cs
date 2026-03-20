@@ -12,6 +12,11 @@ namespace DanpheEMR.Core.Domain.EMR
         public string ChiefComplaint { get; set; } // Triệu chứng chính
         public string HistoryOfPresentIllness { get; set; } // Lịch sử bệnh hiện tại
         public string ExaminationNotes { get; set; } // Ghi chú khám bệnh
+        // hủy hoặc và đánh dấu
+        public string voidReason { get; set; }
+        public bool isDelete { get; set; } 
+        public int voidedByUserId   { get; set; }
+
         public int VisitId { get; set; } // Khóa ngoại đến lịch hẹn khám bệnh
         public int PatientId { get; set; } // Khóa ngoại đến bệnh nhân
         public int ProviderId { get; set; } // Khóa ngoại đến bác sĩ

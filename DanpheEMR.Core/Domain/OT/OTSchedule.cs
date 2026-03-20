@@ -14,6 +14,11 @@ namespace DanpheEMR.Core.Domain.OT
         public string SurgeryType { get; set; }
         public OTStatus Status { get; set; } // Scheduled, Completed, Cancelled
         public string Remarks { get; set; }
+        //hủy và lí do
+        public bool IsActive {  get; set; }
+        public string cancelReason { get; set; }
+        public int cancelledByUserId { get; set; }
+        //
         //khóa ngoại
         public int PatientId { get; set; }
         public int OTRoomId { get; set; }

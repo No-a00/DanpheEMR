@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.BloodBank
 {
-    public class BloodDonor : BaseEntity
+    public class BloodDonor : BaseEntity,ISoftDelete
     {
         [Key]
         public int Id { get; set; }
@@ -14,6 +14,8 @@ namespace DanpheEMR.Core.Domain.BloodBank
 
         [Required, MaxLength(20)]
         public string Contact { get; set; }
+        //soft Delete
+        public bool IsDeleted { get; set; }
 
         // --- CÁC TRƯỜNG THÊM MỚI ĐỂ XÉT ĐIỀU KIỆN ---
         public DateTime DateOfBirth { get; set; }

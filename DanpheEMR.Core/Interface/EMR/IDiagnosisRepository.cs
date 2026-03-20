@@ -9,7 +9,7 @@ namespace DanpheEMR.Core.Interface.EMR
         Task UpdateAsync(Diagnosis diagnosis);
 
         // Hủy chẩn đoán 
-        Task VoidDiagnosisAsync(int diagnosisId, string reason);
+        Task VoidDiagnosisAsync(int diagnosisId, string reason,int VoidedBy);
 
         // Lấy theo lượt khám hoặc thống kê theo mã bệnh
         Task<IEnumerable<Diagnosis>> GetDiagnosesByVisitIdAsync(int visitId);

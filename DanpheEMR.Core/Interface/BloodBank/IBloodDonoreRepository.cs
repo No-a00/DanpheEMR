@@ -1,15 +1,9 @@
 ﻿using DanpheEMR.Core.Domain.BloodBank;
+using DanpheEMR.Core.Interface.Base;
 namespace DanpheEMR.Core.Interface.BloodBank
 {
-    public interface IBloodDonorRepository
+    public interface IBloodDonoreRepository : IGenericRepository<BloodDonor>
     {
-        Task<BloodDonor> GetByIdAsync(int id);
-        Task<IEnumerable<BloodDonor>> GetAllAsync();
-        Task<BloodDonor> AddAsync(BloodDonor donor);
-        Task UpdateAsync(BloodDonor donor);
-
-        // Không có hàm Delete 
-
         // Nghiệp vụ Ngân hàng máu
         Task<IEnumerable<BloodDonor>> SearchByNameOrContactAsync(string keyword);
         Task<IEnumerable<BloodDonor>> GetEligibleDonorsByBloodGroupAsync(int bloodGroupId);

@@ -11,6 +11,12 @@ namespace DanpheEMR.Core.Domain.EMR
         public string DosageGiven { get; set; }
 
         public string Remarks { get; set; }
+        //hủy và lí do
+        public string VoidReason { get; set; }
+        public bool IsActive { get; set; }
+        public int VoidedByUserId { get; set; }
+        //
+
         public int AdmissionId { get; set; }
         public Admission Admission { get; set; }
         public int PrescriptionItemId { get; set; }

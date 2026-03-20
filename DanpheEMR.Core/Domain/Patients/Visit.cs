@@ -8,17 +8,30 @@ namespace DanpheEMR.Core.Domain.Patients
     public class Visit : BaseEntity
     {
         public int Id { get; set; }
-        public string VisitType { get; set; } // Loại khám: Khám thường, Khám cấp cứu, Khám chuyên khoa, v.v.
-        public DateTime VisitDate { get; set; } // Ngày giờ khám
-        public VisitStatus Status { get; set; } // Trạng thái: Đang khám, Đã hoàn thành, Đã hủy, v.v.
-        public int  PatientId { get; set; } // Khóa ngoại đến Bệnh nhân
+        public string VisitCode { get; set; } // Mã lượt khám (Dùng để tạo Barcode/QR Code)
+        public int? QueueNo { get; set; } // Số thứ tự chờ khám
+        public string ChiefComplaint { get; set; } // Lý do đến khám (Đau bụng, Sốt...)
+
+        public string VisitType { get; set; }
+        public DateTime VisitDate { get; set; }
+        public VisitStatus Status { get; set; }
+        public bool IsActive { get; set; }
+        public string CancelReason { get; set; }
+        public int UserIdCancel { get; set; }   
+
+        public int PatientId { get; set; }
         public int DepartmentId { get; set; }
-        public int ProviderId { get; set; } // Khóa ngoại đến Bác sĩ phụ trách
-        public Patient Patient { get; set; } // Navigation property đến Bệnh nhân
-        public Department Department { get; set; } // Navigation property đến Khoa
-        public Employee Provider { get; set; } // Navigation property đến Bác sĩ phụ trách
-        public ICollection<ClinicalNote> ClinicalNotes { get; set; } // Các ghi chú lâm sàng liên quan đến lần khám này
-        public ICollection<Diagnosis> Diagnoses { get; set; } // Các chẩn đoán liên quan đến lần khám này
-        public ICollection<Prescription> Prescriptions { get; set; } // Các đơn thuốc liên quan đến lần khám này
+        public int ProviderId { get; set; }
+
+        public Patient Patient { get; set; }
+        public Department Department { get; set; }
+        public Employee Provider { get; set; }
+
+        public ICollection<ClinicalNote> ClinicalNotes { get; set; }
+        public ICollection<Diagnosis> Diagnoses { get; set; }
+        public ICollection<Prescription> Prescriptions { get; set; }
+        public ICollection<Vitals> Vitals { get; set; } // Liên kết đến Sinh hiệu
+        public ICollection<DoctorOrder> DoctorOrders { get; set; } // Liên kết đến Chỉ định Cận lâm sàng
+        public ICollection<Admission> Admissions { get; set; } // Liên kết đến Nội trú (nếu có)
     }
 }

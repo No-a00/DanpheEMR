@@ -1,12 +1,11 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
-using DanpheEMR.Core.Domain.EMR;
+using DanpheEMR.Core.Domain.BloodBank;
 using DanpheEMR.Core.Domain.OT;
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Domain.Pharmacy;
 using DanpheEMR.Core.Domain.Pharnacy;
-using DanpheEMR.Core.Domain.Ward;
+using DanpheEMR.Core.Domain.Wards;
 using Microsoft.EntityFrameworkCore;
-using System.Linq; // Cần thiết cho SelectMany và Where
 
 namespace DanpheEMR.DataAccess.Data
 {
@@ -63,6 +62,8 @@ namespace DanpheEMR.DataAccess.Data
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+            // tự động ẩn soft Delete all Project
+            modelBuilder.Entity<BloodDonor>().HasQueryFilter(x => !x.IsDeleted);
 
             // Tự động cấu hình kiểu Decimal (Giữ lại đoạn này của bạn)
             var decimalProperties = modelBuilder.Model.GetEntityTypes()

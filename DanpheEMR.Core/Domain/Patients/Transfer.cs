@@ -1,14 +1,19 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Domain.Nums;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
     public class Transfer : BaseEntity
     {
         public int Id { get; set; }
-        public DateTime TransferDate { get; set; } = DateTime.Now; // Ngày giờ chuyển khoa
+        public DateTime TransferDate { get; set; }// Ngày giờ chuyển khoa
         public string? Reason { get; set; } // Lý do chuyển khoa
-        public string? Status { get; set; }
+        public TransferStatus TransferStatus { get; set; }
+        // xóa mềm
+        public bool IsActive { get; set; }
+        public string cancelReason { get; set; }
+        public int voidedByUserId {  get; set; }
         public int AdmissionId { get; set; } // Khóa ngoại đến bảng Admission
         public int FromDeptId { get; set; }
         public int ToDeptId { get; set; }

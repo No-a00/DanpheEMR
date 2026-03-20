@@ -11,6 +11,11 @@ namespace DanpheEMR.Core.Domain.EMR
         public string OrderText { get; set; } = string.Empty; // Nội dung đơn thuốc hoặc chỉ định
         public string Status { get; set; }  // Trạng thái đơn: Pending, Completed, Cancelled
         public int VisitId { get; set; }
+        //hủy và lí do
+        public int cancelledByUserId { get; set; }
+        public bool isActive { get; set; }
+        public string cancelReason { get; set; }
+        //
         public int ProviderId { get; set; }
 
         public Visit Visit { get; set; }
