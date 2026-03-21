@@ -9,7 +9,7 @@ namespace DanpheEMR.Core.Interface.Billing
         Task<Receipt> AddAsync(Receipt receipt);
 
         // Biên lai in ra rồi không được phép Sửa (Update) hay Xóa (Delete). Chỉ được phép Hủy (Cancel).
-        Task CancelReceiptAsync(int receiptId, string reason);
+        Task CancelReceiptAsync(int receiptId, string reason,int cancelUserId);
 
         // Truy xuất
         Task<Receipt> GetByReceiptNumberAsync(string receiptNumber);

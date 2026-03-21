@@ -21,7 +21,7 @@ namespace DanpheEMR.Core.Interface.Billing
         // Lấy hóa đơn KÈM THEO danh sách chi tiết (Rất hay dùng khi In hóa đơn)
         Task<BillingTransaction?> GetTransactionWithDetailsAsync(int id);
         // Tuyệt đối KHÔNG có hàm Delete. Thay vào đó là hàm Hủy hóa đơn.
-        Task CancelTransactionAsync(int id, string cancelReason);
+        Task CancelTransactionAsync(int id, string cancelReason,int cancelUserId);
         // Bắt buộc phải tìm kiếm có điều kiện (Filter) để tránh tải hàng triệu dòng
         Task<IEnumerable<BillingTransaction>> SearchTransactionsAsync(BillingSearchFilter filter, int pageNumber, int pageSize);
 

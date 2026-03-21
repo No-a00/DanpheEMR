@@ -41,9 +41,9 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
 
             if (result != null)
             {
-                result.isDelete = true;
-                result.voidReason = voidReason;
-                result.voidedByUserId = voidedByUserId;
+                result.IsDelete = true;
+                result.VoidReason = voidReason;
+                result.VoidedByUserId = voidedByUserId;
             }
         }
 
@@ -87,7 +87,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         {
 
             return await _dbSet.AsNoTracking()
-                .FirstOrDefaultAsync(c => c.VisitId == visitId && c.isDelete == false);
+                .FirstOrDefaultAsync(c => c.VisitId == visitId && c.IsDelete == false);
         }
     }
 }

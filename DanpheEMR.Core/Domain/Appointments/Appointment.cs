@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Patients;
 using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Appointments
 {
-    public class Appointment : BaseEntity
+    public class Appointment : BaseEntity,IHasActiveStatus
     {
         public int Id { get; set; }
         public DateTime AppointmentDate { get; set; }
@@ -13,7 +13,7 @@ namespace DanpheEMR.Core.Domain.Appointments
         public VisitStatus Status { get; set; } // e.g., Scheduled, Completed, Canceled
         public int PatientId { get; set; }
         // Hủy lịch hẹn thay vì xóa
-        public bool IsCanceled { get; set; }
+        public bool IsActive { get; set; }
         [Required]
         public string CancelReason  { get; set; }
 

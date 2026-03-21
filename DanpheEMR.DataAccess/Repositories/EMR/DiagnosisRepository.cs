@@ -50,7 +50,6 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
                 .ToListAsync();
         }
 
-        /
         public async Task<IEnumerable<Diagnosis>> GetDiagnosesByICD10Async(string icd10Code, DateTime fromDate, DateTime toDate)
         {
             var endOfDay = toDate.Date.AddDays(1).AddTicks(-1);

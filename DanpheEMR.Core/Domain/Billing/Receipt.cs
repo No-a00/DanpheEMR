@@ -3,7 +3,7 @@ using DanpheEMR.Core.Domain.Nums;
 
 namespace DanpheEMR.Core.Domain.Billing
 {
-    public class Receipt : BaseEntity
+    public class Receipt : BaseEntity,IHasActiveStatus
     {
         public int Id { get; set; }
         public string ReceiptNumber { get; set; }
@@ -11,6 +11,7 @@ namespace DanpheEMR.Core.Domain.Billing
         //hủy và lí do
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
+        public int? CancelUserId { get; set; }
         //
         public decimal AmountPaid { get; set; }
         public PaymentStatus  PaymentMode { get; set; }

@@ -1,11 +1,13 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
+using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.BloodBank;
 using DanpheEMR.Core.Domain.OT;
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Domain.Pharmacy;
-using DanpheEMR.Core.Domain.Pharnacy;
 using DanpheEMR.Core.Domain.Wards;
+using DanpheEMR.Core.Interface; // BẮT BUỘC: Namespace chứa 2 Interface (ISoftDelete, IHasActiveStatus)
 using Microsoft.EntityFrameworkCore;
+using System.Reflection; // BẮT BUỘC: Để sử dụng Reflection quét các bảng
 
 namespace DanpheEMR.DataAccess.Data
 {
@@ -49,33 +51,65 @@ namespace DanpheEMR.DataAccess.Data
         public DbSet<GoodsReceipt> GoodsReceipts { get; set; }
         public DbSet<GoodsReceiptItem> GoodsReceiptItems { get; set; }
         public DbSet<StockTransaction> StockTransactions { get; set; }
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            base.ConfigureConventions(configurationBuilder);
+            configurationBuilder.Properties<decimal>()
+                .HavePrecision(18, 2);
+            configurationBuilder.Properties<string>()
+                .HaveMaxLength(250);
+        }
 
-
+        // ==========================================================
+        // 2. CẤU HÌNH CHI TIẾT CÁC BẢNG (MODEL CREATING)
+        // ==========================================================
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // ... Giữ lại các cấu hình đặc biệt cho OTSchedule và Transfer (nếu cần) ...
+            // 1. Tự động áp dụng các file Configuration riêng tư (nếu có)
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            // GIẢI PHÁP TỔNG THỂ: Tắt Cascade Delete cho mọi quan hệ khóa ngoại
+            // 2. Tắt Cascade Delete cho mọi quan hệ khóa ngoại
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-            // tự động ẩn soft Delete all Project
-            modelBuilder.Entity<BloodDonor>().HasQueryFilter(x => !x.IsDeleted);
 
-            // Tự động cấu hình kiểu Decimal (Giữ lại đoạn này của bạn)
-            var decimalProperties = modelBuilder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetProperties())
-                .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?));
+            // 3. TỰ ĐỘNG LỌC DỮ LIỆU CÓ THUỘC TÍNH "ISACTIVE"
+            var activeEntities = modelBuilder.Model.GetEntityTypes()
+                .Where(e => typeof(IHasActiveStatus).IsAssignableFrom(e.ClrType));
 
-            foreach (var property in decimalProperties)
+            foreach (var entityType in activeEntities)
             {
-                property.SetColumnType("decimal(18,2)");
+                var method = typeof(ApplicationDbContext)
+                    .GetMethod(nameof(ApplyActiveFilter), BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?.MakeGenericMethod(entityType.ClrType);
+                method?.Invoke(this, new object[] { modelBuilder });
+            }
+
+            // 4. TỰ ĐỘNG LỌC DỮ LIỆU CÓ THUỘC TÍNH "ISDELETED" (XÓA MỀM)
+            var softDeleteEntities = modelBuilder.Model.GetEntityTypes()
+                .Where(e => typeof(ISoftDelete).IsAssignableFrom(e.ClrType));
+
+            foreach (var entityType in softDeleteEntities)
+            {
+                var method = typeof(ApplicationDbContext)
+                    .GetMethod(nameof(ApplySoftDeleteFilter), BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?.MakeGenericMethod(entityType.ClrType);
+                method?.Invoke(this, new object[] { modelBuilder });
             }
         }
 
 
+        private void ApplyActiveFilter<T>(ModelBuilder modelBuilder) where T : class, IHasActiveStatus
+        {
+            modelBuilder.Entity<T>().HasQueryFilter(x => x.IsActive);
+        }
+
+        private void ApplySoftDeleteFilter<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete
+        {
+            modelBuilder.Entity<T>().HasQueryFilter(x => !x.IsDeleted);
+        }
     }
 }

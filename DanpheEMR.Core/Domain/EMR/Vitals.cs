@@ -4,7 +4,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class Vitals : BaseEntity
+    public class Vitals : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public DateTime RecordedAt { get; set; }  // Thời điểm ghi nhận

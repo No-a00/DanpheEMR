@@ -1,5 +1,4 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Pharnacy;
 using System;
 
 namespace DanpheEMR.Core.Domain.Pharmacy

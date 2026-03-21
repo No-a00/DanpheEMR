@@ -36,18 +36,18 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         public async Task CancelAppointmentAsync(int id, string cancelReason)
         {
             var appointment = await _dbSet.FindAsync(id);
-            if (appointment != null)
+            if (appointment != null||appointment.IsActive==false)
             {
-                appointment.IsCanceled = true;
+                appointment.IsActive = false;
                 appointment.CancelReason = cancelReason;
-                _dbSet.Update(appointment);
+      
             }
         }
 
         // Lọc lịch khám có phân trang hoặc điều kiện
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDateAsync(DateTime date)
         {
-            return await _dbSet.Where(a => a.AppointmentDate.Date == date.Date && !a.IsCanceled)
+            return await _dbSet.Where(a => a.AppointmentDate.Date == date.Date && !a.IsActive)
                 .Include(a => a.Patient)
                 .Include(a => a.Provider)
                 .Include(a => a.Department)
@@ -55,7 +55,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         }
         public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientAsync(int patientId)
         {
-            return await _dbSet.Where(a => a.PatientId == patientId && !a.IsCanceled)
+            return await _dbSet.Where(a => a.PatientId == patientId && !a.IsActive)
                 .Include(a => a.Patient)
                 .Include(a => a.Provider)
                 .Include(a => a.Department)
@@ -63,7 +63,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         }
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDoctorAsync(int doctorId, DateTime date)
         {
-            return await _dbSet.Where(a => a.ProviderId == doctorId && a.AppointmentDate.Date == date.Date && !a.IsCanceled)
+            return await _dbSet.Where(a => a.ProviderId == doctorId && a.AppointmentDate.Date == date.Date && !a.IsActive)
                 .Include(a => a.Patient)
                 .Include(a => a.Provider)
                 .Include(a => a.Department)

@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class Supplier : BaseEntity
+    public class Supplier : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string SupplierCode { get; set; } 

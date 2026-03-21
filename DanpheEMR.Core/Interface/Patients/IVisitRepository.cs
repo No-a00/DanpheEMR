@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Interface.Patients
         Task<Visit> GetByIdAsync(int id);
         Task<Visit> AddAsync(Visit visit);
         Task UpdateAsync(Visit visit);
-        Task CancelVisitAsync(int id, string cancelReason);
+        Task CancelVisitAsync(int id, string cancelReason,int userIdCancel);
         Task<IEnumerable<Visit>> GetActiveVisitsByProviderAsync(int providerId, DateTime date);
         Task<IEnumerable<Visit>> GetVisitsByPatientIdAsync(int patientId);
         // Dùng khi Bác sĩ bấm nút "In Hồ Sơ Bệnh Án" hoặc "In Sổ Khám Bệnh"

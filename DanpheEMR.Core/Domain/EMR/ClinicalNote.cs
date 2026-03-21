@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class ClinicalNote : BaseEntity
+    public class ClinicalNote : BaseEntity,ISoftDelete
     {
         public int Id { get; set; }
         public DateTime NoteDate { get; set; }
@@ -13,9 +13,9 @@ namespace DanpheEMR.Core.Domain.EMR
         public string HistoryOfPresentIllness { get; set; } // Lịch sử bệnh hiện tại
         public string ExaminationNotes { get; set; } // Ghi chú khám bệnh
         // hủy hoặc và đánh dấu
-        public string voidReason { get; set; }
-        public bool isDelete { get; set; } 
-        public int voidedByUserId   { get; set; }
+        public string VoidReason { get; set; }
+        public bool IsDelete { get; set; } 
+        public int VoidedByUserId   { get; set; }
 
         public int VisitId { get; set; } // Khóa ngoại đến lịch hẹn khám bệnh
         public int PatientId { get; set; } // Khóa ngoại đến bệnh nhân

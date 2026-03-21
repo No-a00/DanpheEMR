@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.Billing
 {
-    public class BillingTransaction : BaseEntity
+    public class BillingTransaction : BaseEntity,IHasActiveStatus
     {
         [Key]
         public int Id { get; set; }
@@ -19,10 +19,12 @@ namespace DanpheEMR.Core.Domain.Billing
         public PaymentStatus PaymentMode { get; set; }
         [Required, MaxLength(50)]
         public TransactionType TransactionType { get; set; }
+       
+        public string StatusPayment { get; set; }
         //Hủy hoặc cập nhật
-        public string statusPayment { get; set; }
-        public string cancelReason { get; set; }
-        public bool isActive { get; set; }
+        public string CancelReason { get; set; }
+        public bool IsActive { get; set; }
+        public int CancelUserId     { get; set; }
         //
 
         // --- CÁC TRƯỜNG TIỀN TỆ (Quy định rõ decimal 18,2 để không sai số) ---

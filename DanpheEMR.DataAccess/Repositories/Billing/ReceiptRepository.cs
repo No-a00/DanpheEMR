@@ -29,14 +29,13 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
             return receipt; 
         }
 
-        public async Task CancelReceiptAsync(int receiptId, string reason)
+        public async Task CancelReceiptAsync(int receiptId, string reason,int cancelUserId)
         {
             var receipt = await _dbSet.FindAsync(receiptId);
-            if (receipt != null)
-            {
-                receipt.IsActive = false;
-                receipt.CancelReason = reason;
-            }
+            if (receipt == null && receipt.IsActive == false) return;
+            receipt.IsActive = false;
+            receipt.CancelReason = reason;
+            receipt.CancelUserId = cancelUserId;
         }
 
         public async Task<Receipt?> GetByReceiptNumberAsync(string receiptNumber)

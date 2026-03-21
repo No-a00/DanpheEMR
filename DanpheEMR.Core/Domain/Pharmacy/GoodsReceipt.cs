@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class GoodsReceipt : BaseEntity
+    public class GoodsReceipt : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string GoodsReceiptNo { get; set; } 

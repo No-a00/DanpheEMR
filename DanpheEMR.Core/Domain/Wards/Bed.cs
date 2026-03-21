@@ -3,7 +3,7 @@ using DanpheEMR.Core.Domain.Nums;
 
 namespace DanpheEMR.Core.Domain.Wards
 {
-    public class Bed : BaseEntity
+    public class Bed : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
 

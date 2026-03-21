@@ -1,15 +1,15 @@
 ﻿using DanpheEMR.Core.Interface;
 using DanpheEMR.DataAccess.Data;
-using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage; 
 
 namespace DanpheEMR.DataAccess.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+        // Biến này để UnitOfWork tự nhớ giao dịch hiện tại đang làm dở
         private IDbContextTransaction _currentTransaction;
 
-        // Tiêm ApplicationDbContext vào đây
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -17,35 +17,35 @@ namespace DanpheEMR.DataAccess.Repositories
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            // Bản thân DbContext đã là một UoW, nó sẽ gộp mọi thay đổi
-            // từ các Repository khác nhau lại và lưu 1 lần duy nhất.
             return await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        public async Task BeginTransactionAsync()
         {
             if (_currentTransaction != null)
             {
-                return null;
+                return;
             }
+
             _currentTransaction = await _context.Database.BeginTransactionAsync();
-            return _currentTransaction;
         }
 
         public async Task CommitTransactionAsync()
         {
             try
             {
-                await SaveChangesAsync(); // Lưu thay đổi trước
+                await SaveChangesAsync();
+
                 if (_currentTransaction != null)
                 {
-                    await _currentTransaction.CommitAsync(); // Xác nhận giao dịch với SQL Server
+                    await _currentTransaction.CommitAsync();
                 }
             }
             catch
             {
-                await RollbackTransactionAsync(); // Nếu có lỗi ở bất kỳ bảng nào, hoàn tác tất cả!
-                throw;
+                // Nếu Commit lỗi (ví dụ đứt mạng, lỗi khóa dữ liệu...), tự động Rollback
+                await RollbackTransactionAsync();
+                throw; // Ném lỗi ra ngoài để tầng Service biết mà xử lý
             }
             finally
             {
@@ -63,11 +63,12 @@ namespace DanpheEMR.DataAccess.Repositories
             {
                 if (_currentTransaction != null)
                 {
-                    await _currentTransaction.RollbackAsync(); // Hủy bỏ mọi thay đổi chưa commit
+                    await _currentTransaction.RollbackAsync();
                 }
             }
             finally
             {
+                // Xóa transaction sau khi hủy
                 if (_currentTransaction != null)
                 {
                     _currentTransaction.Dispose();
@@ -76,10 +77,11 @@ namespace DanpheEMR.DataAccess.Repositories
             }
         }
 
+        // Hàm dọn dẹp bộ nhớ (bắt buộc vì interface kế thừa IDisposable)
         public void Dispose()
         {
             _context.Dispose();
-            GC.SuppressFinalize(this);
+            _currentTransaction?.Dispose();
         }
     }
 }

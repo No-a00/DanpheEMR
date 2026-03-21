@@ -4,7 +4,7 @@ using DanpheEMR.Core.Domain.Nums;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Transfer : BaseEntity
+    public class Transfer : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public DateTime TransferDate { get; set; }// Ngày giờ chuyển khoa

@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 namespace DanpheEMR.Core.Domain.Wards
 {
-    public class BedFeature : BaseEntity
+    public class BedFeature : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string FeatureCode { get; set; } // Mã loại (VD: "VIP", "STD", "ICU")

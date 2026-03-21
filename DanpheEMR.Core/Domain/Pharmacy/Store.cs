@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class Store : BaseEntity
+    public class Store : BaseEntity,IHasActiveStatus
     {
         public int Id { get; set; }
         public string StoreName { get; set; } 

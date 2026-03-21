@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class PatientGuarantee : BaseEntity
+    public class PatientGuarantee : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string GuarantorName { get; set; }

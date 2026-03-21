@@ -40,13 +40,14 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task CancelTransactionAsync(int id, string cancelReason)
+        public async Task CancelTransactionAsync(int id, string cancelReason,int cancelUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result != null)
             {
-                result.isActive = false;
-                result.cancelReason = cancelReason;
+                result.IsActive = false;
+                result.CancelReason = cancelReason;
+                result.CancelUserId = cancelUserId;
             }
         }
 
@@ -56,24 +57,24 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
 
             if (filter.PatientId.HasValue)
             {
-                query = query.Where(x => x.PatientId == filter.PatientId.Value);
+                query = query.Where(x => x.PatientId == filter.PatientId.Value&&x.IsActive);
             }
             if (filter.VisitId.HasValue)
             {
-                query = query.Where(x => x.VisitId == filter.VisitId.Value);
+                query = query.Where(x => x.VisitId == filter.VisitId.Value && x.IsActive);
             }
             if (!string.IsNullOrWhiteSpace(filter.PaymentStatus))
             {
-                query = query.Where(x => x.PaymentStatus == filter.PaymentStatus);
+                query = query.Where(x => x.PaymentStatus == filter.PaymentStatus && x.IsActive);
             }
             if (filter.FromDate.HasValue)
             {
-                query = query.Where(x => x.TransactionDate >= filter.FromDate.Value);
+                query = query.Where(x => x.TransactionDate >= filter.FromDate.Value && x.IsActive);
             }
             if (filter.ToDate.HasValue)
             {
                 var endOfDay = filter.ToDate.Value.Date.AddDays(1).AddTicks(-1);
-                query = query.Where(x => x.TransactionDate <= endOfDay);
+                query = query.Where(x => x.TransactionDate <= endOfDay && x.IsActive);
             }
 
             query = query.OrderByDescending(x => x.CreatedAt);
@@ -92,7 +93,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
 
                 .Where(b => b.TransactionDate >= fromDate
                          && b.TransactionDate <= endOfDay
-                         && b.isActive == true)
+                         && b.IsActive)
                 .SelectMany(b => b.TransactionItems)
                 .Where(item => item.ProviderId == providerId)
                 .SumAsync(item => item.TotalAmount );

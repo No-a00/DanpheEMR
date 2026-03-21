@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class Category : BaseEntity
+    public class Category : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
 

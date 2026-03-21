@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class ProgressNote : BaseEntity
+    public class ProgressNote : BaseEntity,IHasActiveStatus
     {
         public int Id { get; set; }
         public string Title { get; set; }

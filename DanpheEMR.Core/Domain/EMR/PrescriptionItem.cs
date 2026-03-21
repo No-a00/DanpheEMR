@@ -1,5 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Pharnacy;
+using DanpheEMR.Core.Domain.Pharmacy;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
@@ -11,7 +11,7 @@ namespace DanpheEMR.Core.Domain.EMR
         public int DurationDays { get; set; } // Thời gian sử dụng (số ngày)
         public string Route { get; set; } // Ghi chú thêm
         //hủy và lí do
-        public bool IsActive { get; set; };
+        public bool IsActive { get; set; }
         public string CancelReason { get; set; }
         public int UserIdCancel { get; set; }
         //

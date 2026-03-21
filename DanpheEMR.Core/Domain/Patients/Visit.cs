@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Nums;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Visit : BaseEntity
+    public class Visit : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string VisitCode { get; set; } // Mã lượt khám (Dùng để tạo Barcode/QR Code)

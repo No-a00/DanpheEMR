@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Discharge : BaseEntity
+    public class Discharge : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public DateTime DischargeDate { get; set; }

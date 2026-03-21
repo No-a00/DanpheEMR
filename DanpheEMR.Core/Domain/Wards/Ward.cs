@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Wards
 {
-    public class Ward : BaseEntity
+    public class Ward : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string WardCode { get; set; } // Mã buồng/khoa (VD: "ICU-01", "NOI-A")

@@ -1,6 +1,6 @@
 ﻿
 using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Pharnacy;
+
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {

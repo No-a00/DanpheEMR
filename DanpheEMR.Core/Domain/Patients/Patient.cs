@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Patient : BaseEntity
+    public class Patient : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string PatientCode { get; set; }

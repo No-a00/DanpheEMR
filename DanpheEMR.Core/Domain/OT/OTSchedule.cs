@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.OT
 {
-    public class OTSchedule : BaseEntity
+    public class OTSchedule : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public DateTime SurgeryDate { get; set; }

@@ -1,10 +1,10 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Pharnacy;
+
 using System.Collections.Generic;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class SubCategory : BaseEntity
+    public class SubCategory : BaseEntity, IHasActiveStatus
     {
         public int Id { get; set; }
         public string SubCategoryCode { get; set; } // Mã nhóm con (VD: "GD-01")
