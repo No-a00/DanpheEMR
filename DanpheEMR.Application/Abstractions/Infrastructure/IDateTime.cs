@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DanpheEMR.Application.Abstractions.Infrastructure
 {
-    internal interface IDateTime
+    public interface IDateTime
     {
+        DateTime Now { get; }
+        DateTime UtcNow { get; }
+        DateTime Today { get; }
+
     }
 }

@@ -1,7 +1,7 @@
-﻿using DanpheEMR.Core.Domain.Admin;
+﻿using Application.Common.Enums;
+using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.EMR;
-using DanpheEMR.Core.Domain.Nums;
 
 namespace DanpheEMR.Core.Domain.Patients
 {

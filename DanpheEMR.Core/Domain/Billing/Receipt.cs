@@ -1,5 +1,5 @@
-﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Nums;
+﻿using Application.Common.Enums;
+using DanpheEMR.Core.Domain.Base;
 
 namespace DanpheEMR.Core.Domain.Billing
 {
@@ -14,7 +14,7 @@ namespace DanpheEMR.Core.Domain.Billing
         public int? CancelUserId { get; set; }
         //
         public decimal AmountPaid { get; set; }
-        public PaymentStatus  PaymentMode { get; set; }
+        public PaymentStatus PaymentMode { get; set; }
         public int BillingtransactionId { get; set; }
         public BillingTransaction BillingTransaction { get; set; }
     }

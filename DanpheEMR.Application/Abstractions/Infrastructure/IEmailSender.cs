@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DanpheEMR.Application.Abstractions.Infrastructure
+﻿namespace DanpheEMR.Application.Abstractions.Infrastructure
 {
-    internal interface IEmailSender
+    public interface IEmailSender
     {
+        Task SendEmailAsync(
+            string to,
+            string subject,
+            string body,
+            bool isHtml = true
+            );
+        Task SendBulleEmailAsync(
+            IEnumerable<string> emails,
+            string subject,
+            string body);
+                
+            
+          
     }
 }

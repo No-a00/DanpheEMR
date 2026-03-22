@@ -1,6 +1,5 @@
-﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Nums;
-
+﻿using Application.Common.Enums;
+using DanpheEMR.Core.Domain.Base;
 namespace DanpheEMR.Core.Domain.Wards
 {
     public class Bed : BaseEntity, IHasActiveStatus

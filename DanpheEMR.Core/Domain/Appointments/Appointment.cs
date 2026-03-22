@@ -1,6 +1,6 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Nums;
+using Application.Common.Enums;
 using DanpheEMR.Core.Domain.Patients;
 using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Appointments

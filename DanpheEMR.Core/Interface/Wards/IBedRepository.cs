@@ -1,4 +1,4 @@
-﻿using DanpheEMR.Core.Domain.Nums; // Bổ sung using để gọi được BedStatus
+﻿using Application.Common.Enums;
 using DanpheEMR.Core.Domain.Wards;
 
 namespace DanpheEMR.Core.Interface.Wards

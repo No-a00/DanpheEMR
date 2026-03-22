@@ -1,4 +1,5 @@
-﻿using DanpheEMR.Core.Domain.Nums;
+﻿
+using Application.Common.Enums;
 using DanpheEMR.Core.Domain.Wards;
 using DanpheEMR.Core.Interface.Wards;
 using DanpheEMR.DataAccess.Data;

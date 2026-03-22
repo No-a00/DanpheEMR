@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace DanpheEMR.Application.Common.CQRS
+public abstract class BaseQuery<TResponse>
+    : IRequest<TResponse>
 {
-    internal class BaseQuery
-    {
-    }
 }

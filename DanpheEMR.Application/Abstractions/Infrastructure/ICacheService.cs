@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace DanpheEMR.Application.Abstractions.Infrastructure
 {
-    internal interface ICacheService
+    public interface ICacheService
     {
+        Task<T?>  GetAsync <T>(
+            string key ,
+            CancellationToken cancellationToken = default);
+        Task Set<T>(
+            string key ,
+            T value,
+            TimeSpan expriration,
+            CancellationToken cancellationToken = default);
+        Task RemoveAsync<T>(
+            string key,
+            CancellationToken cancellation = default);
+        Task RemoveByPrefiAsync<T>(
+            string prefix,
+            CancellationToken cancellation = default);
     }
 }

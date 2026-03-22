@@ -1,5 +1,5 @@
-﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Nums;
+﻿using Application.Common.Enums;
+using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

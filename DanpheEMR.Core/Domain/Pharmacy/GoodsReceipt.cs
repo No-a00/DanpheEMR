@@ -1,7 +1,5 @@
-﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Nums;
-using System;
-using System.Collections.Generic;
+﻿using Application.Common.Enums;
+using DanpheEMR.Core.Domain.Base;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {

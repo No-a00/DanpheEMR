@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DanpheEMR.Application.Abstractions.Infrastructure
 {
-    internal interface ICurrentUser
+    public interface ICurrentUser
     {
+        Guid UserId { get; }
+        string UserName { get; }
+        string Email { get; }
+        string Role { get; }
+        bool IsAuthenticated { get; }
     }
 }
