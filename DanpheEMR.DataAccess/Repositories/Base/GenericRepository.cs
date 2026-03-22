@@ -50,7 +50,7 @@ namespace DanpheEMR.DataAccess.Repositories.Base
                     // NẾU CÓ: Cập nhật trạng thái thành Xóa mềm
                     softDeleteEntity.IsDeleted = true;
                     _dbSet.Update(entity);
-                }
+                } 
                 else
                 {
                     // NẾU KHÔNG: Thực hiện Xóa cứng (xóa hẳn khỏi Database) như bình thường
