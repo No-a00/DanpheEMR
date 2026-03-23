@@ -5,10 +5,10 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 {
     public interface IItemRepository
     {
-        Task<Item> GetByIdAsync(int id);
+        Task<Item> GetByIdAsync(Guid Id);
         Task<Item> AddAsync(Item item);
         Task UpdateAsync(Item item);
-        Task DeactivateItemAsync(int id,string cancelReason,int cancelUserId);
+        Task DeactivateItemAsync(Guid Id,string cancelReason,int cancelUserId);
 
         // Lọc danh sách theo Nhóm thuốc 
         Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId);

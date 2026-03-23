@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 {
     public interface IStoreRepository
     {
-        Task<Store?> GetByIdAsync(int id);
+        Task<Store?> GetByIdAsync(Guid Id);
 
         Task<IEnumerable<Store>> GetAllAsync();
 
@@ -12,7 +12,7 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 
         Task UpdateAsync(Store store);
 
-        Task DeactivateStoreAsync(int id, string cancelReason, int cancelledByUserId);
+        Task DeactivateStoreAsync(Guid Id, string cancelReason, int cancelledByUserId);
         Task<IEnumerable<Store>> GetActiveStoresAsync();
     }
 }

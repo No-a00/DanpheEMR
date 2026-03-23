@@ -1,4 +1,4 @@
-﻿using DanpheEMR.Core.Domain.Nums;
+﻿using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Pharmacy;
 // Nhớ using Interface vào nhé
 using DanpheEMR.Core.Interfaces.Pharmacy;
@@ -19,7 +19,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet = _context.Set<GoodsReceipt>();
         }
 
-        public async Task<GoodsReceipt?> GetByIdAsync(int id)
+        public async Task<GoodsReceipt?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
         }
@@ -36,7 +36,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             return Task.CompletedTask;
         }
 
-        public async Task CancelReceiptAsync(int id, string cancelReason, int cancelledByUserId)
+        public async Task CancelReceiptAsync(Guid id, string cancelReason, int cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -63,7 +63,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
                 .OrderByDescending(g => g.ReceiptDate)
                 .ToListAsync();
         }
-        public async Task<GoodsReceipt?> GetReceiptWithItemsAsync(int id)
+        public async Task<GoodsReceipt?> GetReceiptWithItemsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 .Include(g => g.GoodsReceiptItems)

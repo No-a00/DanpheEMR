@@ -1,24 +1,24 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
-using Application.Common.Enums;
+using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Patients;
 using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Appointments
 {
     public class Appointment : BaseEntity,IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime AppointmentDate { get; set; }
         public TimeSpan AppointmentTime { get; set; }
         public VisitStatus Status { get; set; } // e.g., Scheduled, Completed, Canceled
-        public int PatientId { get; set; }
+        public Guid patientId { get; set; }
         // Hủy lịch hẹn thay vì xóa
         public bool IsActive { get; set; }
         [Required]
         public string CancelReason  { get; set; }
 
-        public int ProviderId { get; set; }
-        public int DepartmentId { get; set; }
+        public Guid ProviderId { get; set; }
+        public Guid DepartmentId { get; set; }
         public Patient Patient { get; set; }
         public Employee Provider { get; set; }
         public Department Department { get; set; }

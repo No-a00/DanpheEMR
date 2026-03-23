@@ -17,7 +17,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet = _context.Set<Vitals>();
         }
 
-        public async Task<Vitals?> GetByIdAsync(int id)
+        public async Task<Vitals?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
@@ -35,7 +35,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         // Sinh hiệu đo sai thì đánh dấu Hủy (Không xóa vật lý)
-        public async Task VoidVitalsAsync(int id, string voidReason, int voidedByUserId)
+        public async Task VoidVitalsAsync(Guid id, string voidReason, int voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -55,7 +55,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         // Lấy toàn bộ lịch sử sinh hiệu của Bệnh nhân qua các năm
-        public async Task<IEnumerable<Vitals>> GetHistoryByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<Vitals>> GetHistoryByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(v => v.PatientId == patientId && v.IsActive) 
@@ -64,7 +64,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         // Lấy nhanh chỉ số Sinh hiệu MỚI NHẤT của bệnh nhân
-        public async Task<Vitals?> GetLatestVitalsByPatientIdAsync(int patientId)
+        public async Task<Vitals?> GetLatestVitalsByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(v => v.PatientId == patientId && v.IsActive)

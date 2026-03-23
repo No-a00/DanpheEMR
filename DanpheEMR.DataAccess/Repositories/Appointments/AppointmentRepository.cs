@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
             _context = context;
             _dbSet = _context.Set<Appointment>();
         }
-        public async Task<Appointment?> GetByIdAsync(int id)
+        public async Task<Appointment?> GetByIdAsync(Guid id)
         {
             return await _dbSet.Include(a => a.Patient)
                 .Include(a => a.Provider)
@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         }
 
         // Hủy lịch hẹn thay vì xóa
-        public async Task CancelAppointmentAsync(int id, string cancelReason)
+        public async Task CancelAppointmentAsync(Guid id, string cancelReason)
         {
             var appointment = await _dbSet.FindAsync(id);
             if (appointment != null||appointment.IsActive==false)
@@ -53,7 +53,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                 .Include(a => a.Department)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientAsync(int patientId)
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByPatientAsync(Guid patientId)
         {
             return await _dbSet.Where(a => a.PatientId == patientId && !a.IsActive)
                 .Include(a => a.Patient)
@@ -61,7 +61,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                 .Include(a => a.Department)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Appointment>> GetAppointmentsByDoctorAsync(int doctorId, DateTime date)
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByDoctorAsync(Guid doctorId, DateTime date)
         {
             return await _dbSet.Where(a => a.ProviderId == doctorId && a.AppointmentDate.Date == date.Date && !a.IsActive)
                 .Include(a => a.Patient)

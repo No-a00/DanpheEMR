@@ -5,13 +5,13 @@ namespace DanpheEMR.Core.Interface.Admin
     public interface IUserRepository
     {
         
-        Task<User> GetByIdAsync(int id);
+        Task<User> GetByIdAsync(Guid Id);
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> AddAsync(User user);
         Task UpdateAsync(User user);
 
         // Khóa tài khoản thay vì xóa
-        Task DeactivateUserAsync(int id);
+        Task DeactivateUserAsync(Guid Id);
 
         // Nghiệp vụ đăng nhập & phân quyền
         Task<User> GetByUsernameAsync(string username);

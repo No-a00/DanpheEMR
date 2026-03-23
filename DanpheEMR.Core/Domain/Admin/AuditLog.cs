@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Domain.Admin
 {
     public class AuditLog : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string RecordId { get; set; }
         public string TableName { get; set; }
         public string Action { get; set; }

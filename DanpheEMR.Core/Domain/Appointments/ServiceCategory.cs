@@ -8,7 +8,7 @@ namespace DanpheEMR.Core.Domain.Appointments
     public class ServiceCategory : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required, MaxLength(50)]
         public string CategoryCode { get; set; } // Mã nhóm (VD: LAB - Xét nghiệm, RAD - X-Quang, CON - Khám bệnh)

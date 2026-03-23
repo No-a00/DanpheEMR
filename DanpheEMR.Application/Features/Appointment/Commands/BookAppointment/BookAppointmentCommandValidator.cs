@@ -1,21 +1,27 @@
-﻿using FluentValidation;
+﻿using DanpheEMR.Application.Features.Appointment.Commands.BookAppointment;
+using FluentValidation;
 
 
-namespace DanpheEMR.Application.Features.Appointment.Commands.BookAppointment
+// 1. Đã thêm DanpheEMR vào namespace
+namespace DanpheEMR.Application.Features.Appointments.Commands.BookAppointment
 {
-    public class BookAppointmentCommandValidator
-    : BaseValidator<BookAppointmentCommand>
+    public sealed class BookAppointmentCommandValidator : AbstractValidator<BookAppointmentCommand>
     {
         public BookAppointmentCommandValidator()
         {
             RuleFor(x => x.PatientId)
-                .NotEmpty();
+                .NotEmpty().WithMessage("Vui lòng chọn bệnh nhân."); // Thêm câu báo lỗi thân thiện
 
             RuleFor(x => x.DoctorId)
-                .NotEmpty();
+                .NotEmpty().WithMessage("Vui lòng chọn bác sĩ.");
 
             RuleFor(x => x.AppointmentDate)
-                .GreaterThan(DateTime.Now);
+                .GreaterThan(DateTime.Now).WithMessage("Thời gian đặt lịch phải lớn hơn thời gian hiện tại.");
+
+            RuleFor(x => x.Reason)
+                // 2. Dùng Hằng số thay vì số 500
+                .MaximumLength(BookAppointmentConstants.MaxReasonLength)
+                .WithMessage($"Lý do khám không được vượt quá {BookAppointmentConstants.MaxReasonLength} ký tự.");
         }
     }
 }

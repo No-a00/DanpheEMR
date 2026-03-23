@@ -5,7 +5,7 @@ namespace DanpheEMR.Core.Domain.EMR
 {
     public class PrescriptionItem : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Dosage { get; set; } // Liều lượng
         public string Frequency { get; set; } // Tần suất sử dụng
         public int DurationDays { get; set; } // Thời gian sử dụng (số ngày)

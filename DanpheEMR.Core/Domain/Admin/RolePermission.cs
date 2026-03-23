@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Domain.Admin
 {
     public class RolePermission : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public bool IsActive { get; set; }
         public int RoleId { get; set; }
         public int PermissionId { get; set; }

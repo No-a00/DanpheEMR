@@ -1,10 +1,11 @@
-﻿using Application.Common.Enums;
+﻿
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Enums;
 namespace DanpheEMR.Core.Domain.Wards
 {
     public class Bed : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string BedCode { get; set; } // ĐÃ THÊM: Mã giường (VD: "B01")
         public string BedNumber { get; set; } 

@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _context = context;
             _dbSet = _context.Set<PrescriptionItem>();
         }
-        public async Task<PrescriptionItem?> GetByIdAsync(int id)
+        public async Task<PrescriptionItem?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet.Update(item);
             return Task.CompletedTask;
         }
-        public async Task CancelItemAsync(int id, string cancelReason,int userIdCancel)
+        public async Task CancelItemAsync(Guid id, string cancelReason,int userIdCancel)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

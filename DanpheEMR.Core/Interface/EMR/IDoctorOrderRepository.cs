@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Interface.EMR
     public interface IDoctorOrderRepository
     {
         
-        Task<DoctorOrder> GetByIdAsync(int id);
+        Task<DoctorOrder> GetByIdAsync(Guid Id);
         Task<DoctorOrder> AddAsync(DoctorOrder order);
         Task UpdateAsync(DoctorOrder order);
         Task CancelOrderAsync(int orderId, string cancelReason, int cancelledByUserId);

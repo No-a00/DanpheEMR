@@ -3,7 +3,7 @@ namespace DanpheEMR.Core.Domain.Wards
 {
     public class BedFeature : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string FeatureCode { get; set; } // Mã loại (VD: "VIP", "STD", "ICU")
         public string FeatureName { get; set; } // Tên loại (VD: "Giường VIP 1 người", "Giường Thường")
         public string Description { get; set; }

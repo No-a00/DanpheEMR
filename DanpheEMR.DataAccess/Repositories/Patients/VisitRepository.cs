@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             _dbSet = _context.Set<Visit>();
         }
 
-        public async Task<Visit?> GetByIdAsync(int id)
+        public async Task<Visit?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
         }
@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task CancelVisitAsync(int id, string cancelReason, int userIdCancel)
+        public async Task CancelVisitAsync(Guid id, string cancelReason, int userIdCancel)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -59,7 +59,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         }
 
         // Xem lịch sử các lần đến khám của bệnh nhân
-        public async Task<IEnumerable<Visit>> GetVisitsByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<Visit>> GetVisitsByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(v => v.PatientId == patientId && v.IsActive == true)
@@ -68,7 +68,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         }
 
         //  Dùng khi Bác sĩ bấm nút "In Hồ Sơ Bệnh Án"
-        public async Task<Visit?> GetVisitWithAllDetailsAsync(int id)
+        public async Task<Visit?> GetVisitWithAllDetailsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 .Include(v => v.Patient)      // Lấy thông tin Bệnh nhân (Tên, Tuổi, Giới tính...) để in lên header

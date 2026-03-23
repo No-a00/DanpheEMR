@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet = _context.Set<Ward>();
         }
 
-        public async Task<Ward?> GetByIdAsync(int id)
+        public async Task<Ward?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(w => w.Id == id);
         }
@@ -37,7 +37,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet.Update(ward);
             return Task.CompletedTask;
         }
-        public async Task DeactivateWardAsync(int id, string cancelReason, int cancelledByUserId)
+        public async Task DeactivateWardAsync(Guid id, string cancelReason, int cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -53,7 +53,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
                 .OrderBy(w => w.WardName) 
                 .ToListAsync();
         }
-        public async Task<Ward?> GetWardWithBedsAsync(int id)
+        public async Task<Ward?> GetWardWithBedsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 .Include(w => w.Beds) 

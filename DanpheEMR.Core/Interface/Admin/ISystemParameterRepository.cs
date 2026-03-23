@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Interface.Admin
         //  Admin
         Task<IEnumerable<SystemParameter>> GetAllAsync();
 
-        Task<SystemParameter> GetByIdAsync(int id);
+        Task<SystemParameter> GetByIdAsync(Guid Id);
 
         Task UpdateAsync(SystemParameter parameter);
 

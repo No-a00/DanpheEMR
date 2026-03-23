@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Interface.Admin
     {
    
        
-        Task<Permission> GetByIdAsync(int id);
+        Task<Permission> GetByIdAsync(Guid Id);
         Task<IEnumerable<Permission>> GetAllAsync();
 
        

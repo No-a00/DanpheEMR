@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Domain.BloodBank
     public class BloodGroup : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required, MaxLength(10)]
         public string BloodGroupName { get; set; } // Tên nhóm máu (VD: A+, O-, AB+)

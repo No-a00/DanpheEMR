@@ -1,4 +1,4 @@
-﻿using Application.Common.Enums;
+﻿using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.EMR;
@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Domain.Patients
 {
     public class Visit : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string VisitCode { get; set; } // Mã lượt khám (Dùng để tạo Barcode/QR Code)
         public int? QueueNo { get; set; } // Số thứ tự chờ khám
         public string ChiefComplaint { get; set; } // Lý do đến khám (Đau bụng, Sốt...)
@@ -19,9 +19,9 @@ namespace DanpheEMR.Core.Domain.Patients
         public string CancelReason { get; set; }
         public int UserIdCancel { get; set; }   
 
-        public int PatientId { get; set; }
-        public int DepartmentId { get; set; }
-        public int ProviderId { get; set; }
+        public Guid patientId { get; set; }
+        public Guid DepartmentId { get; set; }
+        public Guid ProviderId { get; set; }
 
         public Patient Patient { get; set; }
         public Department Department { get; set; }

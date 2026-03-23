@@ -1,16 +1,17 @@
-﻿using Application.Common.Enums;
+﻿
 using DanpheEMR.Core.Domain.Wards;
+using DanpheEMR.Core.Enums;
 
 namespace DanpheEMR.Core.Interface.Wards
 {
     public interface IBedRepository
     {
-        Task<Bed?> GetByIdAsync(int id);
+        Task<Bed?> GetByIdAsync(Guid Id);
         Task<Bed> AddAsync(Bed bed);
         Task UpdateAsync(Bed bed);
 
    
-        Task DeactivateBedAsync(int id, string cancelReason, int cancelledByUserId);
+        Task DeactivateBedAsync(Guid Id, string cancelReason, int cancelledByUserId);
         // Lễ tân tìm giường trống TRONG MỘT KHOA CỤ THỂ
         Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(int wardId);
 

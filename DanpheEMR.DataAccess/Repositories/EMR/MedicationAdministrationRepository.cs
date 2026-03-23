@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _context = context;
             _dbSet = _context.Set<MedicationAdministration>();
         }
-        public async Task<MedicationAdministration?> GetByIdAsync(int id)
+        public async Task<MedicationAdministration?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
 
@@ -30,7 +30,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet.Update(administration);
             return Task.CompletedTask; 
         }
-        public async Task VoidAdministrationAsync(int id, string voidReason, int voidedByUserId)
+        public async Task VoidAdministrationAsync(Guid id, string voidReason, int voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null||result.IsActive== false) return;

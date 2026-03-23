@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet = _context.Set<Category>();
         }
 
-        public async Task<Category?> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
@@ -32,7 +32,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet.Update(category);
             return Task.CompletedTask;
         }
-        public async Task CancelCategoryAsync(int id, string cancelReason, int userIdCancel)
+        public async Task CancelCategoryAsync(Guid id, string cancelReason, int userIdCancel)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -51,7 +51,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
         }
 
         // 2. HOÀN THIỆN: Lấy Nhóm cha KÈM THEO các Nhóm con bên trong nó (Eager Loading)
-        public async Task<Category?> GetCategoryWithSubCategoriesAsync(int id)
+        public async Task<Category?> GetCategoryWithSubCategoriesAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 // Giả định Navigation Property chứa danh sách nhóm con của bạn tên là SubCategories (hoặc Children)

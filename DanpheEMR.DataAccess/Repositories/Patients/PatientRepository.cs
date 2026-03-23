@@ -1,4 +1,4 @@
-﻿using DanpheEMR.Core.Domain.EMR;
+﻿
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Interface.Patients;
 using DanpheEMR.DataAccess.Data;
@@ -17,7 +17,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             _dbSet = _context.Set<Patient>();
         }
 
-        public async Task<Patient?> GetByIdAsync(int id)
+        public async Task<Patient?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -36,7 +36,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task DeactivateAsync(int id, string voidReason, int voidedByUserId)
+        public async Task DeactivateAsync(Guid id, string voidReason, int voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -68,7 +68,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
                 .OrderByDescending(p => p.CreatedAt) 
                 .ToListAsync();
         }
-        public async Task<Patient?> GetPatientWithDetailsAsync(int id)
+        public async Task<Patient?> GetPatientWithDetailsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 .Include(p => p.Addresses) 

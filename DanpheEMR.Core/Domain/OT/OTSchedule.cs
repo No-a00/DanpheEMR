@@ -1,4 +1,4 @@
-﻿using Application.Common.Enums;
+﻿using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Domain.OT
 {
     public class OTSchedule : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime SurgeryDate { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
@@ -20,7 +20,7 @@ namespace DanpheEMR.Core.Domain.OT
         public int cancelledByUserId { get; set; }
         //
         //khóa ngoại
-        public int PatientId { get; set; }
+        public Guid patientId { get; set; }
         public int OTRoomId { get; set; }
         public int SurgeonId { get; set; }
         public int? AnesthetistId { get; set; }

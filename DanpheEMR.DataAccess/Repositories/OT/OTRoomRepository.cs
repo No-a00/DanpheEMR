@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
             _dbSet = _context.Set<OTRoom>();
         }
 
-        public async Task<OTRoom?> GetByIdAsync(int id)
+        public async Task<OTRoom?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id);
         }

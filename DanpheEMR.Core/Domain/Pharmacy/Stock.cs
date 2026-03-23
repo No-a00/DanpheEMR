@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class Stock : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string BatchNo { get; set; }
         public DateTime ExpiryDate { get; set; }
         public int AvailableQuantity { get; set; }

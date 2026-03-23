@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Interface.EMR
 {
     public interface IDiagnosisRepository
     {
-        Task<Diagnosis> GetByIdAsync(int id);
+        Task<Diagnosis> GetByIdAsync(Guid Id);
         Task<Diagnosis> AddAsync(Diagnosis diagnosis);
         Task UpdateAsync(Diagnosis diagnosis);
 

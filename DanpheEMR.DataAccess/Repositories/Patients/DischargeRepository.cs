@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             _context = context;
             _dbSet = _context.Set<Discharge>();
         }
-        public async Task<Discharge?> GetByIdAsync(int id)
+        public async Task<Discharge?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
         }
@@ -32,7 +32,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task VoidDischargeAsync(int id, string voidReason, int voidedByUserId)
+        public async Task VoidDischargeAsync(Guid id, string voidReason, int voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -50,7 +50,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         }
 
         // Lấy lịch sử các lần ra viện của bệnh nhân
-        public async Task<IEnumerable<Discharge>> GetDischargesByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<Discharge>> GetDischargesByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(d => d.PatientId == patientId && d.IsActive == true)

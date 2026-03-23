@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Domain.OT
 {
     public class OTRoom : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string RoomName { get; set; }
         public string Location { get; set; }
         public bool IsAvailable { get; set; }

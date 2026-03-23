@@ -11,7 +11,7 @@ namespace DanpheEMR.Core.Interfaces.EMR
     }
     public interface IClinicalNoteRepository  
     {
-        Task<ClinicalNote> GetByIdAsync(int id);
+        Task<ClinicalNote> GetByIdAsync(Guid Id);
         Task<ClinicalNote> AddAsync(ClinicalNote note);
         Task UpdateAsync(ClinicalNote note);
 

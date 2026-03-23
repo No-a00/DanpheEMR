@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
             _context = context;
             _dbSet = _context.Set<Permission>();
         }
-        public async Task<Permission> GetByIdAsync(int id)
+        public async Task<Permission> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }

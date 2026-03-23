@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Domain.EMR
 {
     public class ProgressNote : BaseEntity,IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public DateTime NoteDate { get; set; }
         public string Subjective { get; set; }
@@ -20,7 +20,7 @@ namespace DanpheEMR.Core.Domain.EMR
         public int voidedByUserId { get; set; }
         public int AdmissionId { get; set; }
         public Admission Admission { get; set; }
-        public int ProviderId { get; set; } 
+        public Guid ProviderId { get; set; } 
         public Employee Provider { get; set; }
     }
 }

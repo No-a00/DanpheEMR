@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet = _context.Set<ProgressNote>();
         }
 
-        public async Task<ProgressNote?> GetByIdAsync(int id)
+        public async Task<ProgressNote?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             return Task.CompletedTask;
         }
 
-        public async Task VoidNoteAsync(int id, string voidReason, int voidedByUserId)
+        public async Task VoidNoteAsync(Guid id, string voidReason, int voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);       
             if (result == null || result.IsActive == false) return;

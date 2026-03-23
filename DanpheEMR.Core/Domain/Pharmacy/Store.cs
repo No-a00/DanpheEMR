@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class Store : BaseEntity,IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string StoreName { get; set; } 
         public string StoreCode { get; set; } // Mã kho (VD: "KHO-TONG")
         public string Location { get; set; }  // Vị trí (VD: "Tầng 1 - Khu A")

@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Domain.Billing
     public class BillingTransactionItem : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         // --- KHÓA NGOẠI LIÊN KẾT VỚI HÓA ĐƠN TỔNG ---
         public int BillingTransactionId { get; set; }

@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Domain.Admin
 {
     public class Department : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
         public bool IsClinical { get; set; } // Phân biệt khoa lâm sàng và cận lâm sàng

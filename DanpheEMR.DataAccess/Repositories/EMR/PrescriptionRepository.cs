@@ -18,12 +18,12 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet = _context.Set<Prescription>();
         }
 
-        public async Task<Prescription?> GetByIdAsync(int id)
+        public async Task<Prescription?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Prescription?> GetPrescriptionWithItemsAsync(int id)
+        public async Task<Prescription?> GetPrescriptionWithItemsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 .Include(p => p.Items) // Tên Collection Items của bạn quá chuẩn!
@@ -61,7 +61,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         //  Xem lại toàn bộ lịch sử uống thuốc của bệnh nhân từ trước đến nay
-        public async Task<IEnumerable<Prescription>> GetPrescriptionsByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.PatientId == patientId && p.IsActive == true)

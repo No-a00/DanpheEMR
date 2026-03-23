@@ -16,7 +16,7 @@ namespace DanpheEMR.Core.Domain.EMR
         public bool isActive { get; set; }
         public string cancelReason { get; set; }
         //
-        public int ProviderId { get; set; }
+        public Guid ProviderId { get; set; }
 
         public Visit Visit { get; set; }
         public Employee Provider { get; set; }

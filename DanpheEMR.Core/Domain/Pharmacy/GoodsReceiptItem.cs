@@ -5,7 +5,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class GoodsReceiptItem : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string BatchNo { get; set; } // Bắt buộc: Lô số mấy?
         public DateTime ExpiryDate { get; set; } // Bắt buộc: Hạn sử dụng ngày nào?
 

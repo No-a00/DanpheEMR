@@ -23,7 +23,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
             return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task<SystemParameter> GetByIdAsync(int id)
+        public async Task<SystemParameter> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }

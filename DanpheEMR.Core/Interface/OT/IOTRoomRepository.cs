@@ -3,7 +3,7 @@ namespace DanpheEMR.Core.Interfaces.OT
 {
     public interface IOTRoomRepository
     {
-        Task<OTRoom> GetByIdAsync(int id);
+        Task<OTRoom> GetByIdAsync(Guid Id);
         Task<IEnumerable<OTRoom>> GetAllAsync();
 
         Task<OTRoom> AddAsync(OTRoom room);

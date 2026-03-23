@@ -5,11 +5,11 @@ namespace DanpheEMR.Core.Interface.EMR
     public interface IMedicationAdministrationRepository
     {
       
-        Task<MedicationAdministration> GetByIdAsync(int id);
+        Task<MedicationAdministration> GetByIdAsync(Guid Id);
         Task<MedicationAdministration> AddAsync(MedicationAdministration administration);
         Task UpdateAsync(MedicationAdministration administration);
         // Tuyệt đối không có hàm Delete. Nếu y tá nhập sai, chỉ được phép Hủy và ghi rõ lý do.
-        Task VoidAdministrationAsync(int id, string voidReason, int voidedByUserId);
+        Task VoidAdministrationAsync(Guid Id, string voidReason, int voidedByUserId);
         // Lấy toàn bộ lịch sử dùng thuốc của một bệnh nhân trong lần nhập viện này
         Task<IEnumerable<MedicationAdministration>> GetByAdmissionIdAsync(int admissionId);
         // Kiểm tra xem một loại thuốc cụ thể (PrescriptionItemId) đã được cho uống/tiêm mấy lần rồi

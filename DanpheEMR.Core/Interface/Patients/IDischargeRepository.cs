@@ -3,16 +3,16 @@ namespace DanpheEMR.Core.Interface.Patients
 {
     public interface IDischargeRepository
     {
-        Task<Discharge> GetByIdAsync(int id);
+        Task<Discharge> GetByIdAsync(Guid Id);
         Task<Discharge> AddAsync(Discharge discharge);
         Task UpdateAsync(Discharge discharge);
-        Task VoidDischargeAsync(int id, string voidReason, int voidedByUserId);
+        Task VoidDischargeAsync(Guid Id, string voidReason, int voidedByUserId);
 
         //  Lấy Giấy ra viện của một đợt nằm viện cụ thể 
         Task<Discharge> GetByAdmissionIdAsync(int admissionId);
 
         // Lấy lịch sử các lần ra viện của bệnh nhân (kèm theo tình trạng lúc ra viện)
-        Task<IEnumerable<Discharge>> GetDischargesByPatientIdAsync(int patientId);
+        Task<IEnumerable<Discharge>> GetDischargesByPatientIdAsync(Guid patientId);
 
         // Thống kê: Lấy danh sách toàn bộ bệnh nhân đã xuất viện trong ngày hôm nay
         Task<IEnumerable<Discharge>> GetDischargesByDateAsync(DateTime date);

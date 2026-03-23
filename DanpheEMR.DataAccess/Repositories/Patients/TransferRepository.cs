@@ -1,4 +1,4 @@
-﻿using DanpheEMR.Core.Domain.Nums;
+﻿using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Interface.Patients;
 using DanpheEMR.DataAccess.Data;
@@ -17,7 +17,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             _dbSet = _context.Set<Transfer>();
         }
 
-        public async Task<Transfer?> GetByIdAsync(int id)
+        public async Task<Transfer?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -34,7 +34,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task CancelTransferAsync(int id, string cancelReason, int voidedByUserId)
+        public async Task CancelTransferAsync(Guid id, string cancelReason, int voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

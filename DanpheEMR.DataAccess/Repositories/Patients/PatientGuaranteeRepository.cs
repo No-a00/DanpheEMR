@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             _context = context;
             _dbSet = _context.Set<PatientGuarantee>();
         }
-        public async Task<PatientGuarantee?> GetByIdAsync(int id)
+        public async Task<PatientGuarantee?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task CancelGuaranteeAsync(int id, string cancelReason, int cancelledByUserId)
+        public async Task CancelGuaranteeAsync(Guid id, string cancelReason, int cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -42,13 +42,13 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             result.CancelReason = cancelReason;
             result.CancelledByUserId = cancelledByUserId;
         }
-        public async Task<IEnumerable<PatientGuarantee>> GetAllGuaranteesByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<PatientGuarantee>> GetAllGuaranteesByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.PatientId == patientId)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<PatientGuarantee>> GetActiveGuaranteesByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<PatientGuarantee>> GetActiveGuaranteesByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.PatientId == patientId && p.IsActive == true)

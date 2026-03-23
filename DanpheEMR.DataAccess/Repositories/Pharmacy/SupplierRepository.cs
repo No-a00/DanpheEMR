@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet = _context.Set<Supplier>();
         }
 
-        public async Task<Supplier?> GetByIdAsync(int id)
+        public async Task<Supplier?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
         }
@@ -38,7 +38,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             return Task.CompletedTask;
         }
 
-        public async Task DeactivateSupplierAsync(int id, string cancelReason, int cancelledByUserId)
+        public async Task DeactivateSupplierAsync(Guid id, string cancelReason, int cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

@@ -1,13 +1,14 @@
-﻿using Application.Common.Enums;
+﻿
 using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Enums;
 
 
 namespace DanpheEMR.Core.Domain.Patients
 {
     public class Transfer : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime TransferDate { get; set; }// Ngày giờ chuyển khoa
         public string? Reason { get; set; } // Lý do chuyển khoa
         public TransferStatus TransferStatus { get; set; }

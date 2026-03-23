@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 {
     public interface IStockRepository
     {
-        Task<Stock?> GetByIdAsync(int id);
+        Task<Stock?> GetByIdAsync(Guid Id);
         
         Task<Stock> AddAsync(Stock stock);
         

@@ -4,10 +4,10 @@ namespace DanpheEMR.Core.Interface.OT
     public interface IOTScheduleRepository
     {
       
-        Task<OTSchedule> GetByIdAsync(int id);
+        Task<OTSchedule> GetByIdAsync(Guid Id);
         Task<OTSchedule> AddAsync(OTSchedule schedule);
         Task UpdateAsync(OTSchedule schedule);
-        Task CancelScheduleAsync(int id, string cancelReason, int cancelledByUserId);
+        Task CancelScheduleAsync(Guid Id, string cancelReason, int cancelledByUserId);
         Task<IEnumerable<OTSchedule>> GetSchedulesByDateAsync(DateTime date);
 
         // Lọc danh sách theo Loại phẫu thuật (VD: Tìm các ca "Mổ ruột thừa")

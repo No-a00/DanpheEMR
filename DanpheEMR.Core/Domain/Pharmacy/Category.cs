@@ -5,7 +5,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class Category : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string CategoryCode { get; set; } // Mã nhóm cha (VD: "MED", "CON")
         public string CategoryName { get; set; } // Tên nhóm cha (VD: "Thuốc", "Vật tư y tế")

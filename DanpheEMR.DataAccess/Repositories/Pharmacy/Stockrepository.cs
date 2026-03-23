@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet = _context.Set<Stock>();
         }
 
-        public async Task<Stock?> GetByIdAsync(int id)
+        public async Task<Stock?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
         }

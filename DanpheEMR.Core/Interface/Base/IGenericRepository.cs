@@ -5,13 +5,13 @@
     
         Task<List<T>> GetAllAsync();
 
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Guid Id);
 
         Task AddAsync(T entity);
 
         void Update(T entity);
 
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Guid Id);
     }
 }

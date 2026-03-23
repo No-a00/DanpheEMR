@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
             _context = context;
             _dbSet = context.Set<User>();
         }
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
         }
@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         {
             _dbSet.Update(user);
         }
-        public async Task DeactivateUserAsync(int id)
+        public async Task DeactivateUserAsync(Guid id)
         {
             var user = await _dbSet.FindAsync(id);
             if (user != null)

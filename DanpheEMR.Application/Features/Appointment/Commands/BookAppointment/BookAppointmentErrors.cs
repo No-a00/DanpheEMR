@@ -1,6 +1,6 @@
 ﻿using  Application.Common;
 
-namespace Application.Features.Appointment.Commands.BookAppointment
+namespace Application.Features.Appointments.Commands.BookAppointment
 {
 
     public static class BookAppointmentErrors

@@ -16,12 +16,12 @@ namespace DanpheEMR.Core.Interface.Billing
 
         // Cập nhật hóa đơn (Chỉ nên dùng khi hóa đơn đang ở trạng thái "Nháp" - Draft)
         void Update(BillingTransaction transaction);
-        Task<BillingTransaction?> GetByIdAsync(int id);
+        Task<BillingTransaction?> GetByIdAsync(Guid Id);
 
         // Lấy hóa đơn KÈM THEO danh sách chi tiết (Rất hay dùng khi In hóa đơn)
-        Task<BillingTransaction?> GetTransactionWithDetailsAsync(int id);
+        Task<BillingTransaction?> GetTransactionWithDetailsAsync(Guid Id);
         // Tuyệt đối KHÔNG có hàm Delete. Thay vào đó là hàm Hủy hóa đơn.
-        Task CancelTransactionAsync(int id, string cancelReason,int cancelUserId);
+        Task CancelTransactionAsync(Guid Id, string cancelReason,int cancelUserId);
         // Bắt buộc phải tìm kiếm có điều kiện (Filter) để tránh tải hàng triệu dòng
         Task<IEnumerable<BillingTransaction>> SearchTransactionsAsync(BillingSearchFilter filter, int pageNumber, int pageSize);
 

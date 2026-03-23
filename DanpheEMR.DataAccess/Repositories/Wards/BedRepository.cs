@@ -1,5 +1,5 @@
 ﻿
-using Application.Common.Enums;
+using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Wards;
 using DanpheEMR.Core.Interface.Wards;
 using DanpheEMR.DataAccess.Data;
@@ -18,7 +18,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet = _context.Set<Bed>();
         }
 
-        public async Task<Bed?> GetByIdAsync(int id)
+        public async Task<Bed?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
         }
@@ -34,7 +34,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet.Update(bed);
             return Task.CompletedTask;
         }
-        public async Task DeactivateBedAsync(int id, string cancelReason, int cancelledByUserId)
+        public async Task DeactivateBedAsync(Guid id, string cancelReason, int cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

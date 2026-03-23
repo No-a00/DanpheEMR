@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet = _context.Set<DoctorOrder>();
         }
 
-        public async Task<DoctorOrder?> GetByIdAsync(int id)
+        public async Task<DoctorOrder?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
         }

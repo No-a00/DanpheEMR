@@ -1,11 +1,12 @@
-﻿using Application.Common.Enums;
+﻿
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Enums;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class GoodsReceipt : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string GoodsReceiptNo { get; set; } 
         public DateTime ReceiptDate { get; set; } 
         public string InvoiceNo { get; set; } 

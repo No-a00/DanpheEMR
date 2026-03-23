@@ -5,7 +5,7 @@ namespace DanpheEMR.Core.Domain.Appointments
 {
     public class Holiday
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime Date { get; set; }
         public string Reason { get; set; }
         public bool IsGlobal { get; set; } // Nếu là ngày lễ toàn quốc, tất cả các phòng khám đều đóng cửa

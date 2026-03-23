@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Domain.Patients
 {
     public class Discharge : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime DischargeDate { get; set; }
         public string DischargeCondition { get; set; }
         public string DischargeNotes { get; set; }
@@ -14,7 +14,7 @@ namespace DanpheEMR.Core.Domain.Patients
         public string voidReason { get; set; }
         public int voidedByUserId { get; set; }
         //
-        public int PatientId { get; set; }
+        public Guid patientId { get; set; }
         public int AdmissionId { get; set; }
         public Patient Patient { get; set; }
         public Admission Admission { get; set; }

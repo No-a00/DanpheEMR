@@ -5,12 +5,12 @@ namespace DanpheEMR.Core.Interface.EMR
 {
     public interface IProgressNoteRepository
     {
-        Task<ProgressNote> GetByIdAsync(int id);
+        Task<ProgressNote> GetByIdAsync(Guid Id);
         Task<ProgressNote> AddAsync(ProgressNote note);
         Task UpdateAsync(ProgressNote note);
 
         // Cấm xóa vật lý hồ sơ y khoa. Chỉ cho phép đánh dấu Hủy nếu gõ sai hoàn toàn.
-        Task VoidNoteAsync(int id, string voidReason, int voidedByUserId);
+        Task VoidNoteAsync(Guid Id, string voidReason, int voidedByUserId);
         // Lấy toàn bộ Tờ điều trị (Diễn tiến) CỦA MỘT ĐỢT NẰM VIỆN
         // (Bắt buộc phải sắp xếp theo NoteDate giảm dần để bác sĩ thấy ngày mới nhất ở trên cùng)
         Task<IEnumerable<ProgressNote>> GetNotesByAdmissionIdAsync(int admissionId);

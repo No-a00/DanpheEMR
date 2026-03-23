@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Domain.Admin
     public class Role : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required, MaxLength(50)]
         public string RoleName { get; set; } // Tên vai trò (VD: Admin, Doctor, Nurse)

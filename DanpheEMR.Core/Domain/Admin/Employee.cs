@@ -5,7 +5,7 @@ namespace DanpheEMR.Core.Domain.Admin
 {
     public class Employee : BaseEntity, ISoftDelete
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -15,7 +15,7 @@ namespace DanpheEMR.Core.Domain.Admin
         public DateTime DOB { get; set; }
         public string Gender { get; set; }
         public string ContactNumber { get; set; }
-        public int DepartmentId { get; set; }
+        public Guid DepartmentId { get; set; }
         public Department Department { get; set; }
         public ICollection<User> Users { get; set; }
     }

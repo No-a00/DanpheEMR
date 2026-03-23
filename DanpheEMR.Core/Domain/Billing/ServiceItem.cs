@@ -10,7 +10,7 @@ namespace DanpheEMR.Core.Domain.Billing
     public class ServiceItem : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required, MaxLength(50)]
         public string ItemCode { get; set; } // Mã dịch vụ (VD: XQ01, XN02)

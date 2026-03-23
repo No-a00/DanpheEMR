@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Domain.BloodBank
     public class BloodDonor : BaseEntity,ISoftDelete
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required, MaxLength(100)]
         public string DonorName { get; set; }

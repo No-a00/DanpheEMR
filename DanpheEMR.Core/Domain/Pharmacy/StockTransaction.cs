@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 {
     public class StockTransaction : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime TransactionDate { get; set; }
 
         // Loại giao dịch: "GoodsReceipt" (Nhập), "Dispatch" (Xuất), "Sale" (Bán lẻ), "Transfer" (Chuyển kho)

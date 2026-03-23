@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet = _context.Set<BedFeature>();
         }
 
-        public async Task<BedFeature?> GetByIdAsync(int id)
+        public async Task<BedFeature?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
         }
@@ -37,7 +37,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet.Update(bedFeature);
             return Task.CompletedTask;
         }
-        public async Task DeactivateBedFeatureAsync(int id, string cancelReason, int cancelledByUserId)
+        public async Task DeactivateBedFeatureAsync(Guid id, string cancelReason, int cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

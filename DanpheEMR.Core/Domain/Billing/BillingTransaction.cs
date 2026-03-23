@@ -1,4 +1,4 @@
-﻿using Application.Common.Enums;
+﻿using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@ namespace DanpheEMR.Core.Domain.Billing
     public class BillingTransaction : BaseEntity,IHasActiveStatus
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         // Mã hóa đơn hiển thị cho người dùng/kế toán (VD: INV-2026-0001)
         [Required, MaxLength(50)]
@@ -49,7 +49,7 @@ namespace DanpheEMR.Core.Domain.Billing
         public string Remarks { get; set; }
 
        
-        public int PatientId { get; set; }
+        public Guid patientId { get; set; }
         public Patient Patient { get; set; }
 
         public int VisitId { get; set; }

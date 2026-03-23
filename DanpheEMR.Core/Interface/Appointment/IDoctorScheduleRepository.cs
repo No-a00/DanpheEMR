@@ -1,18 +1,20 @@
-﻿
-using DanpheEMR.Core.Domain.Appointments;
+﻿using DanpheEMR.Core.Domain.Appointments;
 using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interfaces.Appointment
 {
     public interface IDoctorScheduleRepository : IGenericRepository<DoctorSchedule>
     {
-        //Lấy tất cả các khung giờ làm việc đã cài đặt của một Bác sĩ
-        Task<List<DoctorSchedule>> GetShedulesByProviderIdAsync(int providerId, int dayOfWeek);
-        //Lấy tất cả các khung giờ làm việc đã cài đặt của một khoa trong ngày
-        Task<List<DoctorSchedule>> GetSchedulesByDepartmentAndDayAsync(int departmentId, int dayOfWeek);
-        //Tìm cấu hình lịch chứa khoảng thời gian người dùng muốn đặt
-        Task<DoctorSchedule> GetShedulesByProviderIdAndTimeAsync(int providerId, int dayOfWeek, TimeSpan time);
-        // kiểm tra xem bác sĩ đã có lịch làm việc trong ngày chưa trong khoa trong ngày chưa
-        Task<bool> IsDoctorScheduledInDepartmentAsync(int providerId, int departmentId, int dayOfWeek, TimeSpan StartTime, TimeSpan EndTime);
+        // 1. Lấy lịch của bác sĩ tại một thời điểm cụ thể (Dùng cho Handler)
+        Task<DoctorSchedule?> GetDoctorScheduleAsync(Guid doctorId, DateTime appointmentDate);
+
+        // 2. Lấy danh sách tất cả lịch của bác sĩ trong một ngày cụ thể
+        Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime date);
+
+        // 3. Tìm lịch theo Bác sĩ và Khoảng thời gian (Đã sửa int -> Guid)
+        Task<DoctorSchedule?> GetScheduleByProviderIdAndTimeAsync(Guid providerId, DateTime date, TimeSpan time);
+
+        // 4. Kiểm tra xem bác sĩ đã có lịch trong khoa vào khoảng thời gian đó chưa
+        Task<bool> IsDoctorScheduledInDepartmentAsync(Guid providerId, Guid departmentId, DateTime date, TimeSpan startTime, TimeSpan endTime);
     }
 }

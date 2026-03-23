@@ -5,7 +5,7 @@ namespace DanpheEMR.Core.Domain.Patients
 {
     public class Patient : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string PatientCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -1,5 +1,5 @@
 ﻿
-using DanpheEMR.Core.Domain.Nums;
+using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Interface.Patients;
 using DanpheEMR.DataAccess.Data;
@@ -18,7 +18,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             _dbSet = _context.Set<Admission>();
         }
 
-        public async Task<Admission?> GetByIdAsync(int id)
+        public async Task<Admission?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
         }
@@ -38,11 +38,11 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         public async Task<IEnumerable<Admission>> GetActiveAdmissionsAsync()
         {
             return await _dbSet.AsNoTracking()
-                .Where(a => a.Status == AdmissionStatus.Admitted && a.IsActive == true)
+                .Where(a => a.Status == AdmissionStatus.Active && a.IsActive == true)
                 .OrderByDescending(a => a.AdmissionDate)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Admission>> GetAdmissionsByPatientIdAsync(int patientId)
+        public async Task<IEnumerable<Admission>> GetAdmissionsByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.PatientId == patientId && p.IsActive == true)

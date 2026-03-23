@@ -17,7 +17,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
             _dbSet = _context.Set<Receipt>(); 
         }
 
-        public async Task<Receipt?> GetByIdAsync(int id)
+        public async Task<Receipt?> GetByIdAsync(Guid id)
         {
         
             return await _dbSet.FindAsync(id);

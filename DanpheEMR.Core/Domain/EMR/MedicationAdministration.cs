@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Domain.EMR
 {
     public class MedicationAdministration : BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime AdministeredTime { get; set; }
         public string DosageGiven { get; set; }
 

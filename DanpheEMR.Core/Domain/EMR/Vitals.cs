@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Domain.EMR
 {
     public class Vitals : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime RecordedAt { get; set; }  // Thời điểm ghi nhận
         public int HeartRate { get; set; } // Nhịp tim (bpm)
         public string BloodPressure { get; set; } // Huyết áp (ví dụ: "120/80 mmHg")
@@ -22,7 +22,7 @@ namespace DanpheEMR.Core.Domain.EMR
         public int voidedByUserId { get; set; }
         //
         public int VisitId { get; set; } // Khóa ngoại liên kết với Visit
-        public int PatientId { get; set; } // Khóa ngoại liên kết với Patient
+        public Guid patientId { get; set; } // Khóa ngoại liên kết với Patient
         public Visit Visit { get; set; } // Navigation property đến Visit
         public Patient Patient { get; set; } // Navigation property đến Patient 
 

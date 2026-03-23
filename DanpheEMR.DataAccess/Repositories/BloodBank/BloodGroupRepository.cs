@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.BloodBank
             _context = context;
             _dbSet = _context.Set<BloodGroup>();
         }
-        public async Task<BloodGroup?> GetByIdAsync(int id)
+        public async Task<BloodGroup?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(b=>b.Id==id);
         }
@@ -24,7 +24,7 @@ namespace DanpheEMR.DataAccess.Repositories.BloodBank
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(b => b.BloodGroupName == bloodGroupName);
         }
         //lấy thông tin nhóm máu cùng với danh sách người hiến máu        
-        public async Task<BloodGroup?> GetWithDonorsAsync(int id)
+        public async Task<BloodGroup?> GetWithDonorsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                                .Include(x => x.BloodDonors)

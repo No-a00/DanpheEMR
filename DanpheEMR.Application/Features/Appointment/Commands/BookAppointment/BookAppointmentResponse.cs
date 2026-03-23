@@ -1,6 +1,6 @@
 ﻿
 
-namespace DanpheEMR.Application.Features.Appointment.Commands.BookAppointment
+namespace DanpheEMR.Application.Features.Appointments.Commands.BookAppointment
 {
     public class BookAppointmentResponse
     : BaseResponse

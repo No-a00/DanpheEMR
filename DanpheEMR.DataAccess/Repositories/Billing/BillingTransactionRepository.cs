@@ -26,12 +26,12 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
             _dbSet.Update(transaction);
         }
 
-        public async Task<BillingTransaction?> GetByIdAsync(int id)
+        public async Task<BillingTransaction?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<BillingTransaction?> GetTransactionWithDetailsAsync(int id)
+        public async Task<BillingTransaction?> GetTransactionWithDetailsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
                 .Include(b => b.Patient)
@@ -40,7 +40,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task CancelTransactionAsync(int id, string cancelReason,int cancelUserId)
+        public async Task CancelTransactionAsync(Guid id, string cancelReason,int cancelUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result != null)

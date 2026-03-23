@@ -31,7 +31,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .Include(e => e.Users)
                 .FirstOrDefaultAsync(e => e.Users.Any(u => u.Id == userId));
         }
-        public async Task<Employee> GetEmployeeWithDetailsAsync(int id)
+        public async Task<Employee> GetEmployeeWithDetailsAsync(Guid id)
         {
             return await _dbSet
                 .AsNoTracking()

@@ -4,7 +4,7 @@ namespace DanpheEMR.Core.Domain.Patients
 {
     public class PatientGuarantee : BaseEntity, IHasActiveStatus
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string GuarantorName { get; set; }
         public string IDCardNumber { get; set; }
         public string Relationship { get; set; }
@@ -17,7 +17,7 @@ namespace DanpheEMR.Core.Domain.Patients
         public int CancelledByUserId { get; set; }
 
         //
-        public int PatientId { get; set; }
+        public Guid patientId { get; set; }
         public Patient Patient { get; set; }
     }
 }
