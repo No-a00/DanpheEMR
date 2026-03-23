@@ -10,12 +10,12 @@ namespace DanpheEMR.Core.Domain.Billing
         public Guid Id { get; set; }
 
         // --- KHÓA NGOẠI LIÊN KẾT VỚI HÓA ĐƠN TỔNG ---
-        public int BillingTransactionId { get; set; }
+        public Guid BillingTransactionId { get; set; }
         public virtual BillingTransaction BillingTransaction { get; set; }
 
         // --- KHÓA NGOẠI LIÊN KẾT VỚI DANH MỤC DỊCH VỤ ---
         // Ánh xạ đến dịch vụ gốc trong bảng ServiceItem (VD: Xét nghiệm máu, X-Quang)
-        public int ServiceItemId { get; set; }
+        public Guid ServiceItemId { get; set; }
         public virtual ServiceItem ServiceItem { get; set; }
 
         // --- SNAPSHOT DỮ LIỆU (Bắt buộc phải có trong Kế toán) ---
@@ -24,7 +24,7 @@ namespace DanpheEMR.Core.Domain.Billing
         public string ItemName { get; set; }
 
         // --- THÔNG TIN TÀI CHÍNH TRÊN TỪNG DÒNG ---
-        public float Quantity { get; set; } // Số lượng (VD: 1 lần khám, hoặc 2 viên thuốc)
+        public decimal Quantity { get; set; } // Số lượng (VD: 1 lần khám, hoặc 2 viên thuốc)
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; } // Đơn giá tại thời điểm mua

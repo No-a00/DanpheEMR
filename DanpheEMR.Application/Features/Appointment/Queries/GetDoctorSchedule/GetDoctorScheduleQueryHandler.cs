@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 
-namespace DanpheEMR.Application.Features.Appointment.Queries.GetDoctorSchedule
+using DanpheEMR.Core.Interfaces.Appointment;
+using MediatR;
+
+
+namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
 {
-    internal class GetDoctorScheduleQueryHandler
+    public sealed class GetDoctorScheduleQueryHandler
+        : IRequestHandler<GetDoctorScheduleQuery, Result<List<DoctorScheduleResponse>>>
     {
+        private readonly IDoctorScheduleRepository _scheduleRepo;
+        private readonly IMapper _mapper;
+
+        public GetDoctorScheduleQueryHandler(IDoctorScheduleRepository scheduleRepo, IMapper mapper)
+        {
+            _scheduleRepo = scheduleRepo;
+            _mapper = mapper;
+        }
+
+        public async Task<Result<List<DoctorScheduleResponse>>> Handle(
+            GetDoctorScheduleQuery request,
+            CancellationToken cancellationToken)
+        {
+            var schedules = await _scheduleRepo.GetSchedulesByProviderIdAsync(request.DoctorId, request.Date);
+            if (schedules == null)
+            {
+                return Result.Success(new List<DoctorScheduleResponse>());
+            }
+            var response = _mapper.Map<List<DoctorScheduleResponse>>(schedules);
+
+            return Result.Success(response);
+        }
     }
 }

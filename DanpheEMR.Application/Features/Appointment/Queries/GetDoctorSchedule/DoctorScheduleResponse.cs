@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Appointment.Queries.GetDoctorSchedule
+namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
 {
-    internal class DoctorScheduleResponse
+    public sealed class DoctorScheduleResponse
     {
+        public Guid Id { get; set; }
+        public string StartTime { get; set; } 
+        public string EndTime { get; set; }
+        public int MaxPatients { get; set; }
+        // Có thể thêm thông tin bác sĩ hoặc khoa nếu cần
     }
 }

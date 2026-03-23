@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using DanpheEMR.Application.Features.Appointment.Queries.GetDoctorSchedule;
+using MediatR;
 
-namespace DanpheEMR.Application.Features.Appointment.Queries.GetDoctorSchedule
+namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
 {
-    internal class GetDoctorScheduleQuery
-    {
-    }
+    public sealed record GetDoctorScheduleQuery(Guid DoctorId, DateTime Date)
+        : IRequest<Result<List<DoctorScheduleResponse>>>;
 }
