@@ -3,6 +3,7 @@ using DanpheEMR.Core.Interface.Appointments;
 using DanpheEMR.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using DanpheEMR.Core.Domain.Appointments;
+using DanpheEMR.Core.Enums;
 
 namespace DanpheEMR.DataAccess.Repositories.Appointments
 {
@@ -68,6 +69,16 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                 .Include(a => a.Provider)
                 .Include(a => a.Department)
                 .ToListAsync();
+        }
+
+        public async Task<bool> IsDoctorBusy(Guid doctorId, DateTime appointmentDate)
+        {
+            // Kiểm tra xem có cuộc hẹn nào của bác sĩ này 
+            // trùng khít vào đúng ngày và giờ đó không
+            return await _dbSet.AnyAsync(a =>
+                a.ProviderId == doctorId &&
+                a.AppointmentDate == appointmentDate &&
+                a.Status != VisitStatus.Cancelled); // Chỉ tính những lịch chưa bị hủy
         }
     }
 }

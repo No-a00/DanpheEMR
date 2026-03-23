@@ -60,17 +60,17 @@ public sealed class BookAppointmentCommandHandler
         // 3. Kiểm tra bác sĩ bận (Phải khai báo hàm này trong Interface)
         bool isBusy = await _appointmentRepo.IsDoctorBusy(request.DoctorId, request.AppointmentDate);
         if (isBusy)
-            return Result<BookAppointmentResponse>.Failure(BookAppointmentErrors.DoctorBusy);
+            return Result<BookAppointmentResponse>.Failure(BookAppointmentErrors.ScheduleConflict);
 
         // 4. Tạo Entity (Đảm bảo Class Appointment ở Core có đủ các trường này)
-        var appointment = new DanpheEMR.Core.Domain.Entities.Appointment
+        var appointment = new DanpheEMR.Core.Domain.Appointments.Appointment
         {
             Id = Guid.NewGuid(), // Nếu DB dùng int thì bỏ dòng này
             PatientId = request.PatientId,
-            DoctorId = request.DoctorId,
+            ProviderId = request.DoctorId,
             AppointmentDate = request.AppointmentDate,
             Reason = request.Reason,
-            CreatedDate = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow
         };
 
         await _appointmentRepo.AddAsync(appointment);

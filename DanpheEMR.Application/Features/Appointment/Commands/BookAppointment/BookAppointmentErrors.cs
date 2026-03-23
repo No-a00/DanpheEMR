@@ -40,5 +40,6 @@ namespace Application.Features.Appointments.Commands.BookAppointment
                 "Appointment.ScheduleConflict",
                 "Doctor already has appointment at this time"
             );
+        
     }
 }

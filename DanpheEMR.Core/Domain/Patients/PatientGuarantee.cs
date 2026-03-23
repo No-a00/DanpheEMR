@@ -14,10 +14,10 @@ namespace DanpheEMR.Core.Domain.Patients
         //hủy và lí do
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int CancelledByUserId { get; set; }
+        public Guid CancelledByUserId { get; set; }
 
         //
-        public Guid patientId { get; set; }
+        public Guid PatientId { get; set; }
         public Patient Patient { get; set; }
     }
 }

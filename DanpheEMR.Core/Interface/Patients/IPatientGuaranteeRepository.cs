@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Interface.Patients
         Task<PatientGuarantee> GetByIdAsync(Guid Id);
         Task<PatientGuarantee> AddAsync(PatientGuarantee guarantee);
         Task UpdateAsync(PatientGuarantee guarantee);
-        Task CancelGuaranteeAsync(Guid Id, string cancelReason, int cancelledByUserId);
+        Task CancelGuaranteeAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
 
 
         // Xem TOÀN BỘ lịch sử bảo lãnh của bệnh nhân này từ trước đến nay

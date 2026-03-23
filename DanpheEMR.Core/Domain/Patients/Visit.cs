@@ -17,9 +17,9 @@ namespace DanpheEMR.Core.Domain.Patients
         public VisitStatus Status { get; set; }
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int UserIdCancel { get; set; }   
+        public Guid UserIdCancel { get; set; }   
 
-        public Guid patientId { get; set; }
+        public Guid PatientId { get; set; }
         public Guid DepartmentId { get; set; }
         public Guid ProviderId { get; set; }
 

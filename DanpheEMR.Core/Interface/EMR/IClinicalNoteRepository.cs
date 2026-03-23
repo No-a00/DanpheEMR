@@ -3,8 +3,8 @@ namespace DanpheEMR.Core.Interfaces.EMR
 {
     public class ClinicalNoteFilter
     {
-        public int? PatientId { get; set; }
-        public int? ProviderId { get; set; }
+        public Guid? PatientId { get; set; }
+        public Guid? ProviderId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public string ChiefComplaintKeyword { get; set; }
@@ -16,11 +16,11 @@ namespace DanpheEMR.Core.Interfaces.EMR
         Task UpdateAsync(ClinicalNote note);
 
         // Xóa y khoa (Hủy và ghi lại lý do)
-        Task VoidNoteAsync(int noteId, string voidReason, int voidedByUserId);
+        Task VoidNoteAsync(Guid noteId, string voidReason, Guid voidedByUserId);
 
         // Gộp lọc để tránh gọi GetAll() làm sập server
         Task<IEnumerable<ClinicalNote>> SearchNotesAsync(ClinicalNoteFilter filter);
-        Task<ClinicalNote> GetNoteByVisitIdAsync(int visitId);
+        Task<ClinicalNote> GetNoteByVisitIdAsync(Guid visitId);
 
     }
 }

@@ -40,7 +40,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task CancelTransactionAsync(Guid id, string cancelReason,int cancelUserId)
+        public async Task CancelTransactionAsync(Guid id, string cancelReason,Guid cancelUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result != null)
@@ -85,7 +85,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
         }
 
         // 5. HOÀN THIỆN HÀM TÍNH DOANH THU THEO BÁC SĨ
-        public async Task<decimal> CalculateTotalRevenueByProviderAsync(int providerId, DateTime fromDate, DateTime toDate)
+        public async Task<decimal> CalculateTotalRevenueByProviderAsync(Guid providerId, DateTime fromDate, DateTime toDate)
         {
             var endOfDay = toDate.Date.AddDays(1).AddTicks(-1);
 

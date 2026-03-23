@@ -1,23 +1,19 @@
-﻿public class Result
+﻿using Application.Common;
+
+public class Result
 {
-    public bool Success { get; private set; }
+    public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
+    public Error Error { get; } // Thêm thuộc tính này để lưu đối tượng Error
 
-    public string Error { get; private set; }
-
-    public static Result Ok()
+    protected Result(bool isSuccess, Error error)
     {
-        return new Result
-        {
-            Success = true
-        };
+        IsSuccess = isSuccess;
+        Error = error;
     }
 
-    public static Result Failure(string error)
-    {
-        return new Result
-        {
-            Success = false,
-            Error = error
-        };
-    }
+    // Chỉnh sửa hàm Failure để nhận kiểu Error
+    public static Result Failure(Error error) => new(false, error);
+
+    public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
 }

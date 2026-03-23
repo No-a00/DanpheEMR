@@ -1,26 +1,19 @@
-﻿public class Result<T>
+﻿using Application.Common;
+
+public class Result<TValue> : Result
 {
-    public bool Success { get; private set; }
+    private readonly TValue? _value;
 
-    public T Data { get; private set; }
-
-    public string Error { get; private set; }
-
-    public static Result<T> Ok(T data)
+    protected internal Result(TValue? value, bool isSuccess, Error error)
+        : base(isSuccess, error)
     {
-        return new Result<T>
-        {
-            Success = true,
-            Data = data
-        };
+        _value = value;
     }
 
-    public static Result<T> Failure(string error)
-    {
-        return new Result<T>
-        {
-            Success = false,
-            Error = error
-        };
-    }
+    public TValue Value => IsSuccess
+        ? _value!
+        : throw new InvalidOperationException("Không thể lấy giá trị của một Result thất bại.");
+
+    // Chỉnh sửa hàm Failure ở đây nữa
+    public static new Result<TValue> Failure(Error error) => new(default, false, error);
 }

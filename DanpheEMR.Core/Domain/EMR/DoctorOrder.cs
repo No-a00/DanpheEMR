@@ -6,13 +6,13 @@ namespace DanpheEMR.Core.Domain.EMR
 {
     public class DoctorOrder : BaseEntity
     {
-        public int  Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime OrderDate { get; set; } // Ngày giờ tạo đơn
         public string OrderText { get; set; } = string.Empty; // Nội dung đơn thuốc hoặc chỉ định
         public string Status { get; set; }  // Trạng thái đơn: Pending, Completed, Cancelled
-        public int VisitId { get; set; }
+        public Guid VisitId { get; set; }
         //hủy và lí do
-        public int cancelledByUserId { get; set; }
+        public Guid cancelledByUserId { get; set; }
         public bool isActive { get; set; }
         public string cancelReason { get; set; }
         //

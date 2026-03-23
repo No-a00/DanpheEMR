@@ -8,8 +8,8 @@ namespace DanpheEMR.Core.Interfaces.Billing
         Task<IEnumerable<ServiceItem>> SearchByNameOrCodeAsync(string keyword);
 
         //  Lọc danh sách Dịch vụ theo Nhóm (Ví dụ: Chỉ lấy các dịch vụ thuộc Khoa Xét Nghiệm)
-        Task<IEnumerable<ServiceItem>> GetItemsByCategoryAsync(int categoryId);
+        Task<IEnumerable<ServiceItem>> GetItemsByCategoryAsync(Guid categoryId);
         // Kiểm tra xem Mã dịch vụ (ItemCode) đã được sử dụng chưa? (Tránh tạo trùng mã)
-        Task<bool> IsItemCodeExistsAsync(string itemCode, int? excludeId = null);
+        Task<bool> IsItemCodeExistsAsync(string itemCode, Guid? excludeId = null);
     }
 }

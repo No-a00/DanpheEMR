@@ -17,21 +17,21 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
             var query = _dbSet.Where(e => e.FirstName.Contains(keyword) || e.LastName.Contains(keyword) || e.ContactNumber.Contains(keyword));
             return await Task.FromResult(query.AsEnumerable());
         }
-        public async Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(int departmentId) { 
+        public async Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(Guid departmentId) { 
             return await _dbSet
                 .AsNoTracking()
                 .Where(e => e.DepartmentId == departmentId)
                 .ToListAsync(); 
         }
 
-        public async Task<Employee> GetEmployeeByUserIdAsync(int userId)
+        public async Task<Employee> GetEmployeeByUserIdAsync(Guid userId)
         {
             return await _dbSet
                 .AsNoTracking()
                 .Include(e => e.Users)
                 .FirstOrDefaultAsync(e => e.Users.Any(u => u.Id == userId));
         }
-        public async Task<Employee> GetEmployeeWithDetailsAsync(Guid id)
+        public async Task<Employee?> GetEmployeeWithDetailsAsync(Guid id)
         {
             return await _dbSet
                 .AsNoTracking()

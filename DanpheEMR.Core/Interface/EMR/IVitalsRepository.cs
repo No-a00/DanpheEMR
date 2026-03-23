@@ -9,11 +9,11 @@ namespace DanpheEMR.Core.Interface.EMR
         Task UpdateAsync(Vitals vitals);
 
         // Sinh hiệu đo sai thì đánh dấu Hủy (Không xóa vật lý)
-        Task VoidVitalsAsync(Guid Id, string voidReason, int voidedByUserId);
+        Task VoidVitalsAsync(Guid Id, string voidReason, Guid voidedByUserId);
 
         // Lấy danh sách các lần đo sinh hiệu CỦA MỘT LƯỢT KHÁM
         // (Thường thì 1 lượt khám chỉ đo 1 lần, nhưng nếu bệnh nhân cấp cứu nằm theo dõi lâu, có thể đo mỗi 30 phút/lần)
-        Task<IEnumerable<Vitals>> GetByVisitIdAsync(int visitId);
+        Task<IEnumerable<Vitals>> GetByVisitIdAsync(Guid visitId);
 
         // Lấy toàn bộ lịch sử sinh hiệu của Bệnh nhân qua các năm
         // (Dùng để vẽ biểu đồ Huyết áp, nhịp tim, hoặc theo dõi tiến trình giảm cân/BMI)

@@ -11,9 +11,10 @@ namespace DanpheEMR.Core.Domain.Appointments
         public DateTime AppointmentDate { get; set; }
         public TimeSpan AppointmentTime { get; set; }
         public VisitStatus Status { get; set; } // e.g., Scheduled, Completed, Canceled
-        public Guid patientId { get; set; }
+        public Guid PatientId { get; set; }
         // Hủy lịch hẹn thay vì xóa
         public bool IsActive { get; set; }
+        public string Reason { get; set; }
         [Required]
         public string CancelReason  { get; set; }
 

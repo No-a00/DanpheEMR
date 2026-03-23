@@ -28,7 +28,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Department>> GetSubDepartmentsAsync(int parentDepartmentId)
+        public async Task<IEnumerable<Department>> GetSubDepartmentsAsync(Guid parentDepartmentId)
         {
             return await _dbSet
                 .AsNoTracking()
@@ -36,14 +36,14 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .ToListAsync();
         }
 
-        public async Task<Department> GetDepartmentWithEmployeesAsync(int departmentId)
+        public async Task<Department?> GetDepartmentWithEmployeesAsync(Guid departmentId)
         {
             return await _dbSet
                 .Include(d => d.Employees)
                 .FirstOrDefaultAsync(d => d.Id == departmentId);
         }
 
-        public async Task<bool> IsCodeExistsAsync(string departmentCode, int? excludeId = null)
+        public async Task<bool> IsCodeExistsAsync(string departmentCode, Guid? excludeId = null)
         {
             if (excludeId.HasValue)
             {

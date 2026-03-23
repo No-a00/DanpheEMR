@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             return Task.CompletedTask;
         }
 
-        public async Task VoidNoteAsync(Guid id, string voidReason, int voidedByUserId)
+        public async Task VoidNoteAsync(Guid id, string voidReason, Guid voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);       
             if (result == null || result.IsActive == false) return;
@@ -42,14 +42,14 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             result.voidReason = voidReason;
             result.voidedByUserId = voidedByUserId;
         }
-        public async Task<IEnumerable<ProgressNote>> GetNotesByAdmissionIdAsync(int admissionId)
+        public async Task<IEnumerable<ProgressNote>> GetNotesByAdmissionIdAsync(Guid admissionId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.AdmissionId == admissionId && p.IsActive == true)
                 .OrderByDescending(p => p.NoteDate)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<ProgressNote>> GetNotesByProviderAsync(int providerId, DateTime date)
+        public async Task<IEnumerable<ProgressNote>> GetNotesByProviderAsync(Guid providerId, DateTime date)
         {
             var startOfDay = date.Date;
             var endOfDay = date.Date.AddDays(1).AddTicks(-1);

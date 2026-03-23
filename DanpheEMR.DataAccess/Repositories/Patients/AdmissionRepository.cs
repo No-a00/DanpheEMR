@@ -49,7 +49,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
                 .OrderByDescending(p => p.AdmissionDate)
                 .ToListAsync();
         }
-        public async Task<Admission?> GetAdmissionWithTransfersAsync(int admissionId)
+        public async Task<Admission?> GetAdmissionWithTransfersAsync(Guid admissionId)
         {
             return await _dbSet.AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == admissionId && a.IsActive == true);

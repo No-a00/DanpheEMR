@@ -43,7 +43,7 @@ namespace DanpheEMR.Core.Domain.Billing
 
         // --- THÔNG TIN PHỤC VỤ HOA HỒNG (COMISSION) ---
         // Bác sĩ nào là người trực tiếp thực hiện hoặc chỉ định dịch vụ này?
-        public int? ProviderId { get; set; }
+        public Guid? ProviderId { get; set; }
         public virtual Employee Provider { get; set; }
     }
 }

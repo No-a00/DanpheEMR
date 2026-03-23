@@ -13,16 +13,16 @@ namespace DanpheEMR.Core.Interface.Admin
 
         // 3. Lấy danh sách các Khoa con trực thuộc một Khoa cha
         // VD: Truyền Id của Khoa Nội -> Trả về Nội Tim Mạch, Nội Tiêu Hóa
-        Task<IEnumerable<Department>> GetSubDepartmentsAsync(int parentDepartmentId);
+        Task<IEnumerable<Department>> GetSubDepartmentsAsync(Guid parentDepartmentId);
 
         // --- NHÓM 3: Tải dữ liệu kèm theo (Eager Loading) ---
 
         // 4. Lấy thông tin một Khoa KÈM THEO danh sách Bác sĩ đang làm việc ở đó
         // (Sử dụng .Include(x => x.Employees) trong EF Core)
-        Task<Department> GetDepartmentWithEmployeesAsync(int departmentId);
+        Task<Department> GetDepartmentWithEmployeesAsync(Guid departmentId);
 
         // 5. Kiểm tra Mã khoa (DepartmentCode) đã tồn tại chưa để tránh tạo trùng (VD: "KKB", "KNOI")
-        Task<bool> IsCodeExistsAsync(string departmentCode, int? excludeId = null);
+        Task<bool> IsCodeExistsAsync(string departmentCode, Guid? excludeId = null);
 
     }
 }

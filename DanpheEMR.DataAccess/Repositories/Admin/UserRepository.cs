@@ -46,7 +46,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
         }
-        public async Task<User?> GetUserWithRolesAndPermissionsAsync(int userId)
+        public async Task<User?> GetUserWithRolesAndPermissionsAsync(Guid userId)
         {
             return await _dbSet.AsNoTracking()
                 .Include(u => u.UserRoles)
@@ -55,7 +55,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                             .ThenInclude(rp => rp.Permission)
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
-        public async Task<bool> CheckUserPermissionAsync(int userId, string action, string resource)
+        public async Task<bool> CheckUserPermissionAsync(Guid userId, string action, string resource)
         {
             return await _dbSet.AsNoTracking()
                                 .Where(u => u.Id == userId)
@@ -64,7 +64,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                                 .SelectMany(r => r.RolePermissions)
                                 .AnyAsync(rp => rp.Permission.Action == action && rp.Permission.Resource == resource);
         }
-        public async Task<User?> GetUserWithEmployeeDetailsAsync(int userId)
+        public async Task<User?> GetUserWithEmployeeDetailsAsync(Guid userId)
         {
             return await _dbSet.AsNoTracking()
                 .Include(u => u.Employee)

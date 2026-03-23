@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task CancelGuaranteeAsync(Guid id, string cancelReason, int cancelledByUserId)
+        public async Task CancelGuaranteeAsync(Guid id, string cancelReason, Guid cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

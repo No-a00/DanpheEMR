@@ -34,7 +34,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         // Xóa y khoa (Hủy và ghi lại lý do)
-        public async Task VoidNoteAsync(int noteId, string voidReason, int voidedByUserId)
+        public async Task VoidNoteAsync(Guid noteId, string voidReason, Guid voidedByUserId)
         {
 
             var result = await _dbSet.FindAsync(noteId);
@@ -83,7 +83,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
 
             return await query.ToListAsync();
         }
-        public async Task<ClinicalNote?> GetNoteByVisitIdAsync(int visitId)
+        public async Task<ClinicalNote?> GetNoteByVisitIdAsync(Guid visitId)
         {
 
             return await _dbSet.AsNoTracking()

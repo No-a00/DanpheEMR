@@ -35,7 +35,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         // Sinh hiệu đo sai thì đánh dấu Hủy (Không xóa vật lý)
-        public async Task VoidVitalsAsync(Guid id, string voidReason, int voidedByUserId)
+        public async Task VoidVitalsAsync(Guid id, string voidReason, Guid voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -46,7 +46,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         // Lấy danh sách các lần đo sinh hiệu CỦA MỘT LƯỢT KHÁM
-        public async Task<IEnumerable<Vitals>> GetByVisitIdAsync(int visitId)
+        public async Task<IEnumerable<Vitals>> GetByVisitIdAsync(Guid visitId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(v => v.VisitId == visitId && v.IsActive) 

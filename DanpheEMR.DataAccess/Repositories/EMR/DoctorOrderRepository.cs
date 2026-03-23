@@ -32,7 +32,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet.Update(order);
             return Task.CompletedTask;
         }
-        public async Task CancelOrderAsync(int orderId, string cancelReason, int cancelledByUserId)
+        public async Task CancelOrderAsync(Guid orderId, string cancelReason, Guid cancelledByUserId)
         {
           
             var result = await _dbSet.FindAsync(orderId);
@@ -42,14 +42,14 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             result.cancelledByUserId = cancelledByUserId;
         }
 
-        public async Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(int visitId)
+        public async Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(Guid visitId)
         {
             return await _dbSet.AsNoTracking()
                 .Include(x => x.Visit)
                 .Where(d => d.VisitId == visitId && d.isActive == true) 
                 .ToListAsync();
         }
-      public async Task<IEnumerable<DoctorOrder>> GetOrdersByProviderAsync(int providerId, DateTime fromDate, DateTime toDate)
+      public async Task<IEnumerable<DoctorOrder>> GetOrdersByProviderAsync(Guid providerId, DateTime fromDate, DateTime toDate)
         {
             var endOfDay = toDate.Date.AddDays(1).AddTicks(-1);
 
@@ -67,7 +67,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
                 .ToListAsync();
         }
 
-        public async Task UpdateOrderStatusAsync(int orderId, string newStatus)
+        public async Task UpdateOrderStatusAsync(Guid orderId, string newStatus)
         {
             var order = await _dbSet.FindAsync(orderId);
             if (order != null && order.isActive == true)

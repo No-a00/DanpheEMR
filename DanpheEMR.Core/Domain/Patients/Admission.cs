@@ -13,11 +13,11 @@ namespace DanpheEMR.Core.Domain.Patients
         //huy va li do
         public bool IsActive { get; set; }
         public string ReasonCancel { get; set; }
-        public int CancelUserId{ get; set; }
+        public Guid CancelUserId { get; set; }
         //
-        public Guid patientId { get; set; }
-        public int VisitId { get; set; }
-        public int AdmittingDoctorId { get; set; }
+        public Guid PatientId { get; set; }
+        public Guid VisitId { get; set; }
+        public Guid AdmittingDoctorId { get; set; }
         public Patient Patient { get; set; }
         public Visit Visit { get; set; }
         public Employee AdmittingDoctor { get; set; }

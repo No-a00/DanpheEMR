@@ -24,7 +24,7 @@ namespace DanpheEMR.Core.Domain.Billing
         public bool IsTaxable { get; set; } // Có tính thuế VAT hay không?
 
         // 2. Bổ sung Navigation Property chuẩn EF Core
-        public int ServiceCategoryId { get; set; }
+        public Guid ServiceCategoryId { get; set; }
 
         [ForeignKey("ServiceCategoryId")]
         public ServiceCategory ServiceCategory { get; set; } // Liên kết sang bảng Nhóm Dịch Vụ

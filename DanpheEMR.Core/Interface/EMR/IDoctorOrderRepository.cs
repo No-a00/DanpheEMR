@@ -9,17 +9,17 @@ namespace DanpheEMR.Core.Interface.EMR
         Task<DoctorOrder> GetByIdAsync(Guid Id);
         Task<DoctorOrder> AddAsync(DoctorOrder order);
         Task UpdateAsync(DoctorOrder order);
-        Task CancelOrderAsync(int orderId, string cancelReason, int cancelledByUserId);
+        Task CancelOrderAsync(Guid orderId, string cancelReason, Guid cancelledByUserId);
         // Xem toàn bộ y lệnh của một lượt khám (Dành cho màn hình chi tiết bệnh án)
-        Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(int visitId);
+        Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(Guid visitId);
 
         // Lọc y lệnh do Bác sĩ A chỉ định trong khoảng thời gian nhất định (Để bác sĩ kiểm tra lại)
-        Task<IEnumerable<DoctorOrder>> GetOrdersByProviderAsync(int providerId, DateTime fromDate, DateTime toDate);
+        Task<IEnumerable<DoctorOrder>> GetOrdersByProviderAsync(Guid providerId, DateTime fromDate, DateTime toDate);
 
         // Lọc y lệnh theo TRẠNG THÁI (Cực kỳ quan trọng cho Điều dưỡng)
         Task<IEnumerable<DoctorOrder>> GetOrdersByStatusAsync(string status);
 
         // Cập nhật nhanh trạng thái y lệnh (Từ Pending -> Completed khi y tá tiêm xong)
-        Task UpdateOrderStatusAsync(int orderId, string newStatus);
+        Task UpdateOrderStatusAsync(Guid orderId, string newStatus);
     }
 }

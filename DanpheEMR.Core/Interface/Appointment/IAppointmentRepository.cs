@@ -8,10 +8,11 @@ namespace DanpheEMR.Core.Interface.Appointments
         Task<Appointment> AddAsync(Appointment appointment);
         Task UpdateAsync(Appointment appointment);
 
-        // Hủy lịch hẹn thay vì xóa
-        Task CancelAppointmentAsync(Guid Id, string cancelReason);
+        // --- THÊM DÒNG NÀY VÀO ĐÂY ---
+        // Kiểm tra xem bác sĩ đã có lịch khám nào trùng vào thời điểm này chưa
+        Task<bool> IsDoctorBusy(Guid doctorId, DateTime appointmentDate);
 
-        // Lọc lịch khám có phân trang hoặc điều kiện
+        Task CancelAppointmentAsync(Guid Id, string cancelReason);
         Task<IEnumerable<Appointment>> GetAppointmentsByDateAsync(DateTime date);
         Task<IEnumerable<Appointment>> GetAppointmentsByPatientAsync(Guid patientId);
         Task<IEnumerable<Appointment>> GetAppointmentsByDoctorAsync(Guid doctorId, DateTime date);

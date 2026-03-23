@@ -17,13 +17,13 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 .Where(k => k.ItemCode.Contains(keyword) || k.ItemName.Contains(keyword))
                 .ToListAsync();
         }
-        public async Task<IEnumerable<ServiceItem>> GetItemsByCategoryAsync(int categoryId)
+        public async Task<IEnumerable<ServiceItem>> GetItemsByCategoryAsync(Guid categoryId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.ServiceCategoryId == categoryId)
                 .ToListAsync();
         }
-        public async Task<bool> IsItemCodeExistsAsync(string itemCode, int? excludeId = null)
+        public async Task<bool> IsItemCodeExistsAsync(string itemCode, Guid? excludeId = null)
         {
             return await _dbSet.AsNoTracking()
                 .AnyAsync(i => i.ItemCode == itemCode

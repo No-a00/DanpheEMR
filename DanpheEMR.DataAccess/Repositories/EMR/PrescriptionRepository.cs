@@ -42,7 +42,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             return Task.CompletedTask;
         }
 
-        public async Task CancelPrescriptionAsync(int prescriptionId, string cancelReason, int userIdCancel)
+        public async Task CancelPrescriptionAsync(Guid prescriptionId, string cancelReason, Guid userIdCancel)
         {
             var result = await _dbSet.FindAsync(prescriptionId);
             if (result == null || result.IsActive == false) return;
@@ -53,7 +53,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         //  Mở hồ sơ bệnh án của ngày hôm nay lên xem có kê đơn gì không
-        public async Task<IEnumerable<Prescription>> GetPrescriptionsByVisitIdAsync(int visitId)
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByVisitIdAsync(Guid visitId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.VisitId == visitId && p.IsActive == true)
@@ -70,7 +70,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         }
 
         //  Bác sĩ muốn xem hôm nay mình đã kê bao nhiêu đơn
-        public async Task<IEnumerable<Prescription>> GetPrescriptionsByPrescriberAsync(int prescriberId, DateTime date)
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByPrescriberAsync(Guid prescriberId, DateTime date)
         {
             var startOfDay = date.Date;
             var endOfDay = date.Date.AddDays(1).AddTicks(-1);

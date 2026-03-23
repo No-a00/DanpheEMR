@@ -10,6 +10,6 @@ namespace DanpheEMR.Core.Interface.Patients
         Task<IEnumerable<Admission>> GetActiveAdmissionsAsync();
 
         Task<IEnumerable<Admission>> GetAdmissionsByPatientIdAsync(Guid patientId);
-        Task<Admission> GetAdmissionWithTransfersAsync(int admissionId);
+        Task<Admission> GetAdmissionWithTransfersAsync(Guid admissionId);
     }
 }

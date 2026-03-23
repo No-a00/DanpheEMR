@@ -19,10 +19,10 @@ namespace DanpheEMR.Core.Domain.EMR
         //hủy và lí do
         public bool IsActive { get; set; }
         public string voidReason { get; set; }
-        public int voidedByUserId { get; set; }
+        public Guid voidedByUserId { get; set; }
         //
-        public int VisitId { get; set; } // Khóa ngoại liên kết với Visit
-        public Guid patientId { get; set; } // Khóa ngoại liên kết với Patient
+        public Guid VisitId { get; set; } // Khóa ngoại liên kết với Visit
+        public Guid PatientId { get; set; } // Khóa ngoại liên kết với Patient
         public Visit Visit { get; set; } // Navigation property đến Visit
         public Patient Patient { get; set; } // Navigation property đến Patient 
 

@@ -15,10 +15,10 @@ namespace DanpheEMR.Core.Domain.EMR
         // hủy hoặc và đánh dấu
         public string VoidReason { get; set; }
         public bool IsDelete { get; set; } 
-        public int VoidedByUserId   { get; set; }
+        public Guid VoidedByUserId   { get; set; }
 
-        public int VisitId { get; set; } // Khóa ngoại đến lịch hẹn khám bệnh
-        public Guid patientId { get; set; } // Khóa ngoại đến bệnh nhân
+        public Guid VisitId { get; set; } // Khóa ngoại đến lịch hẹn khám bệnh
+        public Guid PatientId { get; set; } // Khóa ngoại đến bệnh nhân
         public Guid ProviderId { get; set; } // Khóa ngoại đến bác sĩ
         public Visit Visit { get; set; }
         public Patient Patient { get; set; }

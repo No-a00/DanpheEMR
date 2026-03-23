@@ -24,7 +24,7 @@ namespace DanpheEMR.Core.Domain.Billing
         //Hủy hoặc cập nhật
         public string CancelReason { get; set; }
         public bool IsActive { get; set; }
-        public int CancelUserId     { get; set; }
+        public Guid CancelUserId     { get; set; }
         //
 
         // --- CÁC TRƯỜNG TIỀN TỆ (Quy định rõ decimal 18,2 để không sai số) ---
@@ -49,10 +49,10 @@ namespace DanpheEMR.Core.Domain.Billing
         public string Remarks { get; set; }
 
        
-        public Guid patientId { get; set; }
+        public Guid PatientId { get; set; }
         public Patient Patient { get; set; }
 
-        public int VisitId { get; set; }
+        public Guid VisitId { get; set; }
         public Visit Visit { get; set; }
 
         // --- ĐIỂM QUAN TRỌNG NHẤT: Danh sách các dịch vụ trong hóa đơn này ---

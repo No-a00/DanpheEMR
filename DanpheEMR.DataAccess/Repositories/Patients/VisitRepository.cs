@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task CancelVisitAsync(Guid id, string cancelReason, int userIdCancel)
+        public async Task CancelVisitAsync(Guid id, string cancelReason, Guid userIdCancel)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -44,7 +44,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         }
 
         //  Lấy danh sách bệnh nhân khám của 1 Bác sĩ trong ngày
-        public async Task<IEnumerable<Visit>> GetActiveVisitsByProviderAsync(int providerId, DateTime date)
+        public async Task<IEnumerable<Visit>> GetActiveVisitsByProviderAsync(Guid providerId, DateTime date)
         {
             var startOfDay = date.Date;
             var endOfDay = date.Date.AddDays(1).AddTicks(-1);

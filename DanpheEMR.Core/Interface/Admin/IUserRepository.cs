@@ -15,8 +15,8 @@ namespace DanpheEMR.Core.Interface.Admin
 
         // Nghiệp vụ đăng nhập & phân quyền
         Task<User> GetByUsernameAsync(string username);
-        Task<User> GetUserWithRolesAndPermissionsAsync(int userId);
-        Task<bool> CheckUserPermissionAsync(int userId, string action, string resource);
-        Task<User> GetUserWithEmployeeDetailsAsync(int userId);
+        Task<User> GetUserWithRolesAndPermissionsAsync(Guid userId);
+        Task<bool> CheckUserPermissionAsync(Guid userId, string action, string resource);
+        Task<User> GetUserWithEmployeeDetailsAsync(Guid userId);
     }
 }

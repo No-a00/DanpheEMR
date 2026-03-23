@@ -8,7 +8,7 @@ namespace DanpheEMR.Core.Domain.Admin
         public string PasswordHash { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; } 
-        public int? EmployeeId { get; set; }
+        public Guid? EmployeeId { get; set; }
         public Employee Employee { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<AuditLog> AuditLogs{ get; set; }

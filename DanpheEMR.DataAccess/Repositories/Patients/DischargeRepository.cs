@@ -32,7 +32,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task VoidDischargeAsync(Guid id, string voidReason, int voidedByUserId)
+        public async Task VoidDischargeAsync(Guid id, string voidReason, Guid voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -43,7 +43,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         }
 
         //  Lấy Giấy ra viện của một đợt nằm viện cụ thể 
-        public async Task<Discharge?> GetByAdmissionIdAsync(int admissionId)
+        public async Task<Discharge?> GetByAdmissionIdAsync(Guid admissionId)
         {
             return await _dbSet.AsNoTracking()
                 .FirstOrDefaultAsync(d => d.AdmissionId == admissionId && d.IsActive == true);

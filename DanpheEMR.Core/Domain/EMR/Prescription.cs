@@ -14,13 +14,13 @@ namespace DanpheEMR.Core.Domain.EMR
         //hủy và lí do
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int UserIdCancel {  get; set; }
+        public Guid UserIdCancel {  get; set; }
         //
-        public int VisitId { get; set; }
+        public Guid VisitId { get; set; }
         public Visit Visit { get; set; }
-        public Guid patientId { get; set; }
+        public Guid PatientId { get; set; }
         public Patient Patient { get; set; }
-        public int PrescriberId { get; set; }
+        public Guid PrescriberId { get; set; }
         [ForeignKey("PrescriberId")]
         public Employee Prescriber { get; set; } // Liên kết đến nhân viên/bác sĩ kê đơn
         public ICollection<PrescriptionItem> Items { get; set; }
