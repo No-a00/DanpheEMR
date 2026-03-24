@@ -19,8 +19,6 @@ namespace DanpheEMR.Core.Domain.Billing
         public PaymentMode PaymentMode { get; set; }
         [Required, MaxLength(50)]
         public TransactionType TransactionType { get; set; }
-       
-        public PaymentStatus StatusPayment { get; set; }
         //Hủy hoặc cập nhật
         public string CancelReason { get; set; }
         public bool IsActive { get; set; }

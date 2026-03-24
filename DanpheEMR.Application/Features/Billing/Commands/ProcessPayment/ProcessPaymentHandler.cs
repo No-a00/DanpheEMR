@@ -26,7 +26,7 @@ namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
             {
                 return Result<ProcessPaymentResponse>.Failure(ProcessPaymentErrors.InvoiceNotFound);
             }
-            if (invoice.PaymentStatus == "Paid")
+            if (invoice.PaymentStatus == PaymentStatus.Paid)
             {
                 return Result<ProcessPaymentResponse>.Failure(ProcessPaymentErrors.AlreadyPaid);
             }
@@ -45,19 +45,18 @@ namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
                 TransactionType = TransactionType.Sales,
 
                 TransactionDate = DateTime.UtcNow,
-                PaymentStatus = "Paid",
-                StatusPayment = PaymentStatus.Paid,
+                PaymentStatus = PaymentStatus.Paid,
                 IsActive = true,
                 InvoiceNumber = $"INV-{DateTime.Now:yyyyMMddHHmm}"
             };
-            invoice.PaymentStatus = "Paid";
-            invoice.StatusPayment = PaymentStatus.Paid;
+            invoice.PaymentStatus = PaymentStatus.Paid;
+            
             await _billingTransactionRepository.AddAsync(payment);
             await _uow.SaveChangesAsync(cancellationToken);
             return Result.Success(new ProcessPaymentResponse
             {
                 PaymentId = payment.Id,
-                NewInvoiceStatus = invoice.PaymentStatus
+                NewInvoiceStatus = invoice.PaymentStatus.ToString()
             });
         }
     }
