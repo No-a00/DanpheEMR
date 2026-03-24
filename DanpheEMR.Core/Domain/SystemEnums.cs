@@ -46,9 +46,9 @@ public enum Status
 
 public enum TransactionType
 {
-    Import = 1,
+    Sales = 1,
     Export = 2,
-    Adjustment = 3
+    import = 3
 }
 
 public enum TransferStatus
@@ -73,4 +73,13 @@ public enum VisitStatus
     Cancelled = 6,       // Hủy
 
     NoShow = 7           // Không đến
+}
+public enum PaymentMode
+
+{
+    Cash = 1,
+    Card = 2,
+    DigitalWallets = 3,
+    Transfer = 4
+
 }

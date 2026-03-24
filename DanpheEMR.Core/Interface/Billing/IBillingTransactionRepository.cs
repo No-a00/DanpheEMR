@@ -1,4 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Billing;
+using DanpheEMR.Core.Enums;
 
 namespace DanpheEMR.Core.Interface.Billing
 {
@@ -6,7 +7,7 @@ namespace DanpheEMR.Core.Interface.Billing
     {
         public Guid? PatientId { get; set; }
         public Guid? VisitId { get; set; }
-        public string? PaymentStatus { get; set; }
+        public PaymentStatus? PaymentStatus { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
     }

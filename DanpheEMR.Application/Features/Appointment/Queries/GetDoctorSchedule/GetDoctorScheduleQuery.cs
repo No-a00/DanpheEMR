@@ -1,5 +1,4 @@
 ﻿
-using DanpheEMR.Application.Features.Appointment.Queries.GetDoctorSchedule;
 using MediatR;
 
 namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule

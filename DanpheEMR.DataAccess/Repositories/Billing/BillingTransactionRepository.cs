@@ -63,9 +63,9 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
             {
                 query = query.Where(x => x.VisitId == filter.VisitId.Value && x.IsActive);
             }
-            if (!string.IsNullOrWhiteSpace(filter.PaymentStatus))
+            if (filter.PaymentStatus.HasValue)
             {
-                query = query.Where(x => x.PaymentStatus == filter.PaymentStatus && x.IsActive);
+                query = query.Where(x => x.PaymentStatus == filter.PaymentStatus.Value && x.IsActive);
             }
             if (filter.FromDate.HasValue)
             {

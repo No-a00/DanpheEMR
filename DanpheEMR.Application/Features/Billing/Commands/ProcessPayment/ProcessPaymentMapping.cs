@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using AutoMapper;
+using DanpheEMR.Core.Domain.Billing;
 
 namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
 {
-    internal class ProcessPaymentMapping
+    public class ProcessPaymentMapping : Profile
     {
+        public ProcessPaymentMapping()
+        {
+            CreateMap<BillingTransaction, ProcessPaymentResponse>();
+        }
     }
 }

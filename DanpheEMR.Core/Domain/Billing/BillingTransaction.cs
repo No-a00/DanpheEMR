@@ -16,11 +16,11 @@ namespace DanpheEMR.Core.Domain.Billing
         public string InvoiceNumber { get; set; }
         public DateTime TransactionDate { get; set; }
         [Required, MaxLength(50)]
-        public PaymentStatus PaymentMode { get; set; }
+        public PaymentMode PaymentMode { get; set; }
         [Required, MaxLength(50)]
         public TransactionType TransactionType { get; set; }
        
-        public string StatusPayment { get; set; }
+        public PaymentStatus StatusPayment { get; set; }
         //Hủy hoặc cập nhật
         public string CancelReason { get; set; }
         public bool IsActive { get; set; }
@@ -42,7 +42,7 @@ namespace DanpheEMR.Core.Domain.Billing
 
         // Thay VisitStatus bằng một Enum chuyên dụng cho thanh toán (VD: Unpaid, Paid)
         [MaxLength(50)]
-        public string PaymentStatus { get; set; } // Bạn có thể dùng Enum ở đây
+        public PaymentStatus PaymentStatus { get; set; } // Bạn có thể dùng Enum ở đây
 
         // Ghi chú của thu ngân
         [MaxLength(255)]

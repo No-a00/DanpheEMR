@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using MediatR;
 
 namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
 {
-    internal class ProcessPaymentCommand
+    public record class ProcessPaymentCommand(Guid InvoiceId,Guid VisitId,Guid PatientId, decimal AmountPaid ,string PaymentMethod) :IRequest<Result<ProcessPaymentResponse>>
     {
     }
 }

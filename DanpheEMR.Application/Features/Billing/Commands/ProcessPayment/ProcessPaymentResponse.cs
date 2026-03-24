@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
 {
-    internal class ProcessPaymentResponse
+    public class ProcessPaymentResponse
     {
+        public Guid PaymentId;
+        public string NewInvoiceStatus;
     }
 }
