@@ -1,88 +1,75 @@
-﻿
+﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface;
+using DanpheEMR.Core.Interfaces.Base;
 using DanpheEMR.DataAccess.Data;
-using Microsoft.EntityFrameworkCore.Storage; 
+using Microsoft.EntityFrameworkCore;
 
-namespace DanpheEMR.DataAccess.Repositories
+
+namespace DanpheEMR.Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _context;
-        // Biến này để UnitOfWork tự nhớ giao dịch hiện tại đang làm dở
-        private IDbContextTransaction _currentTransaction;
+        private readonly ApplicationDbContext _dbContext;
 
-        public UnitOfWork(ApplicationDbContext context)
+        // 1. KHAI BÁO BIẾN Ở ĐÂY
+        private readonly ICurrentUserService _currentUserService;
+
+        // 2. TIÊM VÀO CONSTRUCTOR Ở ĐÂY
+        public UnitOfWork(
+            ApplicationDbContext dbContext,
+            ICurrentUserService currentUserService)
         {
-            _context = context;
+            _dbContext = dbContext;
+            _currentUserService = currentUserService;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.SaveChangesAsync(cancellationToken);
+            var modifiedEntries = _dbContext.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Added ||
+                            e.State == EntityState.Modified ||
+                            e.State == EntityState.Deleted)
+                .ToList();
+
+            foreach (var entry in modifiedEntries)
+            {
+                if (entry.Entity is AuditLog) continue;
+
+                var auditLog = new AuditLog
+                {
+                    Id = Guid.NewGuid(),
+                    TableName = entry.Entity.GetType().Name,
+                    Action = entry.State.ToString(),
+                    Timestamp = DateTime.Now,
+
+                    // Bây giờ biến này đã hoạt động hợp lệ!
+                    UserId = _currentUserService.UserId
+                };
+
+                _dbContext.Set<AuditLog>().Add(auditLog);
+            }
+
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task BeginTransactionAsync()
         {
-            if (_currentTransaction != null)
-            {
-                return;
-            }
-
-            _currentTransaction = await _context.Database.BeginTransactionAsync();
+            await _dbContext.Database.BeginTransactionAsync();
         }
 
         public async Task CommitTransactionAsync()
         {
-            try
-            {
-                await SaveChangesAsync();
-
-                if (_currentTransaction != null)
-                {
-                    await _currentTransaction.CommitAsync();
-                }
-            }
-            catch
-            {
-                // Nếu Commit lỗi (ví dụ đứt mạng, lỗi khóa dữ liệu...), tự động Rollback
-                await RollbackTransactionAsync();
-                throw; // Ném lỗi ra ngoài để tầng Service biết mà xử lý
-            }
-            finally
-            {
-                if (_currentTransaction != null)
-                {
-                    _currentTransaction.Dispose();
-                    _currentTransaction = null;
-                }
-            }
+            await _dbContext.Database.CommitTransactionAsync();
         }
 
         public async Task RollbackTransactionAsync()
         {
-            try
-            {
-                if (_currentTransaction != null)
-                {
-                    await _currentTransaction.RollbackAsync();
-                }
-            }
-            finally
-            {
-                // Xóa transaction sau khi hủy
-                if (_currentTransaction != null)
-                {
-                    _currentTransaction.Dispose();
-                    _currentTransaction = null;
-                }
-            }
+            await _dbContext.Database.RollbackTransactionAsync();
         }
 
-        // Hàm dọn dẹp bộ nhớ (bắt buộc vì interface kế thừa IDisposable)
         public void Dispose()
         {
-            _context.Dispose();
-            _currentTransaction?.Dispose();
+            _dbContext.Dispose();
         }
     }
 }

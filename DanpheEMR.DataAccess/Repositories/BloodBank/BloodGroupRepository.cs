@@ -1,5 +1,6 @@
 ﻿
 using DanpheEMR.Core.Domain.BloodBank;
+using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Interface.BloodBank;
 using DanpheEMR.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace DanpheEMR.DataAccess.Repositories.BloodBank
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(b=>b.Id==id);
         }
-        public async Task<BloodGroup?> GetByNameAsync(string bloodGroupName)
+        public async Task<BloodGroup?> GetByNameAsync(BloodType bloodGroupName)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(b => b.BloodGroupName == bloodGroupName);
         }

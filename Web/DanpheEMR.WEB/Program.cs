@@ -1,24 +1,44 @@
-// Thêm các using này để gọi được Interface và Class của UoW/Repo
-// Thay đổi namespace nếu thực tế dự án của bạn đặt tên khác nhé!
+
 using DanpheEMR.Core.Interface;
+using DanpheEMR.Core.Interfaces.Base;
 using DanpheEMR.DataAccess.Data;
-using DanpheEMR.DataAccess.Repositories;
 using DanpheEMR.DataAccess.Repositories.Patients;
+using DanpheEMR.Infrastructure.Data;
+using DanpheEMR.Infrastructure.Services;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Add DbContext with SQL Server provider
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// ====================================================================
+// KHU VỰC ĐĂNG KÝ MEDIATR & FLUENT VALIDATION (CQRS)
+// ====================================================================
+
+// 1. Lấy Assembly chứa các Command/Handler của bạn (Ví dụ dùng CreatePrescriptionHandler làm mốc)
+var applicationAssembly = typeof(DanpheEMR.Application.Features.EMR.Commands.CreatePrescription.CreatePrescriptionHandler).Assembly;
+
+// 2. Đăng ký MediatR (Áp dụng cho thư viện MediatR bản mới v12+)
+builder.Services.AddMediatR(cfg => {
+    cfg.RegisterServicesFromAssembly(applicationAssembly);
+});
+
+// 3. Đăng ký FluentValidation (Tự động quét tất cả các file Validator)
+// Yêu cầu cài đặt package: FluentValidation.DependencyInjectionExtensions
+builder.Services.AddValidatorsFromAssembly(applicationAssembly);
 
 // ====================================================================
 // KHU VỰC ĐĂNG KÝ DEPENDENCY INJECTION (DI) CHO UOW & REPOSITORY
 // ====================================================================
 
+builder.Services.AddHttpContextAccessor();
+
+// 2. Đăng ký CurrentUserService
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 // 1. Đăng ký UnitOfWork với vòng đời Scoped
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

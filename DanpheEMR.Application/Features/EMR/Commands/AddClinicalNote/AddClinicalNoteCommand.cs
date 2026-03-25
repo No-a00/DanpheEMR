@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using MediatR;
 namespace DanpheEMR.Application.Features.EMR.Commands.AddClinicalNote
 {
-    internal class AddClinicalNoteCommand
-    {
-    }
+    public record AddClinicalNoteCommand(
+        string ChiefComplaint,
+        string HistoryOfPresentIllness,
+        string ExaminationNotes,
+        Guid VisitId,
+        Guid PatientId,
+        Guid ProviderId
+    ) : IRequest<Result<AddClinicalNoteResponse>>; 
 }

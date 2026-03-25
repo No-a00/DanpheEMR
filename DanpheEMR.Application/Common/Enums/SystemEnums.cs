@@ -83,3 +83,15 @@ public enum PaymentMode
     Transfer = 4
 
 }
+
+public enum BloodType
+{
+    APos = 1,         // A+
+    ANeg = 2,         // A-
+    BPos = 3,         // B+
+    BNeg = 4,         // B-
+    ABPos = 5,        // AB+
+    ABNeg = 6,        // AB-
+    OPos = 7,         // O+
+    ONeg = 8          // O-
+}
