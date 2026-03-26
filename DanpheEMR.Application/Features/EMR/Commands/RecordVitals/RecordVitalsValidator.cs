@@ -33,4 +33,4 @@ namespace DanpheEMR.Application.Features.EMR.Commands.RecordVitals
                 .Matches(@"^\d{2,3}\/\d{2,3}$").WithMessage("Huyết áp phải đúng định dạng (VD: 120/80).");
         }
     }
-}S
+}
