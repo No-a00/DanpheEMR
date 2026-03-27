@@ -4,7 +4,7 @@ using DanpheEMR.Core.Domain.Base;
 public class DoctorSchedule : BaseEntity
 {
     public Guid Id { get; set; }
-    public DateTime DayOfWeek { get; set; }
+    public System.DayOfWeek DayOfWeek { get; set; }
 
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }

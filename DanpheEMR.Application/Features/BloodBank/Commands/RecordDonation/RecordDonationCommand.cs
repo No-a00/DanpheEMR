@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.BloodBank.Commands.RecordDonation
 {
-    internal class RecordDonationCommand
-    {
-    }
+    public record RecordDonationCommand(
+        Guid DonorId,        
+        string BagNumber,    
+        int VolumeInMl      
+    ) : IRequest<Result<Guid>>; 
 }

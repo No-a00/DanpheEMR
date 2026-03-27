@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetDailyRevenueReport
 {
-    internal class GetDailyRevenueReportQueryValidator
+    public class GetDailyRevenueReportQueryValidator : AbstractValidator<GetDailyRevenueReportQuery>
     {
+        public GetDailyRevenueReportQueryValidator()
+        {
+            RuleFor(x => x.ReportDate)
+                .NotEmpty().WithMessage("Ngày xem báo cáo không được để trống.");
+        }
     }
 }

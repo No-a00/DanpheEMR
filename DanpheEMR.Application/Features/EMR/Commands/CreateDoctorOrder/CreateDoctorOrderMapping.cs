@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DanpheEMR.Core.Domain.EMR;
+using System;
 
 namespace DanpheEMR.Application.Features.EMR.Commands.CreateDoctorOrder
 {
-    internal class CreateDoctorOrderMapping
+    public static class CreateDoctorOrderMapping
     {
+        public static DoctorOrder ToEntity(this CreateDoctorOrderCommand command)
+        {
+            return new DoctorOrder
+            {
+                Id = Guid.NewGuid(),
+                OrderDate = DateTime.Now,
+                OrderText = command.OrderText,
+                Status = "Pending", 
+                IsActive = true,    
+
+                VisitId = command.VisitId,
+                ProviderId = command.ProviderId
+            };
+        }
     }
 }

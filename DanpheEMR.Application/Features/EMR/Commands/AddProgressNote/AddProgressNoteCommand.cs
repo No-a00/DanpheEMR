@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace DanpheEMR.Application.Features.EMR.Commands.AddProgressNote
 {
-    internal class AddProgressNoteCommand
-    {
-    }
+    public record AddProgressNoteCommand(
+        Guid ProviderId,
+        Guid AdmissionId,
+        string Title,
+        string Subjective,
+        string Objective,
+        string Assessment,
+        string Plan
+
+        ) : IRequest<Result<Guid>>;
 }

@@ -21,12 +21,18 @@ namespace DanpheEMR.Core.Interface.Billing
 
         // Lấy hóa đơn KÈM THEO danh sách chi tiết (Rất hay dùng khi In hóa đơn)
         Task<BillingTransaction?> GetTransactionWithDetailsAsync(Guid Id);
+
         // Tuyệt đối KHÔNG có hàm Delete. Thay vào đó là hàm Hủy hóa đơn.
         Task CancelTransactionAsync(Guid Id, string cancelReason, Guid cancelUserId);
         // Bắt buộc phải tìm kiếm có điều kiện (Filter) để tránh tải hàng triệu dòng
+        //Lấy doanh thu theo ngày
+        Task<IEnumerable<BillingTransaction>> GetPaidTransactionsByDateAsync(DateTime reportDate);
+
         Task<IEnumerable<BillingTransaction>> SearchTransactionsAsync(BillingSearchFilter filter, int pageNumber, int pageSize);
 
         // Báo cáo doanh thu theo Bác sĩ
         Task<decimal> CalculateTotalRevenueByProviderAsync(Guid providerId, DateTime fromDate, DateTime toDate);
+        //
+        Task<IEnumerable<BillingTransaction>> GetUnpaidTransactionsByPatientAsync(Guid patientId);
     }
 }

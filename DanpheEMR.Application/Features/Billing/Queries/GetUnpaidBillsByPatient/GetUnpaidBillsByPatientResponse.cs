@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient
 {
-    internal class GetUnpaidBillsByPatientResponse
+    public class GetUnpaidBillsByPatientResponse
     {
+        public Guid PatientId { get; set; }
+        public int TotalUnpaidBills { get; set; }
+        public decimal TotalUnpaidAmount { get; set; } 
+        public List<UnpaidBillDto> UnpaidBills { get; set; } = new();
+    }
+
+    public class UnpaidBillDto
+    {
+        public Guid TransactionId { get; set; }
+        public string InvoiceNumber { get; set; }
+        public DateTime TransactionDate { get; set; }
+        public decimal TotalAmount { get; set; }
     }
 }

@@ -21,11 +21,29 @@ namespace DanpheEMR.DataAccess.Repositories.BloodBank
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<BloodDonor>> GetEligibleDonorsByBloodGroupAsync(int bloodGroupId)
+        public async Task<IEnumerable<BloodDonor>> GetEligibleDonorsAsync(Guid? bloodGroupId)
         {
-            return await _dbSet.AsNoTracking() 
-                .Where(b => b.BloodGroupId == bloodGroupId && b.IsEligibleToDonate)
-                .ToListAsync();
+            DateTime eighteenYearsAgo = DateTime.Today.AddYears(-18);
+            DateTime sixtyYearsAgo = DateTime.Today.AddYears(-60);
+            DateTime eightyFourDaysAgo = DateTime.Today.AddDays(-84);
+
+            var query = _dbSet
+                .Include(d => d.BloodGroup)
+                .Where(d => !d.IsDeleted
+                         && !d.IsPermanentlyDeferred
+                         && d.Weight >= 45
+                        
+                         && d.DateOfBirth <= eighteenYearsAgo
+                         && d.DateOfBirth >= sixtyYearsAgo
+                         
+                         && (d.LastDonatedDate == null || d.LastDonatedDate <= eightyFourDaysAgo));
+
+            if (bloodGroupId.HasValue)
+            {
+                query = query.Where(d => d.BloodGroupId == bloodGroupId.Value);
+            }
+
+            return await query.OrderBy(d => d.LastDonatedDate).ToListAsync();
         }
 
         public async Task<IEnumerable<BloodDonor>> GetTopDonorsAsync(int minimumDonations)

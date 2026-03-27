@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.BloodBank.Commands.IssueBlood
 {
-    internal class IssueBloodCommand
-    {
-    }
+    public record IssueBloodCommand(
+        Guid PatientId,
+        Guid BloodGroupId,
+        int Quantity,
+        string Remarks
+    ) : IRequest<Result<bool>>;
 }

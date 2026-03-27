@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
 namespace DanpheEMR.Application.Features.EMR.Commands.CreateDoctorOrder
 {
-    internal class CreateDoctorOrderErrors
+    public static class CreateDoctorOrderErrors
     {
+        public static readonly Error DatabaseError = new Error(
+            "CreateDoctorOrder.DatabaseError",
+            "Đã xảy ra lỗi khi lưu y lệnh vào hệ thống.");
     }
 }

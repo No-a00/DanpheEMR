@@ -29,7 +29,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
             return receipt; 
         }
 
-        public async Task CancelReceiptAsync(int receiptId, string reason,int cancelUserId)
+        public async Task CancelReceiptAsync(Guid receiptId, string reason,Guid cancelUserId)
         {
             var receipt = await _dbSet.FindAsync(receiptId);
             if (receipt == null && receipt.IsActive == false) return;
@@ -45,7 +45,7 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 .FirstOrDefaultAsync(r => r.ReceiptNumber == receiptNumber);
         }
 
-        public async Task<IEnumerable<Receipt>> GetReceiptsByTransactionIdAsync(int transactionId)   
+        public async Task<IEnumerable<Receipt>> GetReceiptsByTransactionIdAsync(Guid transactionId)   
         {
             // Tìm tất cả các biên lai thuộc về 1 mã hóa đơn (BillingTransaction)
             return await _dbSet.AsNoTracking()

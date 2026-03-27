@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using DanpheEMR.Core.Domain.EMR;
 namespace DanpheEMR.Application.Features.EMR.Commands.AddProgressNote
 {
-    internal class AddProgressNoteMapping
+    public static class AddProgressNoteMapping
     {
+        public static ProgressNote ToEntity(this AddProgressNoteCommand command)
+        {
+            return new ProgressNote
+            {
+                Id = Guid.NewGuid(),
+                Title = command.Title,
+
+                NoteDate = DateTime.Now,
+
+                Subjective = command.Subjective,
+
+                Objective = command.Objective,
+
+                Assessment = command.Assessment,
+
+                Plan = command.Plan,
+
+
+
+                IsActive = true,
+
+
+                AdmissionId = command.AdmissionId,
+                ProviderId = command.ProviderId,
+
+            };
+        }
     }
 }

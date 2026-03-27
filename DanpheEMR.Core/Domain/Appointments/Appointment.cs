@@ -15,6 +15,7 @@ namespace DanpheEMR.Core.Domain.Appointments
         // Hủy lịch hẹn thay vì xóa
         public bool IsActive { get; set; }
         public string Reason { get; set; }
+        public Guid ReasonUserId { get; set; }
         [Required]
         public string CancelReason  { get; set; }
 

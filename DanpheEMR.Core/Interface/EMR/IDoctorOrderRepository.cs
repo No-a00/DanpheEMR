@@ -13,6 +13,8 @@ namespace DanpheEMR.Core.Interface.EMR
         // Xem toàn bộ y lệnh của một lượt khám (Dành cho màn hình chi tiết bệnh án)
         Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(Guid visitId);
 
+        Task<IEnumerable<DoctorOrder>> GetPendingOrdersAsync();
+
         // Lọc y lệnh do Bác sĩ A chỉ định trong khoảng thời gian nhất định (Để bác sĩ kiểm tra lại)
         Task<IEnumerable<DoctorOrder>> GetOrdersByProviderAsync(Guid providerId, DateTime fromDate, DateTime toDate);
 

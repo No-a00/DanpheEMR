@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient
 {
-    internal class GetUnpaidBillsByPatientQueryValidator
+    public class GetUnpaidBillsByPatientQueryValidator : AbstractValidator<GetUnpaidBillsByPatientQuery>
     {
+        public GetUnpaidBillsByPatientQueryValidator()
+        {
+            RuleFor(x => x.PatientId)
+                .NotEmpty().WithMessage("Mã bệnh nhân không được để trống.");
+        }
     }
 }

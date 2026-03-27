@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetDailyRevenueReport
 {
-    internal class GetDailyRevenueReportQuery
-    {
-    }
+    public record GetDailyRevenueReportQuery(
+        DateTime ReportDate
+    ) : IRequest<Result<GetDailyRevenueReportResponse>>;
 }

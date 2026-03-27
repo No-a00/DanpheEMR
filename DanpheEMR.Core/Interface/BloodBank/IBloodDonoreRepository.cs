@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Interface.BloodBank
     {
         // Nghiệp vụ Ngân hàng máu
         Task<IEnumerable<BloodDonor>> SearchByNameOrContactAsync(string keyword);
-        Task<IEnumerable<BloodDonor>> GetEligibleDonorsByBloodGroupAsync(int bloodGroupId);
+        Task<IEnumerable<BloodDonor>> GetEligibleDonorsAsync(Guid? bloodGroupId);
         Task<IEnumerable<BloodDonor>> GetTopDonorsAsync(int minimumDonations);
         Task<IEnumerable<BloodDonor>> GetPermanentlyDeferredDonorsAsync();
     }

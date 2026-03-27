@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.BloodBank.Queries.GetBloodInventory
 {
-    internal class GetBloodInventoryQueryValidator
+    public class GetBloodInventoryQueryValidator : AbstractValidator<GetBloodInventoryQuery>
     {
+        public GetBloodInventoryQueryValidator()
+        {
+            
+        }
     }
 }

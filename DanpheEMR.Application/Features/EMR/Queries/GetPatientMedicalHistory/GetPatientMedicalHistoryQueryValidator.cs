@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.EMR.Queries.GetPatientMedicalHistory
 {
-    internal class GetPatientMedicalHistoryQueryValidator
+    public class GetPatientMedicalHistoryQueryValidator : AbstractValidator<GetPatientMedicalHistoryQuery>
     {
+        public GetPatientMedicalHistoryQueryValidator()
+        {
+            RuleFor(x => x.PatientId)
+                .NotEmpty().WithMessage("Mã bệnh nhân không được để trống.");
+        }
     }
 }

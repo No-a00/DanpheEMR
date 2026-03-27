@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.EMR.Commands.CreateDoctorOrder
 {
-    internal class CreateDoctorOrderCommand
-    {
-    }
+    public record CreateDoctorOrderCommand(
+        Guid VisitId,
+        Guid ProviderId,
+        string OrderText
+    ) : IRequest<Result<Guid>>;
 }

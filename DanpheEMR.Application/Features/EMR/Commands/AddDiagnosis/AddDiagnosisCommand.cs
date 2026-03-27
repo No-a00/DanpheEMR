@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using MediatR;
+
 
 namespace DanpheEMR.Application.Features.EMR.Commands.AddDiagnosis
 {
-    internal class AddDiagnosisCommand
-    {
-    }
+    public record AddDiagnosisCommand(
+        Guid PatientId,
+        Guid VisitId,
+        Guid ProviderId,
+        string ICD10Code,
+        string Description,
+        bool IsPrimary
+    ) : IRequest<Result<Guid>>;
 }

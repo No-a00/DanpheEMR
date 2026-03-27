@@ -1,5 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Billing;
-
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DanpheEMR.Core.Interface.Billing
 {
@@ -8,11 +10,11 @@ namespace DanpheEMR.Core.Interface.Billing
         Task<Receipt> GetByIdAsync(Guid Id);
         Task<Receipt> AddAsync(Receipt receipt);
 
-        // Biên lai in ra rồi không được phép Sửa (Update) hay Xóa (Delete). Chỉ được phép Hủy (Cancel).
-        Task CancelReceiptAsync(int receiptId, string reason,int cancelUserId);
+        Task CancelReceiptAsync(Guid receiptId, string reason, Guid cancelUserId);
 
-        // Truy xuất
         Task<Receipt> GetByReceiptNumberAsync(string receiptNumber);
-        Task<IEnumerable<Receipt>> GetReceiptsByTransactionIdAsync(int transactionId);
+
+     
+        Task<IEnumerable<Receipt>> GetReceiptsByTransactionIdAsync(Guid transactionId);
     }
 }

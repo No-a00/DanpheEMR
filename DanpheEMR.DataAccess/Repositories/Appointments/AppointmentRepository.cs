@@ -34,13 +34,14 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         }
 
         // Hủy lịch hẹn thay vì xóa
-        public async Task CancelAppointmentAsync(Guid id, string cancelReason)
+        public async Task CancelAppointmentAsync(Guid id, string cancelReason,Guid reasonUserId)
         {
             var appointment = await _dbSet.FindAsync(id);
             if (appointment != null||appointment.IsActive==false)
             {
                 appointment.IsActive = false;
                 appointment.CancelReason = cancelReason;
+                appointment.ReasonUserId = reasonUserId;
       
             }
         }

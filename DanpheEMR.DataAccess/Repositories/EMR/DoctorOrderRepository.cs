@@ -36,17 +36,17 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         {
           
             var result = await _dbSet.FindAsync(orderId);
-            if (result == null || result.isActive == false) return;
-            result.isActive = false;
-            result.cancelReason = cancelReason;
-            result.cancelledByUserId = cancelledByUserId;
+            if (result == null || result.IsActive == false) return;
+            result.IsActive = false;
+            result.CancelReason = cancelReason;
+            result.CancelledByUserId = cancelledByUserId;
         }
 
         public async Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(Guid visitId)
         {
             return await _dbSet.AsNoTracking()
                 .Include(x => x.Visit)
-                .Where(d => d.VisitId == visitId && d.isActive == true) 
+                .Where(d => d.VisitId == visitId && d.IsActive == true) 
                 .ToListAsync();
         }
       public async Task<IEnumerable<DoctorOrder>> GetOrdersByProviderAsync(Guid providerId, DateTime fromDate, DateTime toDate)
@@ -57,20 +57,28 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
                 .Where(d => d.ProviderId == providerId
                          && d.CreatedAt >= fromDate
                          && d.CreatedAt <= endOfDay
-                         && d.isActive == true)
+                         && d.IsActive == true)
                 .ToListAsync();
         }
         public async Task<IEnumerable<DoctorOrder>> GetOrdersByStatusAsync(string status)
         {
             return await _dbSet.AsNoTracking()
-                .Where(d => d.Status == status && d.isActive == true)
+                .Where(d => d.Status == status && d.IsActive == true)
                 .ToListAsync();
         }
-
+        public async Task<IEnumerable<DoctorOrder>> GetPendingOrdersAsync()
+        {
+            return await _dbSet.AsNoTracking()
+                .Include(o => o.Provider)           
+                .Include(o => o.Visit)             
+                    .ThenInclude(v => v.Patient)   
+                .Where(o => o.Status == "Pending" && o.IsActive)
+                .ToListAsync();
+        }
         public async Task UpdateOrderStatusAsync(Guid orderId, string newStatus)
         {
             var order = await _dbSet.FindAsync(orderId);
-            if (order != null && order.isActive == true)
+            if (order != null && order.IsActive == true)
             {
                 order.Status = newStatus;
                 

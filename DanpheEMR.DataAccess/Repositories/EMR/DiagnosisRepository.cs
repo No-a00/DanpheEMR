@@ -18,7 +18,9 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
 
         public async Task<Diagnosis?> GetByIdAsync(Guid id)
         {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
+            return await _dbSet.AsNoTracking()
+                .Include(d => d.Provider)
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
         }
 
         public async Task<Diagnosis> AddAsync(Diagnosis diagnosis)
@@ -26,39 +28,52 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             await _dbSet.AddAsync(diagnosis);
             return diagnosis;
         }
-        public Task UpdateAsync(Diagnosis diagnosis)
+
+        public async Task UpdateAsync(Diagnosis diagnosis)
         {
             _dbSet.Update(diagnosis);
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
-        public async Task VoidDiagnosisAsync(int diagnosisId, string reason,int VoidedBy)
+        public async Task VoidDiagnosisAsync(Guid diagnosisId, string reason, Guid voidedBy)
         {
-            var result = await _dbSet.FindAsync(diagnosisId);
-            if (result != null)
+            var diagnosis = await _dbSet.FindAsync(diagnosisId);
+            if (diagnosis != null)
             {
-                result.isDelete = true;
-                result.reason = reason;
-                result.VoidedBy = VoidedBy;
+                diagnosis.IsDeleted = true;
+                diagnosis.Reason = reason;
+                diagnosis.VoidedBy = voidedBy;
+                _dbSet.Update(diagnosis);
             }
         }
 
-        public async Task<IEnumerable<Diagnosis>> GetDiagnosesByVisitIdAsync(int visitId)
+        public async Task<IEnumerable<Diagnosis>> GetDiagnosesByVisitIdAsync(Guid visitId)
         {
             return await _dbSet.AsNoTracking()
-                .Where(d => d.VisitId == visitId && d.isDelete == false) 
+                .Include(d => d.Provider)
+                .Where(d => d.VisitId == visitId && !d.IsDeleted)
+                .OrderByDescending(d => d.DiagnosisDate)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Diagnosis>> GetDiagnosesByPatientIdAsync(Guid patientId)
+        {
+            return await _dbSet.AsNoTracking()
+                .Include(d => d.Provider) 
+                .Where(d => d.PatientId == patientId && !d.IsDeleted)
+                .OrderByDescending(d => d.DiagnosisDate)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Diagnosis>> GetDiagnosesByICD10Async(string icd10Code, DateTime fromDate, DateTime toDate)
         {
             var endOfDay = toDate.Date.AddDays(1).AddTicks(-1);
-
             return await _dbSet.AsNoTracking()
+                .Include(d => d.Patient) 
                 .Where(d => d.ICD10Code == icd10Code
-                         && d.CreatedAt >= fromDate
-                         && d.CreatedAt <= endOfDay // Đã sửa fromDate thành endOfDay
-                         && d.isDelete == false)    // Không lấy các ca chẩn đoán sai/đã hủy
+                         && d.DiagnosisDate >= fromDate
+                         && d.DiagnosisDate <= endOfDay
+                         && !d.IsDeleted)
                 .ToListAsync();
         }
     }

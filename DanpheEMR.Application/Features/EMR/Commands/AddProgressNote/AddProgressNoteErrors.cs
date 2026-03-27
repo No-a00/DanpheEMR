@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using Application.Common; 
 namespace DanpheEMR.Application.Features.EMR.Commands.AddProgressNote
 {
-    internal class AddProgressNoteErrors
+    public  static class AddProgressNoteErrors
     {
+
+        public static readonly Error DatabaseError = new Error(
+            "AddDiagnosis.DatabaseError",
+            "Đã xảy ra lỗi khi lưu Tiến độ vào hồ sơ bệnh án.");
     }
 }

@@ -39,8 +39,8 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             if (result == null || result.IsActive == false) return;
 
             result.IsActive = false;
-            result.voidReason = voidReason;
-            result.voidedByUserId = voidedByUserId;
+            result.VoidReason = voidReason;
+            result.VoidedByUserId = voidedByUserId;
         }
         public async Task<IEnumerable<ProgressNote>> GetNotesByAdmissionIdAsync(Guid admissionId)
         {

@@ -16,8 +16,10 @@ namespace DanpheEMR.Core.Domain.EMR
         public string Plan { get; set; }
         //hủy và lí do
         public bool IsActive { get; set; }
-        public string voidReason { get; set; }
-        public Guid voidedByUserId { get; set; }
+        public string VoidReason { get; set; }
+        public Guid VoidedByUserId { get; set; }
+
+
         public Guid AdmissionId { get; set; }
         public Admission Admission { get; set; }
         public Guid ProviderId { get; set; } 

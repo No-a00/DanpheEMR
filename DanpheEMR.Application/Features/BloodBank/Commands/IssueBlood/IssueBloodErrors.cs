@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
 namespace DanpheEMR.Application.Features.BloodBank.Commands.IssueBlood
 {
-    internal class IssueBloodErrors
+    public static class IssueBloodErrors
     {
+        public static readonly Error OutOfStock = new Error(
+            "IssueBlood.OutOfStock",
+            "Không đủ số lượng máu sẵn sàng trong kho cho nhóm máu này.");
+
+        public static readonly Error DatabaseError = new Error(
+            "IssueBlood.DatabaseError",
+            "Đã xảy ra lỗi khi lưu thông tin xuất máu vào hệ thống.");
     }
 }

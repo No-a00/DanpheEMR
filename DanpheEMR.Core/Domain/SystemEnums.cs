@@ -95,3 +95,10 @@ public enum BloodType
     OPos = 7,         // O+
     ONeg = 8          // O-
 }
+public enum BloodBagStatus
+{
+    Available = 1,  // Sẵn sàng để truyền
+    Issued = 2,     // Đã xuất cho bệnh nhân
+    Expired = 3,    // Đã hết hạn sử dụng
+    Discarded = 4   // Đã hủy (do nhiễm khuẩn, hỏng...)
+}

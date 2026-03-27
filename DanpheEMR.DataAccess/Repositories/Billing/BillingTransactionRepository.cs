@@ -2,6 +2,7 @@
 using DanpheEMR.Core.Interface.Billing;
 using DanpheEMR.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using DanpheEMR.Core.Enums;
 
 namespace DanpheEMR.DataAccess.Repositories.Billing
 {
@@ -50,7 +51,15 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 result.CancelUserId = cancelUserId;
             }
         }
-
+        public async Task<IEnumerable<BillingTransaction>> GetPaidTransactionsByDateAsync(DateTime reportDate)
+        {
+            return await _dbSet.AsNoTracking()
+                .Include(b => b.Patient) 
+                .Where(b => b.TransactionDate.Date == reportDate.Date
+                         && b.PaymentStatus == PaymentStatus.Paid 
+                         && b.IsActive)
+                .ToListAsync();
+        }
         public async Task<IEnumerable<BillingTransaction>> SearchTransactionsAsync(BillingSearchFilter filter, int pageNumber, int pageSize)
         {
             IQueryable<BillingTransaction> query = _dbSet.AsNoTracking();
@@ -97,6 +106,15 @@ namespace DanpheEMR.DataAccess.Repositories.Billing
                 .SelectMany(b => b.TransactionItems)
                 .Where(item => item.ProviderId == providerId)
                 .SumAsync(item => item.TotalAmount );
+        }
+        
+        public async Task<IEnumerable<BillingTransaction>> GetUnpaidTransactionsByPatientAsync(Guid patientId)
+        {
+            return await _dbSet.AsNoTracking()
+                .Where(x => x.PatientId == patientId
+                         && x.PaymentStatus == PaymentStatus.Pending 
+                         && x.IsActive)
+                .ToListAsync();
         }
     }
 }
