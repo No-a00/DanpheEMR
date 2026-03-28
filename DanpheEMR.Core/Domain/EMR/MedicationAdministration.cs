@@ -14,14 +14,14 @@ namespace DanpheEMR.Core.Domain.EMR
         //hủy và lí do
         public string VoidReason { get; set; }
         public bool IsActive { get; set; }
-        public int VoidedByUserId { get; set; }
+        public Guid VoidedByUserId { get; set; }
         //
 
-        public int AdmissionId { get; set; }
+        public Guid AdmissionId { get; set; }
         public Admission Admission { get; set; }
-        public int PrescriptionItemId { get; set; }
+        public Guid PrescriptionItemId { get; set; }
         public PrescriptionItem PrescriptionItem { get; set; }
-        public int NurseId { get; set; }
+        public Guid NurseId { get; set; }
         public Employee Nurse { get; set; }
 
     }

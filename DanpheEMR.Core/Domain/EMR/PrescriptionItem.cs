@@ -13,11 +13,11 @@ namespace DanpheEMR.Core.Domain.EMR
         //hủy và lí do
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int UserIdCancel { get; set; }
+        public Guid UserIdCancel { get; set; }
         //
         public Guid PrescriptionId { get; set; } // Khóa ngoại đến Prescription
         public Guid MedicineId { get; set; } // Khóa ngoại đến Medicine
         public Prescription Prescription { get; set; } // Navigation property đến Prescription
-        public Item Item { get; set; } // Navigation property đến Item
+        public Item Medicine { get; set; } // Navigation property đến Item
     }
 }

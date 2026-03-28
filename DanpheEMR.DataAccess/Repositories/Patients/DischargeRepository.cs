@@ -38,8 +38,8 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             if (result == null || result.IsActive == false) return;
 
             result.IsActive = false;
-            result.voidReason = voidReason;
-            result.voidedByUserId = voidedByUserId;
+            result.VoidReason = voidReason;
+            result.VoidedByUserId = voidedByUserId;
         }
 
         //  Lấy Giấy ra viện của một đợt nằm viện cụ thể 

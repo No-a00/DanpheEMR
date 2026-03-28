@@ -1,5 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-
+using System;
 
 namespace DanpheEMR.Core.Domain.Admin
 {
@@ -7,8 +7,9 @@ namespace DanpheEMR.Core.Domain.Admin
     {
         public Guid Id { get; set; }
         public bool IsActive { get; set; }
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid RoleId { get; set; }
+
         public User User { get; set; }
         public Role Role { get; set; }
     }

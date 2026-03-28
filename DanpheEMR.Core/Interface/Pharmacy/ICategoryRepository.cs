@@ -7,7 +7,7 @@ namespace DanpheEMR.Core.Interface.Pharmacy
         Task<Category> GetByIdAsync(Guid Id);
         Task<Category> AddAsync(Category category);
         Task UpdateAsync(Category category);
-        Task CancelCategoryAsync(Guid Id, string cancelReason, int userIdCancel);
+        Task CancelCategoryAsync(Guid Id, string cancelReason, Guid userIdCancel);
         // Lấy danh sách toàn bộ Nhóm cha ĐANG HOẠT ĐỘNG (Dùng để load cái Dropdown đầu tiên trên màn hình)
         Task<IEnumerable<Category>> GetActiveCategoriesAsync();
 

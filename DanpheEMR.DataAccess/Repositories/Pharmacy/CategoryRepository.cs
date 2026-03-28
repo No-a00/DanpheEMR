@@ -32,7 +32,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet.Update(category);
             return Task.CompletedTask;
         }
-        public async Task CancelCategoryAsync(Guid id, string cancelReason, int userIdCancel)
+        public async Task CancelCategoryAsync(Guid id, string cancelReason, Guid userIdCancel)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

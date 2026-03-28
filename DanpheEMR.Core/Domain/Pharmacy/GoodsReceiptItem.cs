@@ -17,10 +17,11 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public decimal SellingPrice { get; set; } // Giá bán ra (Thường tự động tính = PurchaseRate + Margin)
         public decimal SubTotal { get; set; } // Thành tiền (ReceivedQuantity * PurchaseRate)
 
-        public int GoodsReceiptId { get; set; }
+        public Guid GoodsReceiptId { get; set; }
+        public Guid ItemId { get; set; }
         public GoodsReceipt GoodsReceipt { get; set; }
 
-        public int ItemId { get; set; }
+        
         public Item Item { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public string Location { get; set; }  // Vị trí (VD: "Tầng 1 - Khu A")
         public bool IsActive { get; set; } = true; // Kho có đang hoạt động không?
         public string CancelReason { get; set; }
-        public int CancelledByUserId { get; set; }
+        public Guid CancelledByUserId { get; set; }
 
         // (Tùy chọn) Nếu bạn muốn phân quyền, có thể thêm danh sách các User được phép vào kho này
     }

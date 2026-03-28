@@ -16,15 +16,15 @@ namespace DanpheEMR.Core.Domain.OT
         public string Remarks { get; set; }
         //hủy và lí do
         public bool IsActive {  get; set; }
-        public string cancelReason { get; set; }
-        public int cancelledByUserId { get; set; }
+        public string CancelReason { get; set; }
+        public Guid CancelledByUserId { get; set; }
         //
         //khóa ngoại
         public Guid patientId { get; set; }
-        public int OTRoomId { get; set; }
-        public int SurgeonId { get; set; }
-        public int? AnesthetistId { get; set; }
-        public int? AdmissionId { get; set; }
+        public Guid OTRoomId { get; set; }
+        public Guid SurgeonId { get; set; }
+        public Guid? AnesthetistId { get; set; }
+        public Guid? AdmissionId { get; set; }
 
         public Employee Anesthetist { get; set; }
         public Patient Patient { get; set; }

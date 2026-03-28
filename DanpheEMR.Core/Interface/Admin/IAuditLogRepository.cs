@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Interface.Admin
     public class AuditLogFilter
     {
         public string TableName { get; set; }
-        public int? UserId { get; set; }
+        public Guid? UserId { get; set; }
         public string Action { get; set; } 
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }

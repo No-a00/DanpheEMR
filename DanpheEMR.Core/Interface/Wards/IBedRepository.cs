@@ -11,14 +11,14 @@ namespace DanpheEMR.Core.Interface.Wards
         Task UpdateAsync(Bed bed);
 
    
-        Task DeactivateBedAsync(Guid Id, string cancelReason, int cancelledByUserId);
+        Task DeactivateBedAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
         // Lễ tân tìm giường trống TRONG MỘT KHOA CỤ THỂ
-        Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(int wardId);
+        Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(Guid wardId);
 
         // Bác sĩ cấp cứu tìm giường trống THEO LOẠI GIƯỜNG trên TOÀN BỆNH VIỆN
-        Task<IEnumerable<Bed>> GetAvailableBedsByFeatureAsync(int bedFeatureId);
+        Task<IEnumerable<Bed>> GetAvailableBedsByFeatureAsync(Guid bedFeatureId);
         // Điều dưỡng trưởng mở phần mềm lên xem Bản đồ giường của Khoa mình
-        Task<IEnumerable<Bed>> GetBedsByWardIdAsync(int wardId);
+        Task<IEnumerable<Bed>> GetBedsByWardIdAsync(Guid wardId);
         // Tổ trưởng Tổ Vệ sinh tìm danh sách các giường đang dơ để đi dọn dẹp
         Task<IEnumerable<Bed>> GetBedsByStatusAsync(BedStatus status);
     }

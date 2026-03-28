@@ -34,7 +34,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             _dbSet.Update(bed);
             return Task.CompletedTask;
         }
-        public async Task DeactivateBedAsync(Guid id, string cancelReason, int cancelledByUserId)
+        public async Task DeactivateBedAsync(Guid id, string cancelReason, Guid cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -43,7 +43,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             result.CancelReason = cancelReason;
             result.CancelledByUserId = cancelledByUserId;
         }
-        public async Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(int wardId)
+        public async Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(Guid wardId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(b => b.WardId == wardId
@@ -53,7 +53,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
                 .OrderBy(b => b.BedNumber) 
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Bed>> GetAvailableBedsByFeatureAsync(int bedFeatureId)
+        public async Task<IEnumerable<Bed>> GetAvailableBedsByFeatureAsync(Guid bedFeatureId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(b => b.BedFeatureId == bedFeatureId
@@ -64,7 +64,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
                 .OrderBy(b => b.Ward.WardName).ThenBy(b => b.BedNumber)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Bed>> GetBedsByWardIdAsync(int wardId)
+        public async Task<IEnumerable<Bed>> GetBedsByWardIdAsync(Guid wardId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(b => b.WardId == wardId && b.IsActive == true)

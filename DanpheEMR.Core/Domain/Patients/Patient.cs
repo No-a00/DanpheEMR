@@ -27,8 +27,8 @@ namespace DanpheEMR.Core.Domain.Patients
 
         // Cờ đánh dấu Xóa mềm
         public bool IsActive { get; set; }
-        public string voidReason { get; set; }
-        public int voidedByUserId { get; set; }
+        public string VoidReason { get; set; }
+        public Guid VoidedByUserId { get; set; }
 
         public ICollection<PatientAddress> Addresses { get; set; }
         public ICollection<PatientKin> Kins { get; set; }

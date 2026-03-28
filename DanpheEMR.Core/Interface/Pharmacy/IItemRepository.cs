@@ -8,10 +8,10 @@ namespace DanpheEMR.Core.Interface.Pharmacy
         Task<Item> GetByIdAsync(Guid Id);
         Task<Item> AddAsync(Item item);
         Task UpdateAsync(Item item);
-        Task DeactivateItemAsync(Guid Id,string cancelReason,int cancelUserId);
+        Task DeactivateItemAsync(Guid Id,string cancelReason, Guid cancelUserId);
 
         // Lọc danh sách theo Nhóm thuốc 
-        Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId);
+        Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(Guid subCategoryId);
         // Tìm kiếm linh hoạt để Dược sĩ gõ tên tìm thuốc nhanh
         Task<IEnumerable<Item>> SearchItemsAsync(string keyword);
 

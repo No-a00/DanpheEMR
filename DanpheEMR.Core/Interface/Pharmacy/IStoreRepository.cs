@@ -12,7 +12,7 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 
         Task UpdateAsync(Store store);
 
-        Task DeactivateStoreAsync(Guid Id, string cancelReason, int cancelledByUserId);
+        Task DeactivateStoreAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
         Task<IEnumerable<Store>> GetActiveStoresAsync();
     }
 }

@@ -34,14 +34,14 @@ namespace DanpheEMR.DataAccess.Repositories.OT
             return Task.CompletedTask;
         }
 
-        public async Task CancelScheduleAsync(Guid id, string cancelReason, int cancelledByUserId)
+        public async Task CancelScheduleAsync(Guid id, string cancelReason, Guid cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
 
             result.IsActive = false;
-            result.cancelReason = cancelReason;
-            result.cancelledByUserId = cancelledByUserId;
+            result.CancelReason = cancelReason;
+            result.CancelledByUserId = cancelledByUserId;
         }
 
         public async Task<IEnumerable<OTSchedule>> GetSchedulesByDateAsync(DateTime date)
@@ -62,7 +62,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
                 .OrderByDescending(x => x.SurgeryDate)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<OTSchedule>> GetSchedulesBySurgeonAsync(int surgeonId, DateTime date)
+        public async Task<IEnumerable<OTSchedule>> GetSchedulesBySurgeonAsync(Guid surgeonId, DateTime date)
         {
             var targetDate = date.Date;
 
@@ -72,7 +72,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<OTSchedule>> GetSchedulesByRoomAsync(int roomId, DateTime date)
+        public async Task<IEnumerable<OTSchedule>> GetSchedulesByRoomAsync(Guid roomId, DateTime date)
         {
             var targetDate = date.Date;
             return await _dbSet.AsNoTracking()
@@ -81,7 +81,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
                 .ToListAsync();
         }
 
-        public async Task<bool> IsRoomAvailableAsync(int roomId, DateTime date, TimeSpan startTime, TimeSpan endTime)
+        public async Task<bool> IsRoomAvailableAsync(Guid roomId, DateTime date, TimeSpan startTime, TimeSpan endTime)
         {
             var targetDate = date.Date;
             var hasOverlap = await _dbSet.AsNoTracking()

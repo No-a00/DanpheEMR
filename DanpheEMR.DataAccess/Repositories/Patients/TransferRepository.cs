@@ -34,23 +34,23 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task CancelTransferAsync(Guid id, string cancelReason, int voidedByUserId)
+        public async Task CancelTransferAsync(Guid id, string cancelReason, Guid voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
 
             result.IsActive = false;
             result.cancelReason = cancelReason;
-            result.voidedByUserId = voidedByUserId;
+            result.VoidedByUserId = voidedByUserId;
         }
-        public async Task<IEnumerable<Transfer>> GetTransfersByAdmissionIdAsync(int admissionId)
+        public async Task<IEnumerable<Transfer>> GetTransfersByAdmissionIdAsync(Guid admissionId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.AdmissionId == admissionId && p.IsActive == true)
                 .OrderByDescending(x => x.TransferDate)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Transfer>> GetPendingTransfersToDepartmentAsync(int toDeptId)
+        public async Task<IEnumerable<Transfer>> GetPendingTransfersToDepartmentAsync(Guid toDeptId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(p => p.ToDeptId == toDeptId && p.IsActive == true && p.TransferStatus == TransferStatus.Pending)

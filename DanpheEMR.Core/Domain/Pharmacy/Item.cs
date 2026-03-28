@@ -13,9 +13,9 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         //xóa mềm 
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int CancelUserId { get; set; }
+        public Guid  CancelUserId { get; set; }
 
-        public int SubCategoryId { get; set; }
+        public Guid SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
     }
 }

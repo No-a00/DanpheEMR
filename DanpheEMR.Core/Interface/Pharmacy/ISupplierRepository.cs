@@ -12,7 +12,7 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 
         Task UpdateAsync(Supplier supplier);
 
-        Task DeactivateSupplierAsync(Guid Id, string cancelReason, int cancelledByUserId);
+        Task DeactivateSupplierAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
 
         // Tìm kiếm nhà cung cấp theo tên hoặc mã số thuế
         Task<IEnumerable<Supplier>> SearchSuppliersAsync(string keyword);

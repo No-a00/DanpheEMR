@@ -16,14 +16,13 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         //xóa mềm 
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int? CancelledByUserId { get; set; }
+        public Guid? CancelledByUserId { get; set; }
 
-        public int SupplierId { get; set; } // Mua của nhà cung cấp nào?
-        public Supplier Supplier { get; set; }
+        public Guid SupplierId { get; set; } // Mua của nhà cung cấp nào?
+        public Guid StoreId { get; set; } // Nhập vào kho nào? (Thường là Kho Tổng)
 
-        public int StoreId { get; set; } // Nhập vào kho nào? (Thường là Kho Tổng)
+        public Supplier Supplier { get; set; }    
         public Store Store { get; set; }
-
         // Một phiếu nhập tổng sẽ có danh sách nhiều mặt hàng chi tiết
         public ICollection<GoodsReceiptItem> GoodsReceiptItems { get; set; }
     }

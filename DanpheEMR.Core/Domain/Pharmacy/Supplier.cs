@@ -13,6 +13,6 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public string Address { get; set; }
         public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int? CancelledByUserId { get; set; }
+        public Guid? CancelledByUserId { get; set; }
     }
 }

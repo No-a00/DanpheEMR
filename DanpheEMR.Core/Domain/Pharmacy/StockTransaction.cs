@@ -1,6 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 
-using System;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
@@ -20,10 +19,12 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         // Quan trọng: Giao dịch này tác động lên Lô nào? Của Thuốc nào? Ở Kho nào?
         public string BatchNo { get; set; }
 
-        public int ItemId { get; set; }
+        public Guid ItemId { get; set; }
+        public Guid StoreId { get; set; }
+
         public Item Item { get; set; }
 
-        public int StoreId { get; set; }
+        
         public Store Store { get; set; }
     }
 }

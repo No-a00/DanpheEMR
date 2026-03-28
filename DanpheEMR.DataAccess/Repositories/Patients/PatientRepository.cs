@@ -36,14 +36,14 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             return Task.CompletedTask;
         }
 
-        public async Task DeactivateAsync(Guid id, string voidReason, int voidedByUserId)
+        public async Task DeactivateAsync(Guid id, string voidReason, Guid voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
 
             result.IsActive = false;
-            result.voidReason = voidReason;
-            result.voidedByUserId = voidedByUserId;
+            result.VoidReason = voidReason;
+            result.VoidedByUserId = voidedByUserId;
         }
 
         // Tìm chính xác bằng Mã bệnh nhân (Khi bệnh nhân đưa thẻ cứng hoặc đọc mã)

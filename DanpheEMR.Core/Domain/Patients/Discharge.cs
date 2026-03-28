@@ -11,8 +11,8 @@ namespace DanpheEMR.Core.Domain.Patients
 
         //hủy và lí do
         public bool IsActive { get; set; }
-        public string voidReason { get; set; }
-        public Guid voidedByUserId { get; set; }
+        public string VoidReason { get; set; }
+        public Guid VoidedByUserId { get; set; }
         //
         public Guid PatientId { get; set; }
         public Guid AdmissionId { get; set; }

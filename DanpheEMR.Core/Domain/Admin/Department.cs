@@ -11,6 +11,8 @@ namespace DanpheEMR.Core.Domain.Admin
         public string DepartmentName { get; set; }
         public bool IsClinical { get; set; } // Phân biệt khoa lâm sàng và cận lâm sàng
         public bool IsActive { get; set; } // Trạng thái hoạt động của khoa
+        //nếu không có cha thì xóa 
+
         public Guid ? ParentDepartmentId { get; set; } // Khoa cha (nếu có)
         public Department ParentDepartment { get; set; } // Navigation property đến khoa cha
         public Guid? HeadOfDepartmentId { get; set; } // ID của Trưởng khoa

@@ -32,7 +32,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             _dbSet.Update(stock);
             return Task.CompletedTask;
         }
-        public async Task<IEnumerable<Stock>> GetAvailableStocksAsync(int itemId, int storeId)
+        public async Task<IEnumerable<Stock>> GetAvailableStocksAsync(Guid itemId, Guid storeId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(s => s.ItemId == itemId
@@ -44,7 +44,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
                 .OrderBy(s => s.ExpiryDate)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Stock>> GetStocksByItemIdAsync(int itemId)
+        public async Task<IEnumerable<Stock>> GetStocksByItemIdAsync(Guid itemId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(s => s.ItemId == itemId && s.AvailableQuantity > 0)
@@ -52,7 +52,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Stock>> GetStocksByStoreIdAsync(int storeId)
+        public async Task<IEnumerable<Stock>> GetStocksByStoreIdAsync(Guid storeId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(s => s.StoreId == storeId && s.AvailableQuantity > 0)
@@ -60,7 +60,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
                 .OrderBy(s => s.ItemId)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Stock>> GetExpiringStocksAsync(int storeId, int daysToThreshold)
+        public async Task<IEnumerable<Stock>> GetExpiringStocksAsync(Guid storeId, int daysToThreshold)
         {
             var thresholdDate = DateTime.Now.Date.AddDays(daysToThreshold);
 

@@ -15,10 +15,10 @@ namespace DanpheEMR.Core.Domain.Patients
         // xóa mềm
         public bool IsActive { get; set; }
         public string cancelReason { get; set; }
-        public int voidedByUserId {  get; set; }
-        public int AdmissionId { get; set; } // Khóa ngoại đến bảng Admission
-        public int FromDeptId { get; set; }
-        public int ToDeptId { get; set; }
+        public Guid VoidedByUserId {  get; set; }
+        public Guid AdmissionId { get; set; } // Khóa ngoại đến bảng Admission
+        public Guid FromDeptId { get; set; }
+        public Guid ToDeptId { get; set; }
         public  Admission Admission { get; set; } // Navigation property đến Admission
         public Department FromDepartment { get; set; } // Navigation property đến Department (khoa chuyển đi)
         public Department ToDepartment { get; set; } // Navigation property đến Department (khoa chuyển đến)

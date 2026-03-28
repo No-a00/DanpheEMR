@@ -38,7 +38,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             return Task.CompletedTask;
         }
 
-        public async Task DeactivateSupplierAsync(Guid id, string cancelReason, int cancelledByUserId)
+        public async Task DeactivateSupplierAsync(Guid id, string cancelReason, Guid cancelledByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;

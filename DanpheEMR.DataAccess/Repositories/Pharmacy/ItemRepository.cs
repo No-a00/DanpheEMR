@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             return Task.CompletedTask;
         }
 
-        public async Task DeactivateItemAsync(Guid id, string cancelReason, int cancelUserId)
+        public async Task DeactivateItemAsync(Guid id, string cancelReason, Guid cancelUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -43,7 +43,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             result.CancelUserId = cancelUserId;
         }
 
-        public async Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId)
+        public async Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(Guid subCategoryId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(x => x.SubCategoryId == subCategoryId && x.IsActive)

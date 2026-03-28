@@ -30,7 +30,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet.Update(administration);
             return Task.CompletedTask; 
         }
-        public async Task VoidAdministrationAsync(Guid id, string voidReason, int voidedByUserId)
+        public async Task VoidAdministrationAsync(Guid id, string voidReason, Guid voidedByUserId)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null||result.IsActive== false) return;
@@ -38,7 +38,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             result.VoidReason = voidReason;
             result.VoidedByUserId = voidedByUserId;
         }
-        public async Task<IEnumerable<MedicationAdministration>> GetByAdmissionIdAsync(int admissionId)
+        public async Task<IEnumerable<MedicationAdministration>> GetByAdmissionIdAsync(Guid admissionId)
         {
             return await _dbSet.AsNoTracking()    
                 .Where(d => d.AdmissionId == admissionId && d.IsActive == false) 
@@ -46,7 +46,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
                 .ToListAsync();
         }
         // Kiểm tra xem một loại thuốc cụ thể (PrescriptionItemId) đã được cho uống/tiêm mấy lần rồi
-        public async Task<IEnumerable<MedicationAdministration>> GetByPrescriptionItemIdAsync(int prescriptionItemId)
+        public async Task<IEnumerable<MedicationAdministration>> GetByPrescriptionItemIdAsync(Guid prescriptionItemId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(m => m.PrescriptionItemId == prescriptionItemId && m.IsActive == false)
@@ -54,7 +54,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
                 .ToListAsync();
         }
         // Xem danh sách các loại thuốc mà 1 Y tá cụ thể đã thực hiện trong 1 ngày/ca trực
-        public async Task<IEnumerable<MedicationAdministration>> GetByNurseIdAsync(int nurseId, DateTime date)
+        public async Task<IEnumerable<MedicationAdministration>> GetByNurseIdAsync(Guid nurseId, DateTime date)
         {
             var startOfDay = date.Date;
             var endOfDay = date.Date.AddDays(1).AddTicks(-1);

@@ -9,7 +9,7 @@ namespace DanpheEMR.Application.Features.EMR.Commands.AddProgressNote
         public AddProgressNoteValidator() { 
             RuleFor(x=>x.AdmissionId).NotEmpty().WithMessage("AdmissionId không được để trống !");
             RuleFor(x=>x.ProviderId).NotEmpty().WithMessage("Bác sĩ chẩn đoán không được để trống.");
-            RuleFor(x => x.Title).NotEmpty().WithMessage("Tiêu đề không được để trống.")
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Tiêu đề không được để trống.");
                 RuleFor(x => x.Subjective)
                 .NotEmpty().WithMessage("Chẩn đoán chủ quan không được để trống.")
                 .MaximumLength(500).WithMessage("Chẩn đoán chủ quan không được vượt quá 500 ký tự.");

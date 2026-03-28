@@ -14,14 +14,14 @@ namespace DanpheEMR.Core.Domain.Wards
 
         public BedStatus Status { get; set; }
 
-        public int WardId { get; set; }
+        public Guid WardId { get; set; }
         public Ward Ward { get; set; }
 
-        public int BedFeatureId { get; set; }
+        public Guid BedFeatureId { get; set; }
         public BedFeature BedFeature { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
         public string CancelReason { get; set; }
-        public int? CancelledByUserId { get; set; }
+        public Guid? CancelledByUserId { get; set; }
     }
 }

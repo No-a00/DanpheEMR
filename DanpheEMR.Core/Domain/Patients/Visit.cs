@@ -9,7 +9,7 @@ namespace DanpheEMR.Core.Domain.Patients
     {
         public Guid Id { get; set; }
         public string VisitCode { get; set; } // Mã lượt khám (Dùng để tạo Barcode/QR Code)
-        public int? QueueNo { get; set; } // Số thứ tự chờ khám
+        public Guid? QueueNo { get; set; } // Số thứ tự chờ khám
         public string ChiefComplaint { get; set; } // Lý do đến khám (Đau bụng, Sốt...)
 
         public string VisitType { get; set; }

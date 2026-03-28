@@ -12,8 +12,11 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public int AvailableQuantity { get; set; }
         public decimal CostPrice { get; set; }
         public decimal SellingPrice { get; set; }
-        public int ItemId { get; set; }
+        public Guid ItemId { get; set; }
+        public Guid StoreId { get; set; }
         public Item Item { get; set; }
-        public int StoreId { get; set; }
+        
+        public Store Store { get; set; }
+        
     }
 }

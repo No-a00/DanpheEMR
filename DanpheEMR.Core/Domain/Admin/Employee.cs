@@ -1,6 +1,4 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-using DanpheEMR.Core.Domain.Appointments; // Thêm để dùng DoctorSchedule
-using System.Collections.Generic;
 
 namespace DanpheEMR.Core.Domain.Admin
 {
@@ -24,7 +22,7 @@ namespace DanpheEMR.Core.Domain.Admin
         public Guid DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
-        // Quan hệ với User (Lớp bảo mật)
+        // Quan hệ với User (Lớp bảo mật)   
         public virtual ICollection<User> Users { get; set; }
 
         // --- THÊM DÒNG NÀY ĐỂ PHỤC VỤ ĐẶT LỊCH ---

@@ -15,7 +15,7 @@ namespace DanpheEMR.Core.Interfaces.Pharmacy // Đã sửa lỗi chính tả Pha
 
         // --- ĐÃ THÊM: Cực kỳ quan trọng để truy vết kho ---
         // Hủy phiếu nhập (Soft Delete) khi phát hiện sai sót hóa đơn, sai nhà cung cấp
-        Task CancelReceiptAsync(Guid Id, string cancelReason, int cancelledByUserId);
+        Task CancelReceiptAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
 
         // Lấy danh sách các Phiếu chờ duyệt (Để hiện thông báo đỏ cho Trưởng khoa Dược)
         Task<IEnumerable<GoodsReceipt>> GetPendingReceiptsAsync();

@@ -33,7 +33,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             _dbSet.Update(item);
             return Task.CompletedTask;
         }
-        public async Task CancelItemAsync(Guid id, string cancelReason,int userIdCancel)
+        public async Task CancelItemAsync(Guid id, string cancelReason,Guid userIdCancel)
         {
             var result = await _dbSet.FindAsync(id);
             if (result == null || result.IsActive == false) return;
@@ -42,16 +42,16 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
             result.UserIdCancel = userIdCancel;
         }
         //  Lấy toàn bộ các loại thuốc CỦA MỘT TỜ ĐƠN cụ thể
-        public async Task<IEnumerable<PrescriptionItem>> GetItemsByPrescriptionIdAsync(int prescriptionId)
+        public async Task<IEnumerable<PrescriptionItem>> GetItemsByPrescriptionIdAsync(Guid prescriptionId)
         {
             return await _dbSet.AsNoTracking().Where(p=>p.PrescriptionId == prescriptionId&&p.IsActive).ToListAsync();
         }
 
         // Thống kê truy vết: Xem một loại thuốc (ItemId) đã được kê trong những đơn nào
         // (Cực kỳ hữu ích khi có lệnh thu hồi thuốc khẩn cấp, bệnh viện cần tìm ngay những ai đã được kê loại thuốc này)
-        public async Task<IEnumerable<PrescriptionItem>> GetItemsByDrugIdAsync(int itemId)
+        public async Task<IEnumerable<PrescriptionItem>> GetItemsByDrugIdAsync(Guid itemId)
         {
-            return await _dbSet.AsNoTracking().Where(p=>p.ItemId==itemId&&p.IsActive).ToListAsync();
+            return await _dbSet.AsNoTracking().Where(p=>p.MedicineId==itemId&&p.IsActive).ToListAsync();
         }
     }
 }

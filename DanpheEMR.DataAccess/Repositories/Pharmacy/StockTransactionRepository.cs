@@ -24,7 +24,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
         }
-        public async Task<IEnumerable<StockTransaction>> GetTransactionsByItemAsync(int itemId, DateTime fromDate, DateTime toDate)
+        public async Task<IEnumerable<StockTransaction>> GetTransactionsByItemAsync(Guid itemId, DateTime fromDate, DateTime toDate)
         {
             var start = fromDate.Date;
             var end = toDate.Date.AddDays(1).AddTicks(-1);
@@ -36,7 +36,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
                 .OrderByDescending(t => t.TransactionDate)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<StockTransaction>> GetTransactionsByStoreAsync(int storeId, DateTime date)
+        public async Task<IEnumerable<StockTransaction>> GetTransactionsByStoreAsync(Guid storeId, DateTime date)
         {
             var startOfDay = date.Date;
             var endOfDay = date.Date.AddDays(1).AddTicks(-1);

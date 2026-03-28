@@ -13,8 +13,8 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public bool IsActive { get; set; } = true; // Trạng thái hoạt động
 
         public string CancelReason { get; set; }
-        public int? CancelledByUserId { get; set; }
-        public int CategoryId { get; set; } // Khóa ngoại trỏ lên nhóm Cha
+        public Guid? CancelledByUserId { get; set; }
+        public Guid CategoryId { get; set; } // Khóa ngoại trỏ lên nhóm Cha
         public Category Category { get; set; } // Navigation property lên Category
 
         // Một nhóm con sẽ chứa rất nhiều Mặt hàng (Items)

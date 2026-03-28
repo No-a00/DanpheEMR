@@ -10,10 +10,10 @@ namespace DanpheEMR.Core.Interface.Pharmacy
 
         Task UpdateAsync(SubCategory subCategory);
 
-        Task DeactivateSubCategoryAsync(Guid Id, string cancelReason, int cancelledByUserId);
+        Task DeactivateSubCategoryAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
 
         Task<IEnumerable<SubCategory>> GetActiveSubCategoriesAsync();
 
-        Task<IEnumerable<SubCategory>> GetSubCategoriesByCategoryIdAsync(int categoryId);
+        Task<IEnumerable<SubCategory>> GetSubCategoriesByCategoryIdAsync(Guid categoryId);
     }
 }

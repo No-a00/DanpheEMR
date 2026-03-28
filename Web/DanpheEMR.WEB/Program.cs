@@ -1,88 +1,128 @@
-
 using DanpheEMR.Core.Interface;
+using DanpheEMR.Core.Interface.Auth;
 using DanpheEMR.Core.Interfaces.Base;
 using DanpheEMR.DataAccess.Data;
 using DanpheEMR.DataAccess.Repositories.Patients;
 using DanpheEMR.Infrastructure.Data;
 using DanpheEMR.Infrastructure.Services;
+using DanpheEMR.WEB.Authentication;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// 1. CẤU HÌNH HỆ THỐNG CỐT LÕI (DATABASE & AUTH)
+
+
+// Đăng ký DbContext & Chỉ định nơi chứa Migrations (Sửa lỗi Migration Assembly)
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("DanpheEMR.DataAccess")
+    ));
+
+// Đăng ký JwtOptions từ appsettings.json
+var jwtSection = builder.Configuration.GetSection("Jwt");
+builder.Services.Configure<JwtOptions>(jwtSection);
+var jwtOptions = jwtSection.Get<JwtOptions>();
+
+// Cấu hình Xác thực JWT (BẮT BUỘC để API hiểu Token)
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtOptions.Issuer,
+            ValidAudience = jwtOptions.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+        };
+    });
+
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddControllersWithViews();
 
-// Add DbContext with SQL Server provider
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// ====================================================================
-// KHU VỰC ĐĂNG KÝ MEDIATR & FLUENT VALIDATION (CQRS)
-// ====================================================================
 
-// 1. Lấy Assembly chứa các Command/Handler của bạn (Ví dụ dùng CreatePrescriptionHandler làm mốc)
-var applicationAssembly = typeof(DanpheEMR.Application.Features.EMR.Commands.CreatePrescription.CreatePrescriptionHandler).Assembly;
+// 2. KHU VỰC CQRS, AUTO-MAPPER & VALIDATION
 
-// 2. Đăng ký MediatR (Áp dụng cho thư viện MediatR bản mới v12+)
-builder.Services.AddMediatR(cfg => {
-    cfg.RegisterServicesFromAssembly(applicationAssembly);
-});
 
-// 3. Đăng ký FluentValidation (Tự động quét tất cả các file Validator)
-// Yêu cầu cài đặt package: FluentValidation.DependencyInjectionExtensions
+// Lấy Assembly của Application làm gốc
+
+var applicationAssembly = typeof(Result).Assembly;
+
+// Các dòng dưới giữ nguyên
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
 builder.Services.AddValidatorsFromAssembly(applicationAssembly);
 
-// ====================================================================
-// KHU VỰC ĐĂNG KÝ DEPENDENCY INJECTION (DI) CHO UOW & REPOSITORY
-// ====================================================================
+// Đăng ký AutoMapper (Sửa lỗi IMapper không tìm thấy)
+builder.Services.AddAutoMapper(applicationAssembly);
+
+
+// 3. DEPENDENCY INJECTION (UOW & REPOSITORY)
+
 
 builder.Services.AddHttpContextAccessor();
-
-// 2. Đăng ký CurrentUserService
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
-// 1. Đăng ký UnitOfWork với vòng đời Scoped
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Tự động đăng ký các Repositories bằng Reflection (Cực xịn!)
 var repositoryAssembly = typeof(PatientRepository).Assembly;
-
-// Tìm tất cả các class có tên kết thúc bằng chữ "Repository"
 var repositoryTypes = repositoryAssembly.GetTypes()
-    .Where(type => type.IsClass
-                && !type.IsAbstract
-                && type.Name.EndsWith("Repository"));
+    .Where(type => type.IsClass && !type.IsAbstract && type.Name.EndsWith("Repository"));
 
 foreach (var repoType in repositoryTypes)
 {
-    // Tìm Interface tương ứng (Ví dụ: class PatientRepository thì tìm IPatientRepository)
-    var interfaceType = repoType.GetInterfaces()
-        .FirstOrDefault(i => i.Name == $"I{repoType.Name}");
-
-    if (interfaceType != null)
-    {
-        // Tự động đăng ký vào hệ thống
-        builder.Services.AddScoped(interfaceType, repoType);
-    }
+    var interfaceType = repoType.GetInterfaces().FirstOrDefault(i => i.Name == $"I{repoType.Name}");
+    if (interfaceType != null) builder.Services.AddScoped(interfaceType, repoType);
 }
 
-//
 builder.Services.AddMemoryCache();
+
+
+// 4. KÍCH HOẠT VÀ CẤU HÌNH PIPELINE (MIDDLEWARE)
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Tự động Migration và Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+        await RoleSeeder.SeedDataAsync(context); // Đảm bảo class này đã tồn tại
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Lỗi Seeding]: {ex.Message}");
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
+
+// THỨ TỰ PHẢI LÀ: Auth -> Authorization
+app.UseAuthentication();
 app.UseAuthorization();
-app.MapStaticAssets();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
