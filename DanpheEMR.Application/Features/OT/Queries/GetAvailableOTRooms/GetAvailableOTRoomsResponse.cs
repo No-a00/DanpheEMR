@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.OT.Queries.GetAvailableOTRooms
 {
-    internal class GetAvailableOTRoomsResponse
+    public class GetAvailableOTRoomsResponse
     {
+        public Guid Id { get; set; }
+        public string RoomName { get; set; }
+        public string Location { get; set; }
     }
 }

@@ -8,5 +8,6 @@ namespace DanpheEMR.Core.Interface.Admin
         Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(Guid departmentId);
         Task<Employee> GetEmployeeByUserIdAsync(Guid userId);
         Task<Employee> GetEmployeeWithDetailsAsync(Guid Id);
+        Task<IEnumerable<Employee>> GetEmployeesWithDepartmentAsync();
     }
 }

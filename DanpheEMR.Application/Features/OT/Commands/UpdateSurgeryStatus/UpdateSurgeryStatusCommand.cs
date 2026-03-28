@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using DanpheEMR.Core.Enums; 
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.OT.Commands.UpdateSurgeryStatus
 {
-    internal class UpdateSurgeryStatusCommand
-    {
-    }
+    public record UpdateSurgeryStatusCommand(
+        Guid ScheduleId,
+        OTStatus Status,
+        string CancelReason = null 
+    ) : IRequest<Result<bool>>;
 }

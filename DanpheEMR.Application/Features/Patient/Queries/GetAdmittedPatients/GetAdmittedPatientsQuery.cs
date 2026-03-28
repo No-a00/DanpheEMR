@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Patient.Queries.GetAdmittedPatients
+namespace DanpheEMR.Application.Features.Patients.Queries.GetAdmittedPatients
 {
-    internal class GetAdmittedPatientsQuery
-    {
-    }
+    public record GetAdmittedPatientsQuery() : IRequest<Result<List<GetAdmittedPatientsResponse>>>;
 }

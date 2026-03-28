@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.DischargePatient
+namespace DanpheEMR.Application.Features.Patients.Commands.DischargePatient
 {
-    internal class DischargePatientCommand
-    {
-    }
+    public record DischargePatientCommand(
+        Guid AdmissionId,
+        string DischargeCondition,
+        string DischargeNotes      
+    ) : IRequest<Result<bool>>;
 }

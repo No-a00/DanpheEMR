@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetDepartmentTree
+namespace DanpheEMR.Application.Features.Admin.Queries.GetDepartmentTree
 {
-    internal class GetDepartmentTreeQuery
-    {
-    }
+    public record GetDepartmentTreeQuery() : IRequest<Result<List<GetDepartmentTreeResponse>>>;
 }

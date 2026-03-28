@@ -69,5 +69,18 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         {
             await _context.Set<RolePermission>().AddAsync(rolePermission);
         }
+
+        // 1. Hàm tìm kiếm bản ghi RolePermission
+        public async Task<RolePermission?> GetRolePermissionAsync(Guid roleId, Guid permissionId)
+        {
+            return await _context.Set<RolePermission>()
+                .FirstOrDefaultAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId);
+        }
+
+        // 2. Hàm xóa bản ghi RolePermission
+        public void RemoveRolePermission(RolePermission rolePermission)
+        {
+            _context.Set<RolePermission>().Remove(rolePermission);
+        }
     }
 }

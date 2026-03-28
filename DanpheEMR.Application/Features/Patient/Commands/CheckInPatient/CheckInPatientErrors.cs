@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.CheckInPatient
+namespace DanpheEMR.Application.Features.Patients.Commands.CheckInPatient
 {
-    internal class CheckInPatientErrors
+    public static class CheckInPatientErrors
     {
+        public static readonly Error DatabaseError = new Error("CheckIn.DBError", "Lỗi khi tạo lượt khám.");
+        public static readonly Error PatientNotFound = new Error("CheckIn.PatientNotFound", "Không tìm thấy hồ sơ bệnh nhân.");
     }
 }

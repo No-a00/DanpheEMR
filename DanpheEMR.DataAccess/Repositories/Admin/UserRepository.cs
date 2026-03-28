@@ -25,7 +25,15 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         {
             return await _dbSet.AsNoTracking().ToListAsync();
         }
-
+        public async Task<IEnumerable<User>> GetUsersWithRolesAsync()
+        {
+            return await _context.Set<User>()
+                .Include(u => u.Employee)
+                .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<User> AddAsync(User user)
         {
             var entry = await _dbSet.AddAsync(user);
@@ -99,6 +107,18 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         public async Task AddUserRoleAsync(UserRole userRole)
         {
             await _context.Set<UserRole>().AddAsync(userRole);
+        }
+
+
+        public async Task<UserRole?> GetUserRoleAsync(Guid userId, Guid roleId)
+        {
+            return await _context.Set<UserRole>()
+                .FirstOrDefaultAsync(ur => ur.UserId == userId && ur.RoleId == roleId);
+        }
+
+        public void RemoveUserRole(UserRole userRole)
+        {
+            _context.Set<UserRole>().Remove(userRole);
         }
     }
 }

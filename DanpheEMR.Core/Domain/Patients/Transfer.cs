@@ -14,7 +14,7 @@ namespace DanpheEMR.Core.Domain.Patients
         public TransferStatus TransferStatus { get; set; }
         // xóa mềm
         public bool IsActive { get; set; }
-        public string cancelReason { get; set; }
+        public string CancelReason { get; set; }
         public Guid VoidedByUserId {  get; set; }
         public Guid AdmissionId { get; set; } // Khóa ngoại đến bảng Admission
         public Guid FromDeptId { get; set; }

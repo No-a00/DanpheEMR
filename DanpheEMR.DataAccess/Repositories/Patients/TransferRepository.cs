@@ -40,7 +40,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
             if (result == null || result.IsActive == false) return;
 
             result.IsActive = false;
-            result.cancelReason = cancelReason;
+            result.CancelReason = cancelReason;
             result.VoidedByUserId = voidedByUserId;
         }
         public async Task<IEnumerable<Transfer>> GetTransfersByAdmissionIdAsync(Guid admissionId)

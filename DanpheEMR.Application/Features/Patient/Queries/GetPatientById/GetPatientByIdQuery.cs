@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Patient.Queries.GetPatientById
+namespace DanpheEMR.Application.Features.Patients.Queries.GetPatientById
 {
-    internal class GetPatientByIdQuery
-    {
-    }
+    public record GetPatientByIdQuery(Guid Id) : IRequest<Result<GetPatientResponse>>;
 }

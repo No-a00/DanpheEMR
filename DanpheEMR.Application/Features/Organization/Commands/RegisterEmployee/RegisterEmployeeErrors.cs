@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
-namespace DanpheEMR.Application.Features.Organization.Commands.RegisterEmployee
+namespace DanpheEMR.Application.Features.Admin.Commands.RegisterEmployee
 {
-    internal class RegisterEmployeeErrors
+    public static class RegisterEmployeeErrors
     {
+        public static readonly Error DepartmentNotFound = new Error(
+            "RegisterEmployee.DepartmentNotFound",
+            "Phòng ban (Department) bạn chọn không tồn tại trong hệ thống.");
+
+        public static readonly Error DatabaseError = new Error(
+            "RegisterEmployee.DatabaseError",
+            "Đã xảy ra lỗi khi lưu thông tin nhân viên vào cơ sở dữ liệu.");
     }
 }

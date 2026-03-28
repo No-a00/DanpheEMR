@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetEmployees
+namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
 {
-    internal class GetEmployeesQueryValidator
+    public class GetEmployeesQueryValidator : AbstractValidator<GetEmployeesQuery>
     {
+        public GetEmployeesQueryValidator()
+        {
+            RuleFor(x => x.SearchTerm)
+                .MaximumLength(100).WithMessage("Từ khóa tìm kiếm không quá 100 ký tự.");
+        }
     }
 }

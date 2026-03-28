@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetDepartmentTree
+namespace DanpheEMR.Application.Features.Admin.Queries.GetDepartmentTree
 {
-    internal class GetDepartmentTreeResponse
+    public class GetDepartmentTreeResponse
     {
+        public Guid Id { get; set; }
+        public string DepartmentCode { get; set; }
+        public string DepartmentName { get; set; }
+        public bool IsClinical { get; set; }
+        public bool IsActive { get; set; }
+        public Guid? ParentDepartmentId { get; set; }
+        public List<GetDepartmentTreeResponse> SubDepartments { get; set; } = new();
     }
 }

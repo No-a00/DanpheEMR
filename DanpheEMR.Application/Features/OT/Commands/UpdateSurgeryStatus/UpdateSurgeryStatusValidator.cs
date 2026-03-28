@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DanpheEMR.Core.Enums;
+using FluentValidation;
 
 namespace DanpheEMR.Application.Features.OT.Commands.UpdateSurgeryStatus
 {
-    internal class UpdateSurgeryStatusValidator
+    public class UpdateSurgeryStatusValidator : AbstractValidator<UpdateSurgeryStatusCommand>
     {
+        public UpdateSurgeryStatusValidator()
+        {
+            RuleFor(x => x.ScheduleId).NotEmpty();
+            RuleFor(x => x.Status).IsInEnum().WithMessage("Trạng thái không hợp lệ.");
+
+          
+            RuleFor(x => x.CancelReason)
+                .NotEmpty().When(x => x.Status == OTStatus.Cancelled)
+                .WithMessage("Vui lòng nhập lý do hủy ca mổ.");
+        }
     }
 }

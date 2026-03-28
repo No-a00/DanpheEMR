@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.OT.Commands.SetupOTRoom
 {
-    internal class SetupOTRoomValidator
+    public class SetupOTRoomValidator : AbstractValidator<SetupOTRoomCommand>
     {
+        public SetupOTRoomValidator()
+        {
+            RuleFor(x => x.RoomName).NotEmpty().WithMessage("Tên phòng không được để trống.");
+            RuleFor(x => x.Location).NotEmpty().WithMessage("Vị trí/Khu vực không được để trống.");
+        }
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.OT.Queries.GetDailySurgerySchedule
 {
-    internal class GetDailySurgeryScheduleQuery
-    {
-    }
+
+    public record GetDailySurgeryScheduleQuery(DateTime? Date = null) : IRequest<Result<List<GetDailySurgeryScheduleResponse>>>;
 }

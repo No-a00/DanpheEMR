@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.RegisterPatient
+namespace DanpheEMR.Application.Features.Patients.Commands.RegisterPatient
 {
-    internal class RegisterPatientCommand
-    {
-    }
+    public record RegisterPatientCommand(
+        string FirstName,
+        string LastName,
+        DateTime DOB,
+        string Gender,
+        string PhoneNumber,
+        string IdCardNumber, 
+        string BloodGroup
+    ) : IRequest<Result<RegisterPatientResponse>>;
 }

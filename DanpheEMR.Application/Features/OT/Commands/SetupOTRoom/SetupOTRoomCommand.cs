@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.OT.Commands.SetupOTRoom
 {
-    internal class SetupOTRoomCommand
-    {
-    }
+    public record SetupOTRoomCommand(
+        string RoomName,
+        string Location,
+        bool IsAvailable
+    ) : IRequest<Result<Guid>>;
 }

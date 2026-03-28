@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Admin;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetDepartmentTree
+namespace DanpheEMR.Application.Features.Admin.Queries.GetDepartmentTree
 {
-    internal class GetDepartmentTreeMapping
+    public class GetDepartmentTreeMapping : Profile
     {
+        public GetDepartmentTreeMapping()
+        {
+            CreateMap<Department, GetDepartmentTreeResponse>();
+        }
     }
 }

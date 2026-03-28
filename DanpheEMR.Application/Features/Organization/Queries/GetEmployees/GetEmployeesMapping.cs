@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Admin;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetEmployees
+namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
 {
-    internal class GetEmployeesMapping
+    public class GetEmployeesMapping : Profile
     {
+        public GetEmployeesMapping()
+        {
+            CreateMap<Employee, GetEmployeesResponse>()
+                .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department != null ? src.Department.DepartmentName : "Chưa xếp khoa"));
+        }
     }
 }

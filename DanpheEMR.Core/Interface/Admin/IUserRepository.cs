@@ -9,6 +9,8 @@ namespace DanpheEMR.Core.Interface.Admin
     {
         Task<User> GetByIdAsync(Guid Id);
         Task<IEnumerable<User>> GetAllAsync();
+
+        Task<IEnumerable<User>> GetUsersWithRolesAsync();
         Task<User> AddAsync(User user);
         Task UpdateAsync(User user);
 
@@ -25,5 +27,10 @@ namespace DanpheEMR.Core.Interface.Admin
         Task<bool> IsEmailUniqueAsync(string email);
         Task<bool> UserHasRoleAsync(Guid userId, Guid roleId);
         Task AddUserRoleAsync(UserRole userRole);
+
+
+
+        Task<UserRole> GetUserRoleAsync(Guid userId, Guid roleId);
+        void RemoveUserRole(UserRole userRole);
     }
 }

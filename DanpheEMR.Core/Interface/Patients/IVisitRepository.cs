@@ -1,16 +1,24 @@
 ﻿using DanpheEMR.Core.Domain.Patients;
+using DanpheEMR.Core.Interface.Base;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DanpheEMR.Core.Interface.Patients
 {
-    public interface IVisitRepository
+    // Kế thừa GenericRepository
+    public interface IVisitRepository : IGenericRepository<Visit>
     {
-        Task<Visit> GetByIdAsync(Guid Id);
-        Task<Visit> AddAsync(Visit visit);
-        Task UpdateAsync(Visit visit);
-        Task CancelVisitAsync(Guid Id, string cancelReason, Guid userIdCancel);
         Task<IEnumerable<Visit>> GetActiveVisitsByProviderAsync(Guid providerId, DateTime date);
         Task<IEnumerable<Visit>> GetVisitsByPatientIdAsync(Guid patientId);
-        // Dùng khi Bác sĩ bấm nút "In Hồ Sơ Bệnh Án" hoặc "In Sổ Khám Bệnh"
-        Task<Visit> GetVisitWithAllDetailsAsync(Guid Id);
+
+        // Dùng khi Bác sĩ bấm nút "In Hồ Sơ Bệnh Án"
+        Task<Visit> GetVisitWithAllDetailsAsync(Guid id);
+
+        // --- BỔ SUNG ---
+        Task<string> GenerateVisitCodeAsync();
+
+        // Cấp số thứ tự bốc số theo từng khoa trong một ngày
+        Task<int> GenerateQueueNoAsync(Guid departmentId, DateTime date);
     }
 }

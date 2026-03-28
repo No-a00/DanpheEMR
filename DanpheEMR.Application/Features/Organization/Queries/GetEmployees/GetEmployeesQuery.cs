@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetEmployees
+namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
 {
-    internal class GetEmployeesQuery
-    {
-    }
+    public record GetEmployeesQuery(
+        string SearchTerm = null, 
+        Guid? DepartmentId = null 
+    ) : IRequest<Result<List<GetEmployeesResponse>>>;
 }

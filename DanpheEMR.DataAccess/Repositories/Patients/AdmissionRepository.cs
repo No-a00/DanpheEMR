@@ -1,58 +1,50 @@
-﻿
-using DanpheEMR.Core.Enums;
-using DanpheEMR.Core.Domain.Patients;
+﻿using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Interface.Patients;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
+using DanpheEMR.Core.Enums;
+
 
 namespace DanpheEMR.DataAccess.Repositories.Patients
 {
-    public class AdmissionRepository : IAdmissionRepository
+    public class AdmissionRepository : GenericRepository<Admission>, IAdmissionRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<Admission> _dbSet;
-
-        public AdmissionRepository(ApplicationDbContext context)
+        public AdmissionRepository(ApplicationDbContext context) : base(context)
         {
-            _context = context;
-            _dbSet = _context.Set<Admission>();
         }
-
-        public async Task<Admission?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
-        }
-
-        public async Task<Admission> AddAsync(Admission admission)
-        {
-            await _dbSet.AddAsync(admission);
-            return admission;
-        }
-
-        public Task UpdateAsync(Admission admission)
-        {
-            _dbSet.Update(admission);
-            return Task.CompletedTask;
-        }
-
         public async Task<IEnumerable<Admission>> GetActiveAdmissionsAsync()
         {
-            return await _dbSet.AsNoTracking()
-                .Where(a => a.Status == AdmissionStatus.Active && a.IsActive == true)
+            return await _context.Set<Admission>()
+                .Include(a => a.Patient)
+                .Include(a => a.AdmittingDoctor)
+                
+                .Where(a => a.IsActive && a.Status == AdmissionStatus.Active)
                 .OrderByDescending(a => a.AdmissionDate)
+                .AsNoTracking()
                 .ToListAsync();
         }
+
         public async Task<IEnumerable<Admission>> GetAdmissionsByPatientIdAsync(Guid patientId)
         {
-            return await _dbSet.AsNoTracking()
-                .Where(p => p.PatientId == patientId && p.IsActive == true)
-                .OrderByDescending(p => p.AdmissionDate)
+            return await _context.Set<Admission>()
+                .Include(a => a.AdmittingDoctor)
+                .Include(a => a.Discharge)
+                .Where(a => a.PatientId == patientId)
+                .OrderByDescending(a => a.AdmissionDate)
+                .AsNoTracking()
                 .ToListAsync();
         }
+
+    
         public async Task<Admission?> GetAdmissionWithTransfersAsync(Guid admissionId)
         {
-            return await _dbSet.AsNoTracking()
-                .FirstOrDefaultAsync(a => a.Id == admissionId && a.IsActive == true);
+            return await _context.Set<Admission>()
+                .Include(a => a.Patient)
+                .Include(a => a.Transfers)
+                .Include(a => a.Discharge)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == admissionId);
         }
     }
 }

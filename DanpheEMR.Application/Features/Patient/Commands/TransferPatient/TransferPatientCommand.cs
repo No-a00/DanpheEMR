@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.TransferPatient
+namespace DanpheEMR.Application.Features.Patients.Commands.TransferPatient
 {
-    internal class TransferPatientCommand
-    {
-    }
+    public record TransferPatientCommand(
+        Guid AdmissionId,
+        Guid FromDeptId,
+        Guid ToDeptId,
+        string Reason
+    ) : IRequest<Result<Guid>>; 
 }

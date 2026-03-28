@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Patient.Queries.GetPatientById
+namespace DanpheEMR.Application.Features.Patients.Queries.GetPatientById
 {
-    internal class GetPatientResponse
-    {
-    }
+    public record GetPatientResponse(
+        Guid Id,
+        string PatientCode,
+        string FullName,
+        DateTime DOB,
+        string Gender,
+        string PhoneNumber,
+        string IdCardNumber,
+        string BloodGroup,
+        List<PatientAddressDto> Addresses,
+        List<PatientKinDto> Kins
+    );
+
+    public record PatientAddressDto(string AddressType, string Street, string City);
+    public record PatientKinDto(string FullName, string Relation, string ContactNumber);
 }

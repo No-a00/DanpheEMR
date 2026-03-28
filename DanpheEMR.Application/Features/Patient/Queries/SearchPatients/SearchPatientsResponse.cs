@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Patient.Queries.SearchPatients
+namespace DanpheEMR.Application.Features.Patients.Queries.SearchPatients
 {
-    internal class SearchPatientsResponse
-    {
-    }
+    public record SearchPatientsResponse(
+        Guid Id,
+        string PatientCode,
+        string FullName,
+        string Gender,
+        DateTime DOB,
+        string PhoneNumber,
+        string IdCardNumber
+    );
 }

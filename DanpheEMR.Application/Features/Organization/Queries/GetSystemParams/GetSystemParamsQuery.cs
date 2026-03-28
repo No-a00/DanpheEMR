@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Organization.Queries.GetSystemParams
+namespace DanpheEMR.Application.Features.Admin.Queries.GetSystemParams
 {
-    internal class GetSystemParamsQuery
-    {
-    }
+    public record GetSystemParamsQuery(string SearchTerm = null) : IRequest<Result<List<GetSystemParamsResponse>>>;
 }

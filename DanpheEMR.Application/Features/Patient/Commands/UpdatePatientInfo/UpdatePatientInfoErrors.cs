@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.UpdatePatientInfo
+namespace DanpheEMR.Application.Features.Patients.Commands.UpdatePatientInfo
 {
-    internal class UpdatePatientInfoErrors
+    public static class UpdatePatientInfoErrors
     {
+        public static readonly Error NotFound = new Error("UpdatePatient.NotFound", "Không tìm thấy bệnh nhân trong hệ thống.");
+        public static readonly Error DBError = new Error("UpdatePatient.DBError", "Lỗi khi cập nhật thông tin bệnh nhân.");
     }
 }

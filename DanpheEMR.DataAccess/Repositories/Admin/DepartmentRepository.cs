@@ -1,8 +1,12 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface.Admin;
 using DanpheEMR.DataAccess.Data;
-using DanpheEMR.DataAccess.Repositories.Base; 
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DanpheEMR.DataAccess.Repositories.Admin
 {
@@ -14,45 +18,44 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
 
         public async Task<IEnumerable<Department>> GetClinicalDepartmentsAsync()
         {
-            return await _dbSet
-                .AsNoTracking() 
-                .Where(d => d.IsClinical == true && d.IsActive == true) 
+            return await _context.Set<Department>()
+                .Where(d => d.IsClinical == true && d.IsActive == true)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Department>> GetRootDepartmentsAsync()
         {
-            return await _dbSet
+            return await _context.Set<Department>()
+                .Where(d => d.ParentDepartmentId == null && d.IsActive == true)
                 .AsNoTracking()
-                .Where(d => d.ParentDepartmentId == null)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Department>> GetSubDepartmentsAsync(Guid parentDepartmentId)
         {
-            return await _dbSet
+            return await _context.Set<Department>()
+                .Where(d => d.ParentDepartmentId == parentDepartmentId && d.IsActive == true)
                 .AsNoTracking()
-                .Where(d => d.ParentDepartmentId == parentDepartmentId)
                 .ToListAsync();
         }
 
         public async Task<Department?> GetDepartmentWithEmployeesAsync(Guid departmentId)
         {
-            return await _dbSet
-                .Include(d => d.Employees)
+            return await _context.Set<Department>()
+                .Include(d => d.Employees) 
                 .FirstOrDefaultAsync(d => d.Id == departmentId);
         }
 
         public async Task<bool> IsCodeExistsAsync(string departmentCode, Guid? excludeId = null)
         {
+            var query = _context.Set<Department>().AsQueryable();
+
             if (excludeId.HasValue)
             {
-                // Dùng cho trường hợp CẬP NHẬT (Bỏ qua Id của chính nó)
-                return await _dbSet.AnyAsync(d => d.DepartmentCode == departmentCode && d.Id != excludeId.Value);
+                query = query.Where(d => d.Id != excludeId.Value);
             }
-
-            // Dùng cho trường hợp THÊM MỚI
-            return await _dbSet.AnyAsync(d => d.DepartmentCode == departmentCode);
+            return await query.AnyAsync(d => d.DepartmentCode.ToLower() == departmentCode.ToLower());
         }
     }
 }

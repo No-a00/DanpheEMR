@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.AdmitPatient
+namespace DanpheEMR.Application.Features.Patients.Commands.AdmitPatient
 {
-    internal class AdmitPatientValidator
+    public class AdmitPatientValidator : AbstractValidator<AdmitPatientCommand>
     {
+        public AdmitPatientValidator()
+        {
+            RuleFor(x => x.PatientId).NotEmpty().WithMessage("Bệnh nhân không hợp lệ.");
+            RuleFor(x => x.AdmittingDoctorId).NotEmpty().WithMessage("Vui lòng chọn Bác sĩ chỉ định nhập viện.");
+            RuleFor(x => x.InitialDiagnosis).NotEmpty().WithMessage("Vui lòng nhập chẩn đoán ban đầu.");
+        }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.OT;
 
 namespace DanpheEMR.Application.Features.OT.Queries.GetAvailableOTRooms
 {
-    internal class GetAvailableOTRoomsMapping
+    public class GetAvailableOTRoomsMapping : Profile
     {
+        public GetAvailableOTRoomsMapping()
+        {
+            CreateMap<OTRoom, GetAvailableOTRoomsResponse>();
+        }
     }
 }

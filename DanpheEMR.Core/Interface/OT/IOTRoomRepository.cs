@@ -1,14 +1,17 @@
 ﻿using DanpheEMR.Core.Domain.OT;
-namespace DanpheEMR.Core.Interfaces.OT
-{
-    public interface IOTRoomRepository
-    {
-        Task<OTRoom> GetByIdAsync(Guid Id);
-        Task<IEnumerable<OTRoom>> GetAllAsync();
+using DanpheEMR.Core.Interface.Base; // Nhớ using IGenericRepository
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-        Task<OTRoom> AddAsync(OTRoom room);
-        Task UpdateAsync(OTRoom room);
+namespace DanpheEMR.Core.Interface.OT
+{
+    public interface IOTRoomRepository : IGenericRepository<OTRoom>
+    {
         // Lấy danh sách các phòng ĐANG HOẠT ĐỘNG (IsAvailable = true)
         Task<IEnumerable<OTRoom>> GetAvailableRoomsAsync();
+
+        // Kiểm tra trùng tên phòng mổ
+        Task<bool> IsRoomNameExistsAsync(string roomName, Guid? excludeId = null);
     }
 }

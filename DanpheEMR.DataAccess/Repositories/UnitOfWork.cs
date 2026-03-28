@@ -10,11 +10,8 @@ namespace DanpheEMR.Infrastructure.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
-
-        // 1. KHAI BÁO BIẾN Ở ĐÂY
         private readonly ICurrentUserService _currentUserService;
 
-        // 2. TIÊM VÀO CONSTRUCTOR Ở ĐÂY
         public UnitOfWork(
             ApplicationDbContext dbContext,
             ICurrentUserService currentUserService)
@@ -31,6 +28,8 @@ namespace DanpheEMR.Infrastructure.Data
                             e.State == EntityState.Deleted)
                 .ToList();
 
+            var auditLogs = new List<AuditLog>();
+
             foreach (var entry in modifiedEntries)
             {
                 if (entry.Entity is AuditLog) continue;
@@ -40,13 +39,16 @@ namespace DanpheEMR.Infrastructure.Data
                     Id = Guid.NewGuid(),
                     TableName = entry.Entity.GetType().Name,
                     Action = entry.State.ToString(),
-                    Timestamp = DateTime.Now,
-
-                    // Bây giờ biến này đã hoạt động hợp lệ!
+                    Timestamp = DateTime.UtcNow, 
                     UserId = _currentUserService.UserId
                 };
 
-                _dbContext.Set<AuditLog>().Add(auditLog);
+                auditLogs.Add(auditLog);
+            }
+
+            if (auditLogs.Any())
+            {
+                await _dbContext.Set<AuditLog>().AddRangeAsync(auditLogs, cancellationToken);
             }
 
             return await _dbContext.SaveChangesAsync(cancellationToken);
@@ -54,17 +56,17 @@ namespace DanpheEMR.Infrastructure.Data
 
         public async Task BeginTransactionAsync()
         {
-            await _dbContext.Database.BeginTransactionAsync();
+            await _dbContext.Database.BeginTransactionAsync(cancellationToken: default);
         }
 
         public async Task CommitTransactionAsync()
         {
-            await _dbContext.Database.CommitTransactionAsync();
+            await _dbContext.Database.CommitTransactionAsync(cancellationToken: default);
         }
 
         public async Task RollbackTransactionAsync()
         {
-            await _dbContext.Database.RollbackTransactionAsync();
+            await _dbContext.Database.RollbackTransactionAsync(cancellationToken: default);
         }
 
         public void Dispose()

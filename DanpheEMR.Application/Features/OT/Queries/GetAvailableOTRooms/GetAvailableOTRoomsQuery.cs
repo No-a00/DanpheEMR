@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.OT.Queries.GetAvailableOTRooms
 {
-    internal class GetAvailableOTRoomsQuery
-    {
-    }
+    public record GetAvailableOTRoomsQuery() : IRequest<Result<List<GetAvailableOTRoomsResponse>>>;
 }

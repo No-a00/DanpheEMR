@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Admin;
+using System;
 
-namespace DanpheEMR.Application.Features.Organization.Commands.RegisterEmployee
+namespace DanpheEMR.Application.Features.Admin.Commands.RegisterEmployee
 {
-    internal class RegisterEmployeeMapping
+    public class RegisterEmployeeMapping : Profile
     {
+        public RegisterEmployeeMapping()
+        {
+            CreateMap<RegisterEmployeeCommand, Employee>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
+                .ForMember(dest => dest.Department, opt => opt.Ignore())
+                .ForMember(dest => dest.Users, opt => opt.Ignore())
+                .ForMember(dest => dest.Schedules, opt => opt.Ignore());
+        }
     }
 }

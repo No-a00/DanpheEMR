@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Admin
 {
     // Kế thừa BaseEntity là quá chuẩn: Phải biết ai là người tạo ra Role này!
-    public class Role : BaseEntity
+    public class Role : BaseEntity,ISoftDelete
     {
         [Key]
         public Guid Id { get; set; }
@@ -17,6 +17,7 @@ namespace DanpheEMR.Core.Domain.Admin
 
         // Đã xóa dòng ICollection<User> để dùng chuẩn mô hình N-N tường minh qua bảng trung gian
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        public bool IsDelete { get; set; }
 
         // Quan hệ N-N với bảng Permission (Quyền hạn chi tiết)
         public virtual ICollection<RolePermission> RolePermissions { get; set; }

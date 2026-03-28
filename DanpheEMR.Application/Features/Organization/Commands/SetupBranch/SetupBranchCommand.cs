@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Organization.Commands.SetupBranch
+namespace DanpheEMR.Application.Features.Admin.Commands.SetupBranch
 {
-    internal class SetupBranchCommand
-    {
-    }
+    public record SetupBranchCommand(
+        string BranchName,
+        string Address,
+        string ContactEmail
+    ) : IRequest<Result<Guid>>; 
 }

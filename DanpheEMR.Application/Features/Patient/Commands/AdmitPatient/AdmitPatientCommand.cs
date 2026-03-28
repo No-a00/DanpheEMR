@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.AdmitPatient
+namespace DanpheEMR.Application.Features.Patients.Commands.AdmitPatient
 {
-    internal class AdmitPatientCommand
-    {
-    }
+    public record AdmitPatientCommand(
+        Guid PatientId,
+        Guid AdmittingDoctorId, 
+        Guid DepartmentId,      
+        Guid? WardId,          
+        Guid? BedId,           
+        string InitialDiagnosis 
+    ) : IRequest<Result<Guid>>; 
 }

@@ -24,7 +24,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .ToListAsync(); 
         }
 
-        public async Task<Employee> GetEmployeeByUserIdAsync(Guid userId)
+        public async Task<Employee?> GetEmployeeByUserIdAsync(Guid userId)
         {
             return await _dbSet
                 .AsNoTracking()
@@ -38,6 +38,13 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .Include(e => e.Department)
                 .Include(e => e.Users)
                 .FirstOrDefaultAsync(e => e.Id == id);
+        }
+        public async Task<IEnumerable<Employee>> GetEmployeesWithDepartmentAsync()
+        {
+            return await _context.Set<Employee>()
+                .Include(e => e.Department) 
+                .AsNoTracking()            
+                .ToListAsync();
         }
 
     }

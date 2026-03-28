@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Patient.Commands.DischargePatient
+namespace DanpheEMR.Application.Features.Patients.Commands.DischargePatient
 {
-    internal class DischargePatientValidator
+    public class DischargePatientValidator : AbstractValidator<DischargePatientCommand>
     {
+        public DischargePatientValidator()
+        {
+            RuleFor(x => x.AdmissionId).NotEmpty();
+            RuleFor(x => x.DischargeCondition).NotEmpty().WithMessage("Vui lòng nhập tình trạng khi ra viện.");
+        }
     }
 }

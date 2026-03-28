@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Organization.Commands.RegisterEmployee
+namespace DanpheEMR.Application.Features.Admin.Commands.RegisterEmployee
 {
-    internal class RegisterEmployeeCommand
-    {
-    }
+    public record RegisterEmployeeCommand(
+        string FirstName,
+        string LastName,
+        DateTime DOB,
+        string Gender,
+        string ContactNumber,
+        Guid DepartmentId
+    ) : IRequest<Result<Guid>>; 
 }

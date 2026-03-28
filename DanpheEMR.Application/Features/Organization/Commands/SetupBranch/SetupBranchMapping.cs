@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Admin;
+using System;
 
-namespace DanpheEMR.Application.Features.Organization.Commands.SetupBranch
+namespace DanpheEMR.Application.Features.Admin.Commands.SetupBranch
 {
-    internal class SetupBranchMapping
+    public class SetupBranchMapping : Profile
     {
+        public SetupBranchMapping()
+        {
+            CreateMap<SetupBranchCommand, Branch>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()));
+        }
     }
 }

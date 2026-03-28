@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace DanpheEMR.Application.Features.Patient.Queries.SearchPatients
+namespace DanpheEMR.Application.Features.Patients.Queries.SearchPatients
 {
-    internal class SearchPatientsQuery
-    {
-    }
+    public record SearchPatientsQuery(string SearchTerm) : IRequest<Result<List<SearchPatientsResponse>>>;
 }
