@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class Category : BaseEntity, IHasActiveStatus
+    public class Category : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
 
@@ -11,9 +11,11 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public string CategoryName { get; set; } // Tên nhóm cha (VD: "Thuốc", "Vật tư y tế")
         public string Description { get; set; }
 
-        public bool IsActive { get; set; } = true;
-        public string CancelReason { get; set; }
-        public Guid? UserIdCancel { get; set; } 
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
         public ICollection<SubCategory> SubCategories { get; set; } = new List<SubCategory>();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
 
-public class DoctorSchedule : BaseEntity
+public class DoctorSchedule : BaseEntity, ISoftDelete
 {
     public Guid Id { get; set; }
     public System.DayOfWeek DayOfWeek { get; set; }
@@ -9,8 +9,16 @@ public class DoctorSchedule : BaseEntity
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }
     public int MaxPatients { get; set; }
+
+    // Thông tin xóa mềm
+    public bool IsDeleted { get; set; }
+
+    public string Reason { get; set; }
+    public Guid? DeletedBy { get; set; }
+
     public Guid ProviderId { get; set; }
     public Guid DepartmentId { get; set; }
+
 
     public Employee Provider { get; set; }
     public Department Department { get; set; }

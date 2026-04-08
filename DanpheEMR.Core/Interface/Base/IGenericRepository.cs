@@ -12,6 +12,6 @@
         void Update(T entity);
 
 
-        Task DeleteAsync(Guid Id);
+        Task DeleteAsync(Guid Id,Guid ?UserBy,string? Reason);
     }
 }

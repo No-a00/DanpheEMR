@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class ProgressNote : BaseEntity,IHasActiveStatus
+    public class ProgressNote : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -14,15 +14,17 @@ namespace DanpheEMR.Core.Domain.EMR
         public string Objective { get; set; }
         public string Assessment { get; set; }
         public string Plan { get; set; }
-        //hủy và lí do
-        public bool IsActive { get; set; }
-        public string VoidReason { get; set; }
-        public Guid VoidedByUserId { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
 
         public Guid AdmissionId { get; set; }
-        public Admission Admission { get; set; }
         public Guid ProviderId { get; set; } 
+        public Admission Admission { get; set; }
+       
         public Employee Provider { get; set; }
     }
 }

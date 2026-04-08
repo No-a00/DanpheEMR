@@ -16,12 +16,13 @@ namespace DanpheEMR.Core.Domain.BloodBank
         [Required, MaxLength(20)]
         public string Contact { get; set; }
 
-        // Soft Delete
+        // Thông tin xóa mềm
         public bool IsDeleted { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
-        [MaxLength(10)]
+        public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
 
         public float Weight { get; set; }
@@ -31,8 +32,6 @@ namespace DanpheEMR.Core.Domain.BloodBank
         public int TotalDonations { get; set; }
 
         public DateTime? LastDonatedDate { get; set; }
-
-        // Đã sửa 'int' thành 'Guid' để khớp với BloodGroup.Id
         public Guid BloodGroupId { get; set; }
 
         [ForeignKey("BloodGroupId")]

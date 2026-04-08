@@ -1,4 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace DanpheEMR.Core.Domain.Admin
 {
@@ -7,26 +8,19 @@ namespace DanpheEMR.Core.Domain.Admin
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        // Thuộc tính tiện ích: Tự động ghép tên
         public string FullName => $"{FirstName} {LastName}";
+        public bool IsActive { get; set; }//kiểm tra xem nhân viên có đang làm việc hay không, nếu nghỉ việc thì sẽ không được phép tạo lịch khám
 
         public bool IsDeleted { get; set; }
-        public bool IsActive { get; set; } = true; // Mặc định là đang hoạt động
+        [Required]
+        public  string Reason { get; set; }
+        [Required]
+        public Guid? DeletedBy { get; set; }
 
-        public DateTime DOB { get; set; }
-        public string Gender { get; set; }
         public string ContactNumber { get; set; }
-
-        // Quan hệ với Department (Chuẩn 100%)
         public Guid DepartmentId { get; set; }
         public virtual Department Department { get; set; }
-
-        // Quan hệ với User (Lớp bảo mật)   
         public virtual ICollection<User> Users { get; set; }
-
-        // --- THÊM DÒNG NÀY ĐỂ PHỤC VỤ ĐẶT LỊCH ---
-        // Một bác sĩ có nhiều khung giờ trực/lịch làm việc
         public virtual ICollection<DoctorSchedule> Schedules { get; set; }
     }
 }

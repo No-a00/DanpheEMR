@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Patient : BaseEntity, IHasActiveStatus
+    public class Patient : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public string PatientCode { get; set; }
@@ -25,10 +25,11 @@ namespace DanpheEMR.Core.Domain.Patients
         public string IdCardNumber { get; set; }
         public string BloodGroup { get; set; }
 
-        // Cờ đánh dấu Xóa mềm
-        public bool IsActive { get; set; }
-        public string VoidReason { get; set; }
-        public Guid VoidedByUserId { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
         public ICollection<PatientAddress> Addresses { get; set; }
         public ICollection<PatientKin> Kins { get; set; }

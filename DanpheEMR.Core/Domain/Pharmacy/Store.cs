@@ -1,17 +1,23 @@
-﻿using DanpheEMR.Core.Domain.Base;
+﻿using DanpheEMR.Core.Domain.Admin;
+using DanpheEMR.Core.Domain.Base;
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class Store : BaseEntity,IHasActiveStatus
+    public class Store : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public string StoreName { get; set; } 
-        public string StoreCode { get; set; } // Mã kho (VD: "KHO-TONG")
-        public string Location { get; set; }  // Vị trí (VD: "Tầng 1 - Khu A")
-        public bool IsActive { get; set; } = true; // Kho có đang hoạt động không?
-        public string CancelReason { get; set; }
-        public Guid CancelledByUserId { get; set; }
+        public string StoreCode { get; set; } // Mã kho 
+        public string Location { get; set; }  // Vị trí 
+        public bool IsActive { get; set; } = true; // Kho có đang hoạt động không?7
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
 
-        // (Tùy chọn) Nếu bạn muốn phân quyền, có thể thêm danh sách các User được phép vào kho này
+        public string Reason { get; set; }
+
+        public Guid? DeletedBy { get; set; }
+
+       public Guid UserId { get; set; } // Người có quyền quản lý kho này
+        public User User { get; set; }
     }
 }

@@ -6,21 +6,22 @@ using DanpheEMR.Core.Enums;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Transfer : BaseEntity, IHasActiveStatus
+    public class Transfer : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime TransferDate { get; set; }// Ngày giờ chuyển khoa
-        public string? Reason { get; set; } // Lý do chuyển khoa
+        public string? TransferReason { get; set; } 
         public TransferStatus TransferStatus { get; set; }
-        // xóa mềm
-        public bool IsActive { get; set; }
-        public string CancelReason { get; set; }
-        public Guid VoidedByUserId {  get; set; }
-        public Guid AdmissionId { get; set; } // Khóa ngoại đến bảng Admission
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
+
+        public Guid AdmissionId { get; set; }
         public Guid FromDeptId { get; set; }
         public Guid ToDeptId { get; set; }
-        public  Admission Admission { get; set; } // Navigation property đến Admission
-        public Department FromDepartment { get; set; } // Navigation property đến Department (khoa chuyển đi)
-        public Department ToDepartment { get; set; } // Navigation property đến Department (khoa chuyển đến)
+        public  Admission Admission { get; set; } 
+        public Department Department { get; set; } 
     }
 }

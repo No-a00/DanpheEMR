@@ -7,26 +7,26 @@ using System.Collections.Generic;
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class Visit : BaseEntity, IHasActiveStatus
+    public class Visit : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
-        public string VisitCode { get; set; } // VD: VIS-2603-001
-        public int? QueueNo { get; set; } // Đổi từ Guid? thành int? cho đúng số thứ tự
+        public string VisitCode { get; set; } 
+        public int? QueueNo { get; set; } 
         public string ChiefComplaint { get; set; }
         public string VisitType { get; set; }
         public DateTime VisitDate { get; set; }
         public VisitStatus Status { get; set; }
 
-        // Chuẩn hóa tracking Hủy/Xóa mềm
-        public bool IsActive { get; set; } = true;
-        public string CancelReason { get; set; }
-        public Guid? CancelledByUserId { get; set; } 
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; } } 
 
         public Guid PatientId { get; set; }
         public Guid DepartmentId { get; set; }
         public Guid ProviderId { get; set; }
 
-        // Navigation Properties (Nên thêm chữ 'virtual' để EF Core map chuẩn hơn)
         public virtual Patient Patient { get; set; }
         public virtual Department Department { get; set; }
         public virtual Employee Provider { get; set; }

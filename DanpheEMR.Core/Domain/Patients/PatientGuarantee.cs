@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Patients
 {
-    public class PatientGuarantee : BaseEntity, IHasActiveStatus
+    public class PatientGuarantee : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public string GuarantorName { get; set; }
@@ -11,12 +11,11 @@ namespace DanpheEMR.Core.Domain.Patients
         public decimal? GuaranteeAmount { get; set; }
         
         public string Address { get; set; }
-        //hủy và lí do
-        public bool IsActive { get; set; }
-        public string CancelReason { get; set; }
-        public Guid CancelledByUserId { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
 
-        //
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
         public Guid PatientId { get; set; }
         public Patient Patient { get; set; }
     }

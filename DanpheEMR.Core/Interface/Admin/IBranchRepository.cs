@@ -1,14 +1,11 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Admin
 {
-    public interface IBranchRepository
+    public interface IBranchRepository : IGenericRepository<Branch>
     {
-        Task<Branch> GetByIdAsync(Guid id);
-        Task<IEnumerable<Branch>> GetAllAsync();
         Task<bool> IsBranchNameExistsAsync(string branchName, Guid? excludeId = null);
-        Task AddAsync(Branch branch);
-        void Update(Branch branch);
-        void Delete(Branch branch);
+
     }
 }

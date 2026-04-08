@@ -1,8 +1,13 @@
-﻿namespace DanpheEMR.Core.Domain.Base
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DanpheEMR.Core.Domain.Base
 {
-    // Bất kỳ bảng nào muốn dùng tính năng Xóa mềm thì kế thừa cái này
     public interface ISoftDelete
     {
         bool IsDeleted { get; set; }
+        [Required]
+        string Reason { get; set; }
+        [Required]
+        Guid? DeletedBy { get; set; }
     }
 }

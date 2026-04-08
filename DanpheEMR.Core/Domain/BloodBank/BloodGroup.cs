@@ -11,11 +11,9 @@ namespace DanpheEMR.Core.Domain.BloodBank
         [Key]
         public Guid Id { get; set; }
 
-        // Đã bỏ MaxLength vì BloodType là Enum
         [Required]
         public BloodType BloodGroupName { get; set; }
 
-        [MaxLength(255)]
         public string Description { get; set; }
 
         public virtual ICollection<BloodDonor> BloodDonors { get; set; }

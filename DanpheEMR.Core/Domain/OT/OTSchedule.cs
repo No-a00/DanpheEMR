@@ -5,7 +5,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.OT
 {
-    public class OTSchedule : BaseEntity, IHasActiveStatus
+    public class OTSchedule : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime SurgeryDate { get; set; }
@@ -14,12 +14,13 @@ namespace DanpheEMR.Core.Domain.OT
         public string SurgeryType { get; set; }
         public OTStatus Status { get; set; } // Scheduled, Completed, Cancelled
         public string Remarks { get; set; }
-        //hủy và lí do
-        public bool IsActive {  get; set; }
-        public string CancelReason { get; set; }
-        public Guid CancelledByUserId { get; set; }
-        //
-        //khóa ngoại
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
+  
+
         public Guid patientId { get; set; }
         public Guid OTRoomId { get; set; }
         public Guid SurgeonId { get; set; }

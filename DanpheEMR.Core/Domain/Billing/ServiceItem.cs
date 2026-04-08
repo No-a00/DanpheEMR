@@ -2,31 +2,23 @@
 using DanpheEMR.Core.Domain.Appointments;
 using DanpheEMR.Core.Domain.Base;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.Billing
 {
-    // 1. Nhớ kế thừa BaseEntity
     public class ServiceItem : BaseEntity
     {
         [Key]
         public Guid Id { get; set; }
 
-        [Required, MaxLength(50)]
-        public string ItemCode { get; set; } // Mã dịch vụ (VD: XQ01, XN02)
+        [Required]
+        public string ItemCode { get; set; }
 
-        [Required, MaxLength(200)]
-        public string ItemName { get; set; } // Tên dịch vụ (VD: Chụp X-Quang Phổi)
-
-        [Column(TypeName = "decimal(18,2)")] // Định dạng tiền tệ chuẩn trong SQL
+        [Required]
+        public string ItemName { get; set; } 
         public decimal Price { get; set; }
+        public bool IsTaxable { get; set; } // Thuế suất có thể áp dụng cho dịch vụ này
 
-        public bool IsTaxable { get; set; } // Có tính thuế VAT hay không?
-
-        // 2. Bổ sung Navigation Property chuẩn EF Core
         public Guid ServiceCategoryId { get; set; }
-
-        [ForeignKey("ServiceCategoryId")]
-        public ServiceCategory ServiceCategory { get; set; } // Liên kết sang bảng Nhóm Dịch Vụ
+        public ServiceCategory ServiceCategory { get; set; } 
     }
 }

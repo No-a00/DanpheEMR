@@ -5,19 +5,22 @@ using DanpheEMR.Core.Domain.Patients;
 using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Appointments
 {
-    public class Appointment : BaseEntity,IHasActiveStatus
+    public class Appointment : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime AppointmentDate { get; set; }
         public TimeSpan AppointmentTime { get; set; }
-        public VisitStatus Status { get; set; } // e.g., Scheduled, Completed, Canceled
+        public VisitStatus Status { get; set; }
         public Guid PatientId { get; set; }
-        // Hủy lịch hẹn thay vì xóa
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } // trạng thái hoạt đông của Appointment
+        public string CancelReason { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
         public string Reason { get; set; }
-        public Guid ReasonUserId { get; set; }
-        [Required]
-        public string CancelReason  { get; set; }
+        public Guid? DeletedBy { get; set; }
+
+
 
         public Guid ProviderId { get; set; }
         public Guid DepartmentId { get; set; }

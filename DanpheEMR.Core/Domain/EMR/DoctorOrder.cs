@@ -5,7 +5,7 @@ using System;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class DoctorOrder : BaseEntity
+    public class DoctorOrder : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime OrderDate { get; set; }
@@ -13,10 +13,11 @@ namespace DanpheEMR.Core.Domain.EMR
         public string Status { get; set; }
         public Guid VisitId { get; set; }
 
-        // Đã sửa Viết hoa chữ cái đầu và thêm dấu ? cho Guid
-        public Guid? CancelledByUserId { get; set; }
-        public bool IsActive { get; set; }
-        public string CancelReason { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
         public Guid ProviderId { get; set; }
 

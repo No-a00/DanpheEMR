@@ -4,18 +4,18 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class MedicationAdministration : BaseEntity
+    public class MedicationAdministration : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime AdministeredTime { get; set; }
-        public string DosageGiven { get; set; }
+        public string DosageGiven { get; set; }// Liều lượng đã cho
 
-        public string Remarks { get; set; }
-        //hủy và lí do
-        public string VoidReason { get; set; }
-        public bool IsActive { get; set; }
-        public Guid VoidedByUserId { get; set; }
-        //
+        public string Remarks { get; set; }// Ghi chú về việc cho thuốc, ví dụ: "Đã cho thuốc sau bữa ăn", "Bệnh nhân có phản ứng phụ nhẹ", v.v.
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
         public Guid AdmissionId { get; set; }
         public Admission Admission { get; set; }

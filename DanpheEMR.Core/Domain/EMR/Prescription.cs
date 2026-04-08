@@ -1,27 +1,28 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class Prescription : BaseEntity,IHasActiveStatus
+    public class Prescription : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime PrescriptionDate { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
-        //hủy và lí do
-        public bool IsActive { get; set; }
-        public string CancelReason { get; set; }
-        public Guid UserIdCancel {  get; set; }
-        //
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
+
         public Guid VisitId { get; set; }
-        public Visit Visit { get; set; }
+        
         public Guid PatientId { get; set; }
-        public Patient Patient { get; set; }
+        
         public Guid PrescriberId { get; set; }
-        [ForeignKey("PrescriberId")]
+        public Visit Visit { get; set; }
+        public Patient Patient { get; set; }
         public Employee Prescriber { get; set; } // Liên kết đến nhân viên/bác sĩ kê đơn
         public ICollection<PrescriptionItem> Items { get; set; }
     }

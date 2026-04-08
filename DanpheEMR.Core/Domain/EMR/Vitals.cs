@@ -4,7 +4,7 @@ using DanpheEMR.Core.Domain.Patients;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class Vitals : BaseEntity, IHasActiveStatus
+    public class Vitals : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime RecordedAt { get; set; }  // Thời điểm ghi nhận
@@ -16,11 +16,12 @@ namespace DanpheEMR.Core.Domain.EMR
         public decimal Weight { get; set; } // Cân nặng (kg)
         public decimal Height { get; set; } // Chiều cao (cm)
         public decimal BMI { get; set; } // Chỉ số khối cơ thể (BMI)
-        //hủy và lí do
-        public bool IsActive { get; set; }
-        public string voidReason { get; set; }
-        public Guid voidedByUserId { get; set; }
-        //
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
+
         public Guid VisitId { get; set; } // Khóa ngoại liên kết với Visit
         public Guid PatientId { get; set; } // Khóa ngoại liên kết với Patient
         public Visit Visit { get; set; } // Navigation property đến Visit

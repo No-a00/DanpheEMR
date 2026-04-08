@@ -2,7 +2,7 @@
 
 namespace DanpheEMR.Core.Domain.Pharmacy
 {
-    public class Supplier : BaseEntity, IHasActiveStatus
+    public class Supplier : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public string SupplierCode { get; set; } 
@@ -12,7 +12,11 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public string Email { get; set; }
         public string Address { get; set; }
         public bool IsActive { get; set; }
-        public string CancelReason { get; set; }
-        public Guid? CancelledByUserId { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+
+        public Guid? DeletedBy { get; set; }
     }
 }

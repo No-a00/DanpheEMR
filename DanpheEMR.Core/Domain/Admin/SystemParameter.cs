@@ -7,6 +7,6 @@ namespace DanpheEMR.Core.Domain.Admin
         public Guid Id { get; set; }
         public string ParameterName { get; set; }
         public string ParameterValue { get; set; }
-        public string ValueType { get; set; } // Ví dụ: "string", "int", "bool", v.v.
+        public string ValueType { get; set; } 
     }
 }

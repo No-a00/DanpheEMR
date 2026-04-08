@@ -1,12 +1,18 @@
 ﻿using DanpheEMR.Core.Domain.Base;
-using System;
+
 
 namespace DanpheEMR.Core.Domain.Admin
 {
-    public class UserRole : BaseEntity
+    public class UserRole : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
-        public bool IsActive { get; set; }
+
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+        
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
+
         public Guid UserId { get; set; }
         public Guid RoleId { get; set; }
 

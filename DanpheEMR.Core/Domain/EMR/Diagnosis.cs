@@ -5,18 +5,20 @@ using System;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
-    public class Diagnosis : BaseEntity
+    public class Diagnosis : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime DiagnosisDate { get; set; }
         public string ICD10Code { get; set; } // Mã ICD-10
         public string Description { get; set; } // Mô tả chẩn đoán
-        public bool IsPrimary { get; set; } // Chẩn đoán chính hay phụ
+        public bool IsPrimary { get; set; }
 
-     
-        public string Reason { get; set; }
+
+        // Thông tin xóa mềm
         public bool IsDeleted { get; set; }
-        public Guid? VoidedBy { get; set; } 
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
         public Guid VisitId { get; set; } 
         public Visit Visit { get; set; }

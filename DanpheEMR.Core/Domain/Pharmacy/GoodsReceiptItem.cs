@@ -6,16 +6,16 @@ namespace DanpheEMR.Core.Domain.Pharmacy
     public class GoodsReceiptItem : BaseEntity
     {
         public Guid Id { get; set; }
-        public string BatchNo { get; set; } // Bắt buộc: Lô số mấy?
-        public DateTime ExpiryDate { get; set; } // Bắt buộc: Hạn sử dụng ngày nào?
+        public string BatchNo { get; set; } //  Lô số bao nhieu
+        public DateTime ExpiryDate { get; set; } //  Hạn sử dụng 
 
-        public int ReceivedQuantity { get; set; } // Số lượng nhập thực tế
-        public int FreeQuantity { get; set; } // Số lượng hàng tặng kèm (nếu có)
+        public int ReceivedQuantity { get; set; } // Số lượng nhập 
+        public int FreeQuantity { get; set; } // Số lượng hàng tặng 
 
         public decimal PurchaseRate { get; set; } // Giá mua vào
-        public decimal Margin { get; set; } // Tỷ lệ phần trăm lợi nhuận mong muốn
-        public decimal SellingPrice { get; set; } // Giá bán ra (Thường tự động tính = PurchaseRate + Margin)
-        public decimal SubTotal { get; set; } // Thành tiền (ReceivedQuantity * PurchaseRate)
+        public decimal Margin { get; set; } // Tỷ lệ phần trăm lợi nhuận
+        public decimal SellingPrice { get; set; } // Giá bán ra 
+        public decimal SubTotal { get; set; } // Thành tiền 
 
         public Guid GoodsReceiptId { get; set; }
         public Guid ItemId { get; set; }

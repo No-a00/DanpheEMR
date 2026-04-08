@@ -6,17 +6,19 @@ using DanpheEMR.Core.Domain.Base;
 namespace DanpheEMR.Core.Domain.Patients
 {
 
-    public class Admission : BaseEntity, IHasActiveStatus
+    public class Admission : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public DateTime AdmissionDate { get; set; }
         public string AdmissionNotes { get; set; }
         public AdmissionStatus Status { get; set; }
 
-       
-        public bool IsActive { get; set; } = true;
-        public string CancelReason { get; set; }
-        public Guid? CancelledByUserId { get; set; }
+
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+        public Guid? DeletedBy { get; set; }
 
         public Guid PatientId { get; set; }
         public Guid VisitId { get; set; }

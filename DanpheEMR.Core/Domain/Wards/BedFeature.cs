@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 namespace DanpheEMR.Core.Domain.Wards
 {
-    public class BedFeature : BaseEntity, IHasActiveStatus
+    public class BedFeature : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
         public string FeatureCode { get; set; } // Mã loại (VD: "VIP", "STD", "ICU")
@@ -9,9 +9,12 @@ namespace DanpheEMR.Core.Domain.Wards
         public string Description { get; set; }
         public decimal BedPrice { get; set; }
 
-        public bool IsActive { get; set; }
-        public string CancelReason { get; set; }
-        public int? CancelledByUserId { get; set; }
+        // Thông tin xóa mềm
+        public bool IsDeleted { get; set; }
+
+        public string Reason { get; set; }
+
+        public Guid? DeletedBy { get; set; }
 
         // Navigation Property: Một loại giường (VD: VIP) được áp dụng cho nhiều cái Giường thực tế khác nhau
         public ICollection<Bed> Beds { get; set; }
