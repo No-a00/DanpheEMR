@@ -15,7 +15,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         public async Task<bool> IsRoleNameExistsAsync(string roleName, Guid? excludeId = null) { 
             return await _dbSet.AnyAsync(r => r.RoleName == roleName && (!excludeId.HasValue || r.Id != excludeId.Value));
         }
-        public async Task<Role> GetByNameAsync(string roleName) { 
+        public async Task<Role?> GetByNameAsync(string roleName) { 
                return await _dbSet.FirstOrDefaultAsync(r => r.RoleName == roleName);
         }
         public async Task<Role?> GetRoleWithPermissionsAsync(Guid roleId) { 

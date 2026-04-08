@@ -1,12 +1,8 @@
-﻿using DanpheEMR.Core.Domain.Appointments;
-using DanpheEMR.Core.Interfaces.Appointment;
+﻿using DanpheEMR.Core.Interfaces.Appointment;
 using DanpheEMR.DataAccess.Data;
 using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.DataAccess.Repositories.Appointments
 {
@@ -27,8 +23,6 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                     ds.StartTime <= time &&
                     ds.EndTime > time);
         }
-
-        // 2. Lấy tất cả các khung giờ làm việc của bác sĩ trong 1 ngày
         public async Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime date)
         {
             var targetDayOfWeek = date.DayOfWeek;
@@ -37,8 +31,6 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                 .Where(ds => ds.ProviderId == providerId && ds.DayOfWeek == targetDayOfWeek)
                 .ToListAsync();
         }
-
-        // 3. Tìm 1 lịch cụ thể dựa trên mốc thời gian
         public async Task<DoctorSchedule?> GetScheduleByProviderIdAndTimeAsync(Guid providerId, DateTime date, TimeSpan time)
         {
             var targetDayOfWeek = date.DayOfWeek;
@@ -51,7 +43,6 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                     ds.EndTime > time);
         }
 
-        // 4. Kiểm tra xem bác sĩ đã có lịch trong khoa vào khoảng thời gian đó chưa (Chống xếp trùng lịch làm việc)
         public async Task<bool> IsDoctorScheduledInDepartmentAsync(Guid providerId, Guid departmentId, DateTime date, TimeSpan startTime, TimeSpan endTime)
         {
             var targetDayOfWeek = date.DayOfWeek;

@@ -23,23 +23,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .AsNoTracking()
                 .ToListAsync();
         }
-
-        public async Task<IEnumerable<Department>> GetRootDepartmentsAsync()
-        {
-            return await _context.Set<Department>()
-                .Where(d => d.ParentDepartmentId == null && d.IsActive == true)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Department>> GetSubDepartmentsAsync(Guid parentDepartmentId)
-        {
-            return await _context.Set<Department>()
-                .Where(d => d.ParentDepartmentId == parentDepartmentId && d.IsActive == true)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
+     
         public async Task<Department?> GetDepartmentWithEmployeesAsync(Guid departmentId)
         {
             return await _context.Set<Department>()

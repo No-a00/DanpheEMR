@@ -14,7 +14,7 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         }
         public async Task<ServiceCategory?> GetByCategoryCodeAsync(string categoryCode)
         {
-            ServiceCategory category = await _dbSet.AsNoTracking().FirstOrDefaultAsync(c => c.CategoryCode == categoryCode);
+            ServiceCategory? category = await _dbSet.AsNoTracking().FirstOrDefaultAsync(c => c.CategoryCode == categoryCode);
             if (category == null)
             {
                 return null;

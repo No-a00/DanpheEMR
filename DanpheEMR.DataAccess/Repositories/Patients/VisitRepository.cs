@@ -16,7 +16,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         {
             return await _context.Set<Visit>()
                 .Include(v => v.Patient)
-                .Where(v => v.ProviderId == providerId && v.VisitDate.Date == date.Date && v.IsActive)
+                .Where(v => v.ProviderId == providerId && v.VisitDate.Date == date.Date && !v.IsDeleted)
                 .AsNoTracking()
                 .ToListAsync();
         }

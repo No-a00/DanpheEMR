@@ -1,29 +1,14 @@
 ﻿using DanpheEMR.Core.Domain.Pharmacy;
 using DanpheEMR.Core.Interface.Pharmacy;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.Pharmacy
 {
-    public class StockTransactionRepository : IStockTransactionRepository
+    public class StockTransactionRepository : GenericRepository<StockTransaction>, IStockTransactionRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<StockTransaction> _dbSet;
-
-        public StockTransactionRepository(ApplicationDbContext context)
-        {
-            _context = context;
-            _dbSet = _context.Set<StockTransaction>();
-        }
-        public async Task<StockTransaction> AddAsync(StockTransaction transaction)
-        {
-            await _dbSet.AddAsync(transaction);
-            return transaction;
-        }
-        public async Task<StockTransaction?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
-        }
+        public StockTransactionRepository(ApplicationDbContext context) : base(context) { }
         public async Task<IEnumerable<StockTransaction>> GetTransactionsByItemAsync(Guid itemId, DateTime fromDate, DateTime toDate)
         {
             var start = fromDate.Date;
@@ -32,6 +17,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             return await _dbSet.AsNoTracking()
                 .Where(t => t.ItemId == itemId
                          && t.TransactionDate >= start
+                         && !t.IsDeleted
                          && t.TransactionDate <= end)
                 .OrderByDescending(t => t.TransactionDate)
                 .ToListAsync();
@@ -43,6 +29,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
 
             return await _dbSet.AsNoTracking()
                 .Where(t => t.StoreId == storeId
+                         && !t.IsDeleted
                          && t.TransactionDate >= startOfDay
                          && t.TransactionDate <= endOfDay)
                 .OrderByDescending(t => t.TransactionDate)
@@ -51,7 +38,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
         public async Task<IEnumerable<StockTransaction>> GetTransactionsByReferenceNoAsync(string referenceNo)
         {
             return await _dbSet.AsNoTracking()
-                .Where(t => t.ReferenceNo == referenceNo)
+                .Where(t => t.ReferenceNo == referenceNo && !t.IsDeleted)
                 .OrderByDescending(t => t.TransactionDate)
                 .ToListAsync();
         }

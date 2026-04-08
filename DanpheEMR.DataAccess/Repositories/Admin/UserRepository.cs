@@ -1,30 +1,16 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface.Admin;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.Admin
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User>,IUserRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<User> _dbSet;
+        public UserRepository(ApplicationDbContext context) : base(context) { }
 
-        public UserRepository(ApplicationDbContext context)
-        {
-            _context = context;
-            _dbSet = context.Set<User>();
-        }
-
-        public async Task<User?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
-        }
-
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            return await _dbSet.AsNoTracking().ToListAsync();
-        }
+      
         public async Task<IEnumerable<User>> GetUsersWithRolesAsync()
         {
             return await _context.Set<User>()
@@ -33,32 +19,9 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                     .ThenInclude(ur => ur.Role)
                 .AsNoTracking()
                 .ToListAsync();
-        }
-        public async Task<User> AddAsync(User user)
-        {
-            var entry = await _dbSet.AddAsync(user);
-            return entry.Entity;
-        }
-
-        public async Task UpdateAsync(User user)
-        {
-            _dbSet.Update(user);
-            await Task.CompletedTask;
-        }
-
-        public async Task DeactivateUserAsync(Guid id)
-        {
-            var user = await _dbSet.FindAsync(id);
-            if (user != null)
-            {
-                user.IsActive = false;
-                _dbSet.Update(user);
-            }
-        }
-
+        } 
         public async Task<User?> GetByUsernameAsync(string username)
         {
-            // Lưu ý: Nếu Entity của bạn là 'Username' (chữ n thường) thì nhớ sửa lại nhé
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == username);
         }
 
@@ -101,7 +64,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         public async Task<bool> UserHasRoleAsync(Guid userId, Guid roleId)
         {
             return await _context.Set<UserRole>()
-                .AnyAsync(ur => ur.Id == userId && ur.RoleId == roleId && ur.IsActive);
+                .AnyAsync(ur => ur.Id == userId && ur.RoleId == roleId && !ur.IsDeleted);
         }
 
         public async Task AddUserRoleAsync(UserRole userRole)

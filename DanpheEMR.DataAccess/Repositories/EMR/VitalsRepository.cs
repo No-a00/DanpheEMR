@@ -2,72 +2,35 @@
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Interface.EMR;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.EMR
 {
-    public class VitalsRepository : IVitalsRepository
+    public class VitalsRepository : GenericRepository<Vitals>, IVitalsRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<Vitals> _dbSet;
+       
 
-        public VitalsRepository(ApplicationDbContext context)
-        {
-            _context = context;
-            _dbSet = _context.Set<Vitals>();
-        }
-
-        public async Task<Vitals?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
-        }
-
-        public async Task<Vitals> AddAsync(Vitals vitals)
-        {
-            await _dbSet.AddAsync(vitals);
-            return vitals;
-        }
-
-        public Task UpdateAsync(Vitals vitals)
-        {
-            _dbSet.Update(vitals);
-            return Task.CompletedTask;
-        }
-
-        // Sinh hiệu đo sai thì đánh dấu Hủy (Không xóa vật lý)
-        public async Task VoidVitalsAsync(Guid id, string voidReason, Guid voidedByUserId)
-        {
-            var result = await _dbSet.FindAsync(id);
-            if (result == null || result.IsActive == false) return;
-
-            result.IsActive = false;
-            result.voidReason = voidReason;
-            result.voidedByUserId = voidedByUserId;
-        }
-
-        // Lấy danh sách các lần đo sinh hiệu CỦA MỘT LƯỢT KHÁM
+        public VitalsRepository(ApplicationDbContext context) : base(context) { }
         public async Task<IEnumerable<Vitals>> GetByVisitIdAsync(Guid visitId)
         {
             return await _dbSet.AsNoTracking()
-                .Where(v => v.VisitId == visitId && v.IsActive) 
+                .Where(v => v.VisitId == visitId && !v.IsDeleted) 
                 .OrderByDescending(v => v.RecordedAt)
                 .ToListAsync();
         }
 
-        // Lấy toàn bộ lịch sử sinh hiệu của Bệnh nhân qua các năm
         public async Task<IEnumerable<Vitals>> GetHistoryByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
-                .Where(v => v.PatientId == patientId && v.IsActive) 
+                .Where(v => v.PatientId == patientId && !v.IsDeleted) 
                 .OrderByDescending(v => v.RecordedAt)
                 .ToListAsync();
         }
-
-        // Lấy nhanh chỉ số Sinh hiệu MỚI NHẤT của bệnh nhân
         public async Task<Vitals?> GetLatestVitalsByPatientIdAsync(Guid patientId)
         {
             return await _dbSet.AsNoTracking()
-                .Where(v => v.PatientId == patientId && v.IsActive)
+                .Where(v => v.PatientId == patientId && !v.IsDeleted)
                 .OrderByDescending(v => v.RecordedAt)
                 .FirstOrDefaultAsync();
         }

@@ -1,51 +1,15 @@
 ﻿using DanpheEMR.Core.Domain.EMR;
 using DanpheEMR.Core.Interfaces.EMR;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.EMR
 {
-    public class ClinicalNoteRepository : IClinicalNoteRepository
+    public class ClinicalNoteRepository :GenericRepository<ClinicalNote>, IClinicalNoteRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<ClinicalNote> _dbSet;
 
-        public ClinicalNoteRepository(ApplicationDbContext context)
-        {
-            _context = context;
-            _dbSet = _context.Set<ClinicalNote>();
-        }
-
-        public async Task<ClinicalNote?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
-        }
-
-        public async Task<ClinicalNote> AddAsync(ClinicalNote note)
-        {
-            await _dbSet.AddAsync(note);
-            return note;
-        }
-
-        public Task UpdateAsync(ClinicalNote note)
-        {
-            _dbSet.Update(note);
-            return Task.CompletedTask; 
-        }
-
-        // Xóa y khoa (Hủy và ghi lại lý do)
-        public async Task VoidNoteAsync(Guid noteId, string voidReason, Guid voidedByUserId)
-        {
-
-            var result = await _dbSet.FindAsync(noteId);
-
-            if (result != null)
-            {
-                result.IsDelete = true;
-                result.VoidReason = voidReason;
-                result.VoidedByUserId = voidedByUserId;
-            }
-        }
+        public ClinicalNoteRepository(ApplicationDbContext context) : base(context) { }
 
         // Gộp lọc để tránh gọi GetAll() làm sập server
         public async Task<IEnumerable<ClinicalNote>> SearchNotesAsync(ClinicalNoteFilter filter)
@@ -87,7 +51,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         {
 
             return await _dbSet.AsNoTracking()
-                .FirstOrDefaultAsync(c => c.VisitId == visitId && c.IsDelete == false);
+                .FirstOrDefaultAsync(c => c.VisitId == visitId && !c.IsDeleted);
         }
     }
 }

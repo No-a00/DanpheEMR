@@ -5,7 +5,7 @@ using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Wards
 {
-    public interface IBedRepository : IGenericRepository<IBedRepository>
+    public interface IBedRepository : IGenericRepository<Bed>
     {
         // Lễ tân tìm giường trống TRONG MỘT KHOA CỤ THỂ
         Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(Guid? wardId);

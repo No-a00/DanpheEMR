@@ -1,52 +1,20 @@
 ﻿using DanpheEMR.Core.Domain.Pharmacy;
 using DanpheEMR.Core.Interface.Pharmacy;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.Pharmacy
 {
-    public class ItemRepository : IItemRepository
+    public class ItemRepository : GenericRepository<Item>, IItemRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<Item> _dbSet;
 
-        public ItemRepository(ApplicationDbContext context)
-        {
-            _context = context;
-            _dbSet = _context.Set<Item>();
-        }
-
-        public async Task<Item?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
-        }
-
-        public async Task<Item> AddAsync(Item item)
-        {
-            await _dbSet.AddAsync(item);
-            return item;
-        }
-
-        public Task UpdateAsync(Item item)
-        {
-            _dbSet.Update(item);
-            return Task.CompletedTask;
-        }
-
-        public async Task DeactivateItemAsync(Guid id, string cancelReason, Guid cancelUserId)
-        {
-            var result = await _dbSet.FindAsync(id);
-            if (result == null || result.IsActive == false) return;
-
-            result.IsActive = false;
-            result.CancelReason = cancelReason;
-            result.CancelUserId = cancelUserId;
-        }
+        public ItemRepository(ApplicationDbContext context) : base(context) { }
 
         public async Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(Guid subCategoryId)
         {
             return await _dbSet.AsNoTracking()
-                .Where(x => x.SubCategoryId == subCategoryId && x.IsActive)
+                .Where(x => x.SubCategoryId == subCategoryId && !x.IsDeleted)
                 .ToListAsync();
         }
 
@@ -57,7 +25,7 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
             keyword = keyword.Trim();
 
             return await _dbSet.AsNoTracking()
-                .Where(x => x.IsActive &&
+                .Where(x => !x.IsDeleted&&
                            (x.ItemName.Contains(keyword) || x.ItemCode.Contains(keyword)))
                 .OrderBy(x => x.ItemName)
                 .ToListAsync();
@@ -65,8 +33,8 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
         public async Task<IEnumerable<Item>> GetItemsNearingReorderLevelAsync()
         {
             return await _dbSet.AsNoTracking()
-                .Where(x => x.IsActive && x.ReorderLevel <= x.ReorderLevel)
-                .OrderBy(x => x.ReorderLevel) // Thằng nào tồn kho ít nhất thì nổi lên đầu
+                .Where(x => !x.IsDeleted && x.ReorderLevel <= x.ReorderLevel)
+                .OrderBy(x => x.ReorderLevel)
                 .ToListAsync();
         }
     }

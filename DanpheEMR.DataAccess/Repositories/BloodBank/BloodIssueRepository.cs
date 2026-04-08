@@ -1,35 +1,16 @@
 ﻿using DanpheEMR.Core.Domain.BloodBank;
 using DanpheEMR.Core.Interface.BloodBank;
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace DanpheEMR.DataAccess.Repositories.BloodBank
 {
-    public class BloodIssueRepository : IBloodIssueRepository
+    public class BloodIssueRepository :GenericRepository<BloodIssue>, IBloodIssueRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<BloodIssue> _dbSet;
-
-        public BloodIssueRepository(ApplicationDbContext context)
-        {
-            _context = context;
-            _dbSet = _context.Set<BloodIssue>();
-        }
-
-        public async Task AddAsync(BloodIssue issueRecord)
-        {
-            await _dbSet.AddAsync(issueRecord);
-        }
-
-        public async Task<BloodIssue?> GetByIdAsync(Guid id)
-        {
-            return await _dbSet
-                .Include(i => i.BloodInventory) 
-                .Include(i => i.Patient)        
-                .FirstOrDefaultAsync(i => i.Id == id);
-        }
-
+        
+        public BloodIssueRepository(ApplicationDbContext context) : base(context) { }
         public async Task<IEnumerable<BloodIssue>> GetIssuesByPatientAsync(Guid patientId)
         {
             return await _dbSet

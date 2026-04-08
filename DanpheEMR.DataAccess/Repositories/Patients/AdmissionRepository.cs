@@ -19,7 +19,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
                 .Include(a => a.Patient)
                 .Include(a => a.AdmittingDoctor)
                 
-                .Where(a => a.IsActive && a.Status == AdmissionStatus.Active)
+                .Where(a => !a.IsDeleted && a.Status == AdmissionStatus.Active)
                 .OrderByDescending(a => a.AdmissionDate)
                 .AsNoTracking()
                 .ToListAsync();

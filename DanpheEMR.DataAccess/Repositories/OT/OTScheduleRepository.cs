@@ -18,7 +18,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
             return await _context.Set<OTSchedule>()
                 .Include(o => o.Patient)
                 .Include(o => o.Surgeon)
-                .Where(o => o.SurgeryDate.Date == date.Date && o.IsActive)
+                .Where(o => o.SurgeryDate.Date == date.Date && !o.IsDeleted)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -27,7 +27,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
         {
             return await _context.Set<OTSchedule>()
                 .Include(o => o.Patient)
-                .Where(o => o.SurgeryType.ToLower().Contains(surgeryType.ToLower()) && o.IsActive)
+                .Where(o => o.SurgeryType.ToLower().Contains(surgeryType.ToLower()) && !o.IsDeleted)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -37,7 +37,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
             return await _context.Set<OTSchedule>()
                 .Include(o => o.Patient)
                 .Include(o => o.OTRoom)
-                .Where(o => o.SurgeonId == surgeonId && o.SurgeryDate.Date == date.Date && o.IsActive)
+                .Where(o => o.SurgeonId == surgeonId && o.SurgeryDate.Date == date.Date && !o.IsDeleted)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -47,7 +47,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
             return await _context.Set<OTSchedule>()
                 .Include(o => o.Patient)
                 .Include(o => o.Surgeon)
-                .Where(o => o.OTRoomId == roomId && o.SurgeryDate.Date == date.Date && o.IsActive)
+                .Where(o => o.OTRoomId == roomId && o.SurgeryDate.Date == date.Date && !o.IsDeleted)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -58,7 +58,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
                 .AnyAsync(o =>
                     o.OTRoomId == roomId &&
                     o.SurgeryDate.Date == date.Date &&
-                    o.IsActive &&
+                    !o.IsDeleted &&
                     o.Status != OTStatus.Cancelled && 
                     (o.StartTime < endTime && o.EndTime > startTime)
                 );
@@ -71,7 +71,7 @@ namespace DanpheEMR.DataAccess.Repositories.OT
                 .AnyAsync(o =>
                     o.SurgeonId == surgeonId &&
                     o.SurgeryDate.Date == date.Date &&
-                    o.IsActive &&
+                    !o.IsDeleted &&
                     o.Status != OTStatus.Cancelled &&
                     (o.StartTime < endTime && o.EndTime > startTime)
                 );
