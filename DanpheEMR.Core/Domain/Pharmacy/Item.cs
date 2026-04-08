@@ -8,7 +8,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         public Guid Id { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
-        public string GernericName { get; set; }
+        public string GenericName { get; set; }
         public string UOM { get; set; }        
         public int ReorderLevel { get; set; }
         // Thông tin xóa mềm

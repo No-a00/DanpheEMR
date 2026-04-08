@@ -36,9 +36,9 @@ namespace DanpheEMR.Application.Features.OT.Commands.UpdateSurgeryStatus
            
             if (request.Status == OTStatus.Cancelled)
             {
-                schedule.IsActive = false;
-                schedule.CancelReason = request.CancelReason;
-                schedule.CancelledByUserId = _currentUserService.UserId; 
+                schedule.IsDeleted = false;
+                schedule.Reason = request.CancelReason;
+                schedule.DeletedBy= _currentUserService.UserId; 
             }
 
             _otScheduleRepository.Update(schedule);

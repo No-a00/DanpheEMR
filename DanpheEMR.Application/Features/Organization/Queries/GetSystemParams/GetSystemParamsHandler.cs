@@ -1,6 +1,8 @@
 ﻿
 using AutoMapper;
-using DanpheEMR.Core.Interface.Admin; 
+using DanpheEMR.Core.Domain.Admin;
+using DanpheEMR.Core.Interface.Admin;
+using DanpheEMR.Core.Interface.Base;
 using MediatR;
 
 
@@ -8,10 +10,10 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetSystemParams
 {
     public class GetSystemParamsHandler : IRequestHandler<GetSystemParamsQuery, Result<List<GetSystemParamsResponse>>>
     {
-        private readonly ISystemParameterRepository _systemParameterRepository;
+        private readonly IGenericRepository<SystemParameter> _systemParameterRepository;
         private readonly IMapper _mapper;
 
-        public GetSystemParamsHandler(ISystemParameterRepository systemParameterRepository, IMapper mapper)
+        public GetSystemParamsHandler(IGenericRepository<SystemParameter> systemParameterRepository, IMapper mapper)
         {
             _systemParameterRepository = systemParameterRepository;
             _mapper = mapper;

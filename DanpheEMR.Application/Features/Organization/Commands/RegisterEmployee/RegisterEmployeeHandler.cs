@@ -4,7 +4,6 @@ using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Admin; 
 using MediatR;
-s;
 
 namespace DanpheEMR.Application.Features.Admin.Commands.RegisterEmployee
 {

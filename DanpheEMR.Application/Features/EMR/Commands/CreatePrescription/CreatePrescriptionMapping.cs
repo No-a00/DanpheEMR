@@ -20,16 +20,16 @@ namespace DanpheEMR.Application.Features.EMR.Commands.CreatePrescription
                 
                 PrescriptionDate = DateTime.Now,
                 Status = "Active", // Hoặc "Pending" tùy quy trình của bạn
-                IsActive = true, 
-                CancelReason = null,
-                UserIdCancel = Guid.Empty,
+                IsDeleted = false, 
+                Reason = null,
+                DeletedBy = Guid.Empty,
 
                
                 
                 Items = command.Items?.Select(dto => new PrescriptionItem
                 {
                     Id = Guid.NewGuid(),
-                    PrescriptionId = prescriptionId, // Gắn khóa ngoại
+                    PrescriptionId = prescriptionId,
                     MedicineId = dto.MedicineId,
                     Dosage = dto.Dosage,
                     Frequency = dto.Frequency,

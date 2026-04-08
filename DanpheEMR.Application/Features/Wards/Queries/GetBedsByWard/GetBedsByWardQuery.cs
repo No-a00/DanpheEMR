@@ -1,5 +1,4 @@
 ﻿
-using DanpheEMR.Application.Features.Wards.Queries.GetBedsByWard;
 using MediatR;
 
 namespace DanpheEMR.Application.Features.Inpatient.Queries.GetBedsByWard

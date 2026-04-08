@@ -6,6 +6,7 @@ namespace DanpheEMR.Core.Domain.Admin
     public class UserRole : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
+        public bool IsActive { get; set; }
 
         // Thông tin xóa mềm
         public bool IsDeleted { get; set; }

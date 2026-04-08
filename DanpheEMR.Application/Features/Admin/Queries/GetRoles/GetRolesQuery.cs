@@ -1,8 +1,8 @@
-﻿using Application.Common;
+﻿
 using MediatR;
 
 
-namespace DanpheEMR.Application.Features.Admin.Queries.GetRoles
+namespace DanpheEMR.Application.Features.Admin.Queries.GetRoles { 
 
     public record RoleDto(Guid Id, string RoleName, string Description);
 

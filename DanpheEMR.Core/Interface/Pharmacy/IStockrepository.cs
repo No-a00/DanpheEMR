@@ -15,5 +15,14 @@ namespace DanpheEMR.Core.Interface.Pharmacy
         // CẢNH BÁO ĐỎ: Lấy danh sách các lô thuốc sắp hết hạn trong vòng X ngày tới (VD: 30 ngày)
         // Ghi chú lúc implement: Nhớ Where(AvailableQuantity > 0 && ExpiryDate <= DateTime.Now.AddDays(daysToThreshold))
         Task<IEnumerable<Stock>> GetExpiringStocksAsync(Guid storeId, int daysToThreshold);
+        // Kiểm tra xem kho còn đủ hàng để xuất/chuyển hay không
+        Task<bool> CheckStockAvailabilityAsync(Guid storeId, Guid itemId, string batchNo, int requiredQuantity);
+        // Trừ số lượng tồn kho (Dùng khi xuất/bán thuốc hoặc chuyển kho)
+        Task DeductStockAsync(Guid storeId, Guid itemId, string batchNo, int quantity);
+        // Lấy ngày hết hạn của một lô thuốc cụ thể trong kho
+        Task<DateTime> GetExpiryDateAsync(Guid storeId, Guid itemId, string batchNo);
+
+        // Cộng tồn kho (Tự động nhận diện: Nếu đã có lô thì cộng dồn, chưa có thì tạo mới)
+        Task AddStockAsync(Guid storeId, Guid itemId, string batchNo, DateTime expiryDate, int quantity);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using DanpheEMR.Core.Domain.Pharmacy;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Base;
 using DanpheEMR.Core.Interface.Pharmacy;
@@ -58,7 +59,7 @@ namespace DanpheEMR.Application.Features.Pharmacy.Commands.DispenseDrugs
 
                 await _dispenseRepository.AddAsync(dispense);
 
-                // 3. LOGIC TRỪ TỒN KHO
+                
                 foreach (var item in dispense.Items)
                 {
                     await _stockRepository.DeductStockAsync(request.StoreId, item.ItemId, item.BatchNo, item.Quantity);

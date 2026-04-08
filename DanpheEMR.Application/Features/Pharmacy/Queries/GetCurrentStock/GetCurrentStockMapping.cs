@@ -8,7 +8,7 @@ namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetCurrentStock
         {
             CreateMap<Stock, GetCurrentStockResponse>()
                 .ForMember(dest => dest.ItemName, opt => opt.MapFrom(src => src.Item != null ? src.Item.ItemName : ""))
-                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store != null ? src.Store.Name : ""));
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store != null ? src.Store.StoreName : ""));
         }
     }
 }

@@ -10,8 +10,10 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppoint
 
             appointment.AppointmentDate = command.NewAppointmentDate;
             appointment.AppointmentTime = command.NewAppointmentTime;
+
+            appointment.IsDeleted = true;
             appointment.Reason = command.Reason;
-            appointment.ReasonUserId = currentUserId;
+            appointment.DeletedBy = currentUserId;
         }
     }
 }

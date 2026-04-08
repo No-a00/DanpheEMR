@@ -33,9 +33,9 @@ namespace DanpheEMR.Application.Features.EMR.Commands.RecordVitals
 
              
                 RecordedAt = DateTime.Now,
-                IsActive = true,
-                voidReason = null,
-                voidedByUserId = Guid.Empty
+                IsDeleted = false,
+                Reason = null,
+                DeletedBy = Guid.Empty
             };
         }
     }

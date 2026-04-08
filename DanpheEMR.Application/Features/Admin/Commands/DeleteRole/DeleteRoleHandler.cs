@@ -2,8 +2,6 @@
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Admin;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Admin.Commands.DeleteRole
 {

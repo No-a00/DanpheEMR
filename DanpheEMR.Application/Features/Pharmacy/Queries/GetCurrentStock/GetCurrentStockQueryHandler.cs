@@ -29,7 +29,7 @@ namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetCurrentStock
             try
             {
                 // Gọi GetAllAsync() nhưng thực tế bạn nên viết 1 hàm riêng trong IStockRepository có .Include(s => s.Item) để Eager Loading
-                var allStock = await _stockRepository.GetAllAsync(h);
+                var allStock = await _stockRepository.GetAllAsync();
                 var query = allStock.AsEnumerable();
 
 

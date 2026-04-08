@@ -40,7 +40,7 @@ namespace DanpheEMR.Application.Features.Billing.Commands.GenerateInvoice
                 TotalAmount = total,
 
                 PaymentStatus = Core.Enums.PaymentStatus.Pending,
-                IsActive = true,
+                IsDeleted = false,
                 CreatedAt = DateTime.UtcNow
             };
 

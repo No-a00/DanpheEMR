@@ -36,22 +36,21 @@ namespace DanpheEMR.DataAccess.Repositories.Base
             _dbSet.Update(entity);
         }
 
-        public async Task DeleteAsync(Guid id,Guid? DeletedBy,string? Reason)
+        public async Task DeleteAsync(Guid id, Guid? deletedBy = null, string? reason = null)
         {
             var entity = await _dbSet.FindAsync(id);
 
             if (entity != null)
-            { 
+            {
                 if (entity is ISoftDelete softDeleteEntity)
-                {     
+                {
                     softDeleteEntity.IsDeleted = true;
-                    softDeleteEntity.Reason = Reason;
-                    softDeleteEntity.DeletedBy = DeletedBy;
+                    softDeleteEntity.Reason = reason;
+                    softDeleteEntity.DeletedBy = deletedBy;
                     _dbSet.Update(entity);
-                } 
+                }
                 else
                 {
-                   
                     _dbSet.Remove(entity);
                 }
             }

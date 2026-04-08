@@ -1,13 +1,7 @@
 ﻿using Application.Common;
 using AutoMapper;
-using DanpheEMR.Core.Interface.Inpatient;
 using DanpheEMR.Core.Interface.Wards;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace DanpheEMR.Application.Features.Inpatient.Queries.GetBedsByWard
 {
     public class GetBedsByWardQueryHandler : IRequestHandler<GetBedsByWardQuery, Result<List<GetBedsByWardResponse>>>

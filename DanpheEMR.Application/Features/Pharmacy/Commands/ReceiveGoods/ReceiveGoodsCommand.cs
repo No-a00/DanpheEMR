@@ -1,12 +1,11 @@
-﻿using Application.Common;
-using MediatR;
-using System;
-using System.Collections.Generic;
+﻿using MediatR;
+
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.ReceiveGoods
 {
     public record ReceiveGoodsCommand(
         Guid SupplierId,
+        Guid StoreId, 
         string InvoiceNo,
         DateTime ReceiptDate,
         string Remarks,

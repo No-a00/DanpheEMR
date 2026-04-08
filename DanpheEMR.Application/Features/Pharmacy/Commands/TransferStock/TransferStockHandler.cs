@@ -29,7 +29,7 @@ namespace DanpheEMR.Application.Features.Pharmacy.Commands.TransferStock
         {
             try
             {
-                // 1. KIỂM TRA TỒN KHO (VALIDATION)
+     
                 foreach (var item in request.Items)
                 {
                     bool isAvailable = await _stockRepository.CheckStockAvailabilityAsync(request.FromStoreId, item.ItemId, item.BatchNo, item.Quantity);
@@ -39,7 +39,7 @@ namespace DanpheEMR.Application.Features.Pharmacy.Commands.TransferStock
                     }
                 }
 
-                // 2. TẠO CHỨNG TỪ CHUYỂN KHO
+           
                 var transfer = new StockTransfer
                 {
                     Id = Guid.NewGuid(),
@@ -58,7 +58,6 @@ namespace DanpheEMR.Application.Features.Pharmacy.Commands.TransferStock
 
                 await _transferRepository.AddAsync(transfer);
 
-                // 3. LOGIC XUẤT - NHẬP TỒN KHO
                 foreach (var item in transfer.Items)
                 {
                     // Lấy ngày hết hạn từ lô hiện tại để chuyển sang kho mới

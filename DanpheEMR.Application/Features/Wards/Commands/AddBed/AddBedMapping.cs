@@ -11,7 +11,7 @@ namespace DanpheEMR.Application.Features.Inpatient.Commands.AddBed
         {
             CreateMap<AddBedCommand, Bed>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
-                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => true))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => BedStatus.Available));
         }
     }

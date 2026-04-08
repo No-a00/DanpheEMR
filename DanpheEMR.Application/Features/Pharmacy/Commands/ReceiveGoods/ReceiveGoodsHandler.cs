@@ -2,19 +2,16 @@
 using DanpheEMR.Core.Domain.Pharmacy;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Base;
-using DanpheEMR.Core.Interface.Pharmacy; // Chứa IStockRepository
+using DanpheEMR.Core.Interface.Pharmacy;
 using MediatR;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.ReceiveGoods
 {
     public class ReceiveGoodsHandler : IRequestHandler<ReceiveGoodsCommand, Result<Guid>>
     {
         private readonly IGenericRepository<GoodsReceipt> _receiptRepository;
-        private readonly IStockRepository _stockRepository; // Inject thêm Repo tồn kho
+        private readonly IStockRepository _stockRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public ReceiveGoodsHandler(
@@ -31,18 +28,21 @@ namespace DanpheEMR.Application.Features.Pharmacy.Commands.ReceiveGoods
         {
             try
             {
-               
-                Guid mainStoreId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-
                 var receipt = new GoodsReceipt
                 {
                     Id = Guid.NewGuid(),
                     SupplierId = request.SupplierId,
+                    StoreId = request.StoreId,
+
+            
+                    GoodsReceiptNo = $"GR-{DateTime.Now:yyyyMMdd}-{new Random().Next(1000, 9999)}",
+
                     InvoiceNo = request.InvoiceNo,
                     ReceiptDate = request.ReceiptDate,
                     Remarks = request.Remarks,
 
-                    Items = request.Items.Select(i => new GoodsReceiptItem
+                    IsDeleted = false,
+                    GoodsReceiptItems = request.Items.Select(i => new GoodsReceiptItem
                     {
                         Id = Guid.NewGuid(),
                         ItemId = i.ItemId,
@@ -57,16 +57,18 @@ namespace DanpheEMR.Application.Features.Pharmacy.Commands.ReceiveGoods
                     }).ToList()
                 };
 
-                // 1. Lưu chứng từ nhập kho
+                receipt.TotalAmount = receipt.GoodsReceiptItems.Sum(x => x.SubTotal);
+
+              
                 await _receiptRepository.AddAsync(receipt);
 
-                // 2. LOGIC CỘNG TỒN KHO
-                foreach (var item in receipt.Items)
+            
+                foreach (var item in receipt.GoodsReceiptItems)
                 {
                     int totalQty = item.ReceivedQuantity + item.FreeQuantity;
 
                     await _stockRepository.AddStockAsync(
-                        mainStoreId,
+                        receipt.StoreId,
                         item.ItemId,
                         item.BatchNo,
                         item.ExpiryDate,

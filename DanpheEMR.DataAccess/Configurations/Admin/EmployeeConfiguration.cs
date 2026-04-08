@@ -8,20 +8,20 @@ namespace DanpheEMR.DataAccess.Configurations.Admin
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            // 1. Cấu hình khóa chính và thuộc tính  
+            // Cấu hình khóa chính và thuộc tính  
             builder.HasKey(e => e.Id);
             builder.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
             builder.Property(e => e.LastName).IsRequired().HasMaxLength(100);
 
-            // 2. Quan hệ 1-N với Department (Phòng ban)
+            // Quan hệ 1-N với Department (Phòng ban)
             builder.HasOne(e => e.Department)
                    .WithMany(d => d.Employees)
                    .HasForeignKey(e => e.DepartmentId)
-                   .OnDelete(DeleteBehavior.Restrict); // Tuyệt đối không xóa dây chuyền
+                   .OnDelete(DeleteBehavior.Restrict);
 
             // 3. Quan hệ 1-N với DoctorSchedule (Lịch trực)
             builder.HasMany(e => e.Schedules)
-                   .WithOne(s => s.Provider) // Giả định trong DoctorSchedule có property Employee
+                   .WithOne(s => s.Provider)
                    .HasForeignKey(s => s.ProviderId)
                    .OnDelete(DeleteBehavior.Restrict);
 

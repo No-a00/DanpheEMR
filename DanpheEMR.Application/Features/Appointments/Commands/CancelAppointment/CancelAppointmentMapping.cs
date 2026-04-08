@@ -7,13 +7,13 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.CancelAppointment
     {
         public static void UpdateEntity(this CancelAppointmentCommand command, DomainAppointment appointment, Guid currentUserId)
         {
-            appointment.IsActive = false;
+            appointment.IsDeleted = true;
 
 
             appointment.Status = VisitStatus.Cancelled;
 
-            appointment.CancelReason = command.CancelReason;
-            appointment.ReasonUserId = currentUserId;
+            appointment.Reason = command.CancelReason;
+            appointment.DeletedBy = currentUserId;
         }
     }
 }

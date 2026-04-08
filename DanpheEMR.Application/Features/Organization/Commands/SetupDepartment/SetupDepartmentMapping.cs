@@ -9,8 +9,6 @@ namespace DanpheEMR.Application.Features.Admin.Commands.SetupDepartment
         {
             CreateMap<SetupDepartmentCommand, Department>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
-                .ForMember(dest => dest.ParentDepartment, opt => opt.Ignore())
-                .ForMember(dest => dest.HeadOfDepartment, opt => opt.Ignore())
                 .ForMember(dest => dest.SubDepartments, opt => opt.Ignore())
                 .ForMember(dest => dest.Employees, opt => opt.Ignore())
                 .ForMember(dest => dest.Visits, opt => opt.Ignore());

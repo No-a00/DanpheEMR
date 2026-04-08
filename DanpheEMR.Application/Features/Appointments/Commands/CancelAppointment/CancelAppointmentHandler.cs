@@ -43,7 +43,7 @@ namespace DanpheEMR.Application.Features.Appointment.Commands.CancelAppointment
                 request.UpdateEntity(appointment, userId);
 
                 
-                await _appointmentRepository.UpdateAsync(appointment);
+                 _appointmentRepository.Update(appointment);
 
                 var saveResult = await _unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -7,7 +7,7 @@ namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetPharmacyItems
     {
         public GetPharmacyItemsMapping()
         {
-            CreateMap<PharmacyItem, GetPharmacyItemsResponse>();
+            CreateMap<Item, GetPharmacyItemsResponse>();
         }
     }
 }

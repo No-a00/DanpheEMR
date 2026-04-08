@@ -43,5 +43,6 @@ namespace DanpheEMR.Application.Features.Patients.Commands.CheckInPatient
 
 
             }
+        }
     }
 }

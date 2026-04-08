@@ -22,7 +22,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
         {
             return await _dbSet.AsNoTracking()
                 .Include(w => w.Beds) 
-                .FirstOrDefaultAsync(w => w.Id == id && 1w.IsDeleted );
+                .FirstOrDefaultAsync(w => w.Id == id && !w.IsDeleted );
         }
     }
 }

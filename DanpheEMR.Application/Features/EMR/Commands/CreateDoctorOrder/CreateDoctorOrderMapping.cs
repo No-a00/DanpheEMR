@@ -12,8 +12,8 @@ namespace DanpheEMR.Application.Features.EMR.Commands.CreateDoctorOrder
                 Id = Guid.NewGuid(),
                 OrderDate = DateTime.Now,
                 OrderText = command.OrderText,
-                Status = "Pending", 
-                IsActive = true,    
+                Status = "Pending",
+                IsDeleted = false,    
 
                 VisitId = command.VisitId,
                 ProviderId = command.ProviderId

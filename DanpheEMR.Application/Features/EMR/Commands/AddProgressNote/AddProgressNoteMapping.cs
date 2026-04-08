@@ -23,7 +23,7 @@ namespace DanpheEMR.Application.Features.EMR.Commands.AddProgressNote
 
 
 
-                IsActive = true,
+                IsDeleted =false,
 
 
                 AdmissionId = command.AdmissionId,

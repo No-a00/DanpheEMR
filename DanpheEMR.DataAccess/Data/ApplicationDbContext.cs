@@ -8,7 +8,6 @@ using DanpheEMR.Core.Domain.OT;
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Domain.Pharmacy;
 using DanpheEMR.Core.Domain.Wards;
-using DanpheEMR.Core.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -21,7 +20,7 @@ namespace DanpheEMR.DataAccess.Data
         }
 
 
-        // 1. Admin & Phân quyền (Security)
+        // Admin
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Branch> Branches { get; set; }
@@ -33,24 +32,24 @@ namespace DanpheEMR.DataAccess.Data
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<SystemParameter> SystemParameters { get; set; }
 
-        // 2. Appointment (Lịch khám & Đặt chỗ)
+        //Appointment
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
-        // 3. Billing (Thu ngân & Viện phí)
+        // Billing 
         public DbSet<BillingTransaction> BillingTransactions { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<ServiceItem> ServiceItems { get; set; }
 
-        // 4. BloodBank (Ngân hàng máu)
+        //BloodBank
         public DbSet<BloodDonor> BloodDonors { get; set; }
         public DbSet<BloodGroup> BloodGroups { get; set; }
         public DbSet<BloodInventory> BloodInventories { get; set; }
         public DbSet<BloodIssue> BloodIssues { get; set; }
 
-        // 5. EMR (Bệnh án điện tử & Cận lâm sàng)
+        //EMR
         public DbSet<ClinicalNote> ClinicalNotes { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<DoctorOrder> DoctorOrders { get; set; }
@@ -60,7 +59,7 @@ namespace DanpheEMR.DataAccess.Data
         public DbSet<ProgressNote> ProgressNotes { get; set; }
         public DbSet<Vitals> Vitals { get; set; }
 
-        // 6. Patient (Hành chính & Tiếp đón)
+        //Patient
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PatientAddress> PatientAddresses { get; set; }
         public DbSet<PatientKin> PatientKins { get; set; }
@@ -70,16 +69,16 @@ namespace DanpheEMR.DataAccess.Data
         public DbSet<Discharge> Discharges { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
 
-        // 7. Ward / Bed (Nội trú)
+        // Ward / Bed 
         public DbSet<Ward> Wards { get; set; }
         public DbSet<BedFeature> BedFeatures { get; set; }
         public DbSet<Bed> Beds { get; set; }
 
-        // 8. OT (Phòng mổ)
+        //  OT
         public DbSet<OTRoom> OTRooms { get; set; }
         public DbSet<OTSchedule> OTSchedules { get; set; }
 
-        // 9. Pharmacy (Kho Dược)
+        //Pharmacy 
         public DbSet<Category> ItemCategories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Item> Items { get; set; }
@@ -102,28 +101,18 @@ namespace DanpheEMR.DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // 1. Tự động áp dụng các file Configuration riêng tư (nếu có)
+            // Tự động áp dụng các file Configuration riêng tư (nếu có)
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            // 2. Tắt Cascade Delete cho mọi quan hệ khóa ngoại
+            //  Tắt Cascade Delete cho mọi quan hệ khóa ngoại
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            // 3. TỰ ĐỘNG LỌC DỮ LIỆU CÓ THUỘC TÍNH "ISACTIVE"
-            var activeEntities = modelBuilder.Model.GetEntityTypes()
-                .Where(e => typeof(IHasActiveStatus).IsAssignableFrom(e.ClrType));
 
-            foreach (var entityType in activeEntities)
-            {
-                var method = typeof(ApplicationDbContext)
-                    .GetMethod(nameof(ApplyActiveFilter), BindingFlags.NonPublic | BindingFlags.Instance)
-                    ?.MakeGenericMethod(entityType.ClrType);
-                method?.Invoke(this, new object[] { modelBuilder });
-            }
 
-            // 4. TỰ ĐỘNG LỌC DỮ LIỆU CÓ THUỘC TÍNH "ISDELETED" (XÓA MỀM)
+            // Xóa mềm 
             var softDeleteEntities = modelBuilder.Model.GetEntityTypes()
                 .Where(e => typeof(ISoftDelete).IsAssignableFrom(e.ClrType));
 
@@ -135,12 +124,6 @@ namespace DanpheEMR.DataAccess.Data
                 method?.Invoke(this, new object[] { modelBuilder });
             }
         }
-
-        private void ApplyActiveFilter<T>(ModelBuilder modelBuilder) where T : class, IHasActiveStatus
-        {
-            modelBuilder.Entity<T>().HasQueryFilter(x => x.IsActive);
-        }
-
         private void ApplySoftDeleteFilter<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete
         {
             modelBuilder.Entity<T>().HasQueryFilter(x => !x.IsDeleted);

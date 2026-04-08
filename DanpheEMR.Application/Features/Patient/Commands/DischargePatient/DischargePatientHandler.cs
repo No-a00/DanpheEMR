@@ -39,7 +39,7 @@ namespace DanpheEMR.Application.Features.Patients.Commands.DischargePatient
                     DischargeDate = DateTime.Now,
                     DischargeCondition = request.DischargeCondition,
                     DischargeNotes = request.DischargeNotes,
-                    IsActive = true,
+                    IsDeleted = false,
                     PatientId = admission.PatientId,
                     AdmissionId = admission.Id
                 };

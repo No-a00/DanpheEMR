@@ -51,5 +51,68 @@ namespace DanpheEMR.DataAccess.Repositories.Pharmacy
                 .OrderBy(s => s.ExpiryDate) 
                 .ToListAsync();
         }
+        public async Task<bool> CheckStockAvailabilityAsync(Guid storeId, Guid itemId, string batchNo, int requiredQuantity)
+        {
+            var stock = await _context.Set<Stock>()
+                .FirstOrDefaultAsync(s => s.StoreId == storeId && s.ItemId == itemId && s.BatchNo == batchNo);
+            return stock != null && stock.AvailableQuantity >= requiredQuantity;
+        }
+        public async Task DeductStockAsync(Guid storeId, Guid itemId, string batchNo, int quantity)
+        {
+            var stock = await _context.Set<Stock>()
+                .FirstOrDefaultAsync(s => s.StoreId == storeId && s.ItemId == itemId && s.BatchNo == batchNo);
+            if (stock != null && stock.AvailableQuantity >= quantity)
+            {
+                stock.AvailableQuantity -= quantity;
+                _context.Set<Stock>().Update(stock);
+            }
+            else
+            {
+                int currentQty = stock != null ? stock.AvailableQuantity : 0;
+                throw new Exception($"Lô hàng {batchNo} không đủ số lượng để xuất. Tồn kho hiện tại: {currentQty}, Yêu cầu xuất: {quantity}.");
+            }
+
+        }
+        public async Task<DateTime> GetExpiryDateAsync(Guid storeId, Guid itemId, string batchNo)
+        {
+            var stock = await _context.Set<Stock>()
+                .FirstOrDefaultAsync(s => s.StoreId == storeId && s.ItemId == itemId && s.BatchNo == batchNo);
+
+            if (stock == null)
+                throw new Exception($"Không tìm thấy lô hàng {batchNo} của thuốc này trong kho.");
+
+            return stock.ExpiryDate;
+        }
+        public async Task AddStockAsync(Guid storeId, Guid itemId, string batchNo, DateTime expiryDate, int quantity)
+        {
+
+            var existingStock = await _context.Set<Stock>()
+                .FirstOrDefaultAsync(s => s.StoreId == storeId && s.ItemId == itemId && s.BatchNo == batchNo);
+
+            if (existingStock != null)
+            {
+                existingStock.AvailableQuantity += quantity;
+
+                existingStock.ExpiryDate = expiryDate;
+
+                _context.Set<Stock>().Update(existingStock);
+            }
+            else
+            {
+
+                var newStock = new Stock
+                {
+                    Id = Guid.NewGuid(),
+                    StoreId = storeId,
+                    ItemId = itemId,
+                    BatchNo = batchNo,
+                    ExpiryDate = expiryDate,
+                    AvailableQuantity = quantity,
+                    IsActive = true
+                };
+
+                await _context.Set<Stock>().AddAsync(newStock);
+            }
+        }
     }
 }

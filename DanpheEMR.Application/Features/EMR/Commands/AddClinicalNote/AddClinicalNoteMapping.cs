@@ -19,9 +19,9 @@ namespace DanpheEMR.Application.Features.EMR.Commands.AddClinicalNote
                 ProviderId = command.ProviderId,
 
                 NoteDate = DateTime.Now,
-                IsDelete = true,
-                VoidReason = null,
-                VoidedByUserId = Guid.Empty 
+                IsDeleted = false,
+                Reason = null,
+                DeletedBy = Guid.Empty 
             };
         }
     }

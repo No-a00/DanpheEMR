@@ -1,7 +1,7 @@
 ﻿using DanpheEMR.Core.Domain.OT;
 using DanpheEMR.Core.Interface.Base; // Nhớ using IGenericRepository
 
-namespace DanpheEMR.Core.Interface.OT
+namespace DanpheEMR.Core.Interface.OT {
 
     public interface IOTScheduleRepository : IGenericRepository<OTSchedule>
     {

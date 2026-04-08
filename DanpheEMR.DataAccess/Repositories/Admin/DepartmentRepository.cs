@@ -3,10 +3,7 @@ using DanpheEMR.Core.Interface.Admin;
 using DanpheEMR.DataAccess.Data;
 using DanpheEMR.DataAccess.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.DataAccess.Repositories.Admin
 {

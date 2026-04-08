@@ -46,7 +46,7 @@ namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
 
                 TransactionDate = DateTime.UtcNow,
                 PaymentStatus = PaymentStatus.Paid,
-                IsActive = true,
+                IsDeleted = false,
                 InvoiceNumber = $"INV-{DateTime.Now:yyyyMMddHHmm}"
             };
             invoice.PaymentStatus = PaymentStatus.Paid;

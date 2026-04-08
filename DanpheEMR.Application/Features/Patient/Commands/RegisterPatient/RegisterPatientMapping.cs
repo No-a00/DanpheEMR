@@ -9,7 +9,7 @@ namespace DanpheEMR.Application.Features.Patients.Commands.RegisterPatient
         {
             CreateMap<RegisterPatientCommand, PatientModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
-                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => false))
                 .ForMember(dest => dest.PatientCode, opt => opt.Ignore())
 
                 
@@ -17,8 +17,8 @@ namespace DanpheEMR.Application.Features.Patients.Commands.RegisterPatient
                 .ForMember(dest => dest.Kins, opt => opt.Ignore())
                 .ForMember(dest => dest.Visits, opt => opt.Ignore())
                 .ForMember(dest => dest.Admissions, opt => opt.Ignore())
-                .ForMember(dest => dest.VoidReason, opt => opt.Ignore())
-                .ForMember(dest => dest.VoidedByUserId, opt => opt.Ignore());
+                .ForMember(dest => dest.Reason, opt => opt.Ignore())
+                .ForMember(dest => dest.DeletedBy, opt => opt.Ignore());
         }
     }
 }
