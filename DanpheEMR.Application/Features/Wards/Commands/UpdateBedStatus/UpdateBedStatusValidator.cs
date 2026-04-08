@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.UpdateBedStatus
+namespace DanpheEMR.Application.Features.Inpatient.Commands.UpdateBedStatus
 {
-    internal class UpdateBedStatusValidator
+    public class UpdateBedStatusValidator : AbstractValidator<UpdateBedStatusCommand>
     {
+        public UpdateBedStatusValidator()
+        {
+            RuleFor(x => x.BedId).NotEmpty();
+            RuleFor(x => x.NewStatus).IsInEnum().WithMessage("Trạng thái giường không hợp lệ.");
+        }
     }
 }

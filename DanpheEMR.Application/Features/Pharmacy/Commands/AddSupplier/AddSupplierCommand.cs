@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.AddSupplier
 {
-    internal class AddSupplierCommand
-    {
-    }
+    public record AddSupplierCommand(
+        string SupplierName,
+        string ContactPerson,
+        string PhoneNumber,
+        string Email,
+        string Address
+    ) : IRequest<Result<Guid>>;
 }

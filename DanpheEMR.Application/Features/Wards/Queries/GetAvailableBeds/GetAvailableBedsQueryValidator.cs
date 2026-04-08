@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetAvailableBeds
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetAvailableBeds
 {
-    internal class GetAvailableBedsQueryValidator
+    public class GetAvailableBedsQueryValidator : AbstractValidator<GetAvailableBedsQuery>
     {
+        public GetAvailableBedsQueryValidator()
+        {
+          
+        }
     }
 }

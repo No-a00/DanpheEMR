@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetAvailableBeds
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetAvailableBeds
 {
-    internal class GetAvailableBedsResponse
-    {
-    }
+    public record GetAvailableBedsResponse(
+        Guid Id,
+        string BedNumber,
+        string BedCode,
+        Guid WardId,
+        string WardName 
+    );
 }

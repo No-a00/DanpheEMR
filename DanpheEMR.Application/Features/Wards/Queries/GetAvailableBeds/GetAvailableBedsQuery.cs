@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using MediatR;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetAvailableBeds
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetAvailableBeds
 {
-    internal class GetAvailableBedsQuery
-    {
-    }
+    public record GetAvailableBedsQuery(Guid? WardId = null) : IRequest<Result<List<GetAvailableBedsResponse>>>;
 }

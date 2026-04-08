@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Wards;
+using DanpheEMR.Core.Enums; 
 
-namespace DanpheEMR.Application.Features.Wards.Commands.AddBed
+
+namespace DanpheEMR.Application.Features.Inpatient.Commands.AddBed
 {
-    internal class AddBedMapping
+    public class AddBedMapping : Profile
     {
+        public AddBedMapping()
+        {
+            CreateMap<AddBedCommand, Bed>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => BedStatus.Available));
+        }
     }
 }

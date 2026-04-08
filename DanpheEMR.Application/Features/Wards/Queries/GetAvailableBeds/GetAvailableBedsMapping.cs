@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Wards;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetAvailableBeds
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetAvailableBeds
 {
-    internal class GetAvailableBedsMapping
+    public class GetAvailableBedsMapping : Profile
     {
+        public GetAvailableBedsMapping()
+        {
+            CreateMap<Bed, GetAvailableBedsResponse>()
+                .ForMember(dest => dest.WardName, opt => opt.MapFrom(src => src.Ward != null ? src.Ward.WardName : ""));
+        }
     }
 }

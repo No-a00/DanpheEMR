@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Pharmacy;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetPharmacyItems
 {
-    internal class GetPharmacyItemsMapping
+    public class GetPharmacyItemsMapping : Profile
     {
+        public GetPharmacyItemsMapping()
+        {
+            CreateMap<PharmacyItem, GetPharmacyItemsResponse>();
+        }
     }
 }

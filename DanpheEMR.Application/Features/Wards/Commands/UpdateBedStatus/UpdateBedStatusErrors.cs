@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.UpdateBedStatus
+namespace DanpheEMR.Application.Features.Inpatient.Commands.UpdateBedStatus
 {
-    internal class UpdateBedStatusErrors
+    public static class UpdateBedStatusErrors
     {
+        public static readonly Error NotFound = new Error("Bed.NotFound", "Không tìm thấy giường bệnh này.");
+        public static readonly Error DBError = new Error("Bed.UpdateError", "Lỗi khi cập nhật trạng thái giường.");
     }
 }

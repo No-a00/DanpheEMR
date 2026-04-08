@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.SetupWard
+namespace DanpheEMR.Application.Features.Inpatient.Commands.SetupWard
 {
-    internal class SetupWardCommand
-    {
-    }
+    public record SetupWardCommand(
+        string WardName,
+        string WardCode,
+        Guid DepartmentId
+    ) : IRequest<Result<Guid>>;
 }

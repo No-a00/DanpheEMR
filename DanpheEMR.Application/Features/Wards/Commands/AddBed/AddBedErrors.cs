@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.AddBed
+namespace DanpheEMR.Application.Features.Inpatient.Commands.AddBed
 {
-    internal class AddBedErrors
+    public static class AddBedErrors
     {
+        public static readonly Error DBError = new Error("Bed.DBError", "Lỗi khi lưu thông tin giường bệnh.");
     }
 }

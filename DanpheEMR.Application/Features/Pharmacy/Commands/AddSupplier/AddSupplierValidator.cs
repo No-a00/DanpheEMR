@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.AddSupplier
 {
-    internal class AddSupplierValidator
+    public class AddSupplierValidator : AbstractValidator<AddSupplierCommand>
     {
+        public AddSupplierValidator()
+        {
+            RuleFor(x => x.SupplierName).NotEmpty().WithMessage("Tên nhà cung cấp không được để trống.");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Số điện thoại không được để trống.");
+        }
     }
 }

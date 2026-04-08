@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.DispenseDrugs
 {
-    internal class DispenseDrugsValidator
+    public class DispenseDrugsValidator : AbstractValidator<DispenseDrugsCommand>
     {
+        public DispenseDrugsValidator()
+        {
+            RuleFor(x => x.StoreId).NotEmpty().WithMessage("Vui lòng chọn quầy thuốc xuất.");
+            RuleFor(x => x.Items).NotEmpty().WithMessage("Đơn thuốc trống.");
+        }
     }
 }

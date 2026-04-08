@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetPharmacyItems
 {
-    internal class GetPharmacyItemsQueryValidator
+    public class GetPharmacyItemsQueryValidator : AbstractValidator<GetPharmacyItemsQuery>
     {
+        public GetPharmacyItemsQueryValidator()
+        {
+            RuleFor(x => x.SearchTerm)
+                .MaximumLength(100).WithMessage("Từ khóa tìm kiếm không được vượt quá 100 ký tự.");
+        }
     }
 }

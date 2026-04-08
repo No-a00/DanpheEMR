@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.TransferStock
 {
-    internal class TransferStockValidator
+    public class TransferStockValidator : AbstractValidator<TransferStockCommand>
     {
+        public TransferStockValidator()
+        {
+            RuleFor(x => x.FromStoreId).NotEmpty();
+            RuleFor(x => x.ToStoreId).NotEmpty();
+            RuleFor(x => x).Must(x => x.FromStoreId != x.ToStoreId).WithMessage("Kho xuất và Kho nhập phải khác nhau.");
+            RuleFor(x => x.Items).NotEmpty().WithMessage("Vui lòng chọn thuốc cần chuyển.");
+        }
     }
 }

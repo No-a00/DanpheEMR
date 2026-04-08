@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.SetupWard
+namespace DanpheEMR.Application.Features.Inpatient.Commands.SetupWard
 {
-    internal class SetupWardErrors
+    public static class SetupWardErrors
     {
+        public static readonly Error DBError = new Error("Ward.DBError", "Lỗi khi lưu buồng bệnh.");
     }
 }

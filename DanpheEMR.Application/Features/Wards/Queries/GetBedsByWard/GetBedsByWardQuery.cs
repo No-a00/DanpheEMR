@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using DanpheEMR.Application.Features.Wards.Queries.GetBedsByWard;
+using MediatR;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetBedsByWard
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetBedsByWard
 {
-    internal class GetBedsByWardQuery
-    {
-    }
+    public record GetBedsByWardQuery(Guid WardId) : IRequest<Result<List<GetBedsByWardResponse>>>;
 }

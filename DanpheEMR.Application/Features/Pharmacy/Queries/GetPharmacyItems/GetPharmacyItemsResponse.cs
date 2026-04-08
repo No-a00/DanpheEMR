@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetPharmacyItems
 {
-    internal class GetPharmacyItemsResponse
-    {
-    }
+    public record GetPharmacyItemsResponse(
+        Guid Id,
+        string ItemCode,
+        string ItemName,
+        string GenericName,
+        string UOM, 
+        Guid CategoryId
+    );
 }

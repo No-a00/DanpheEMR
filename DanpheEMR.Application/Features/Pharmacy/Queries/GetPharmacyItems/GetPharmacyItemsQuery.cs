@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetPharmacyItems
 {
-    internal class GetPharmacyItemsQuery
-    {
-    }
+    public record GetPharmacyItemsQuery(string SearchTerm = null) : IRequest<Result<List<GetPharmacyItemsResponse>>>;
 }

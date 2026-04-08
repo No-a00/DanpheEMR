@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.SetupPharmacyItem
 {
-    internal class SetupPharmacyItemValidator
+    public class SetupPharmacyItemValidator : AbstractValidator<SetupPharmacyItemCommand>
     {
+        public SetupPharmacyItemValidator()
+        {
+            RuleFor(x => x.ItemCode).NotEmpty().WithMessage("Mã thuốc không được để trống.");
+            RuleFor(x => x.ItemName).NotEmpty().WithMessage("Tên thuốc/Vật tư không được để trống.");
+            RuleFor(x => x.UOM).NotEmpty().WithMessage("Đơn vị tính không được để trống.");
+        }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetWardOccupancy
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetWardOccupancy
 {
-    internal class GetWardOccupancyMapping
+    public class GetWardOccupancyMapping : Profile
     {
+        public GetWardOccupancyMapping()
+        {
+           
+        }
     }
 }

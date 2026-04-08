@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DanpheEMR.Core.Enums;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetBedsByWard
+
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetBedsByWard
 {
-    internal class GetBedsByWardResponse
-    {
-    }
+    public record GetBedsByWardResponse(
+        Guid Id,
+        string BedNumber,
+        string BedCode,
+        BedStatus Status 
+    );
 }

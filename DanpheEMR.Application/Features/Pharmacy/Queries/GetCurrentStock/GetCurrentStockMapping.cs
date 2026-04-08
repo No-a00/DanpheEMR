@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Pharmacy; 
 namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetCurrentStock
 {
-    internal class GetCurrentStockMapping
+    public class GetCurrentStockMapping : Profile
     {
+        public GetCurrentStockMapping()
+        {
+            CreateMap<Stock, GetCurrentStockResponse>()
+                .ForMember(dest => dest.ItemName, opt => opt.MapFrom(src => src.Item != null ? src.Item.ItemName : ""))
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store != null ? src.Store.Name : ""));
+        }
     }
 }

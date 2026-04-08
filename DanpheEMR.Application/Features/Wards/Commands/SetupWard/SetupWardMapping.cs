@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DanpheEMR.Core.Domain.Wards;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.SetupWard
+namespace DanpheEMR.Application.Features.Inpatient.Commands.SetupWard
 {
-    internal class SetupWardMapping
+    public class SetupWardMapping : Profile
     {
+        public SetupWardMapping()
+        {
+            CreateMap<SetupWardCommand, Ward>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true));
+        }
     }
 }

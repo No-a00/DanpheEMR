@@ -43,7 +43,7 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
             result.CancelReason = cancelReason;
             result.CancelledByUserId = cancelledByUserId;
         }
-        public async Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(Guid wardId)
+        public async Task<IEnumerable<Bed>> GetAvailableBedsByWardAsync(Guid? wardId)
         {
             return await _dbSet.AsNoTracking()
                 .Where(b => b.WardId == wardId

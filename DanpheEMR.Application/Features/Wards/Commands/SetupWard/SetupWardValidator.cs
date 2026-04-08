@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.SetupWard
+namespace DanpheEMR.Application.Features.Inpatient.Commands.SetupWard
 {
-    internal class SetupWardValidator
+    public class SetupWardValidator : AbstractValidator<SetupWardCommand>
     {
+        public SetupWardValidator()
+        {
+            RuleFor(x => x.WardName).NotEmpty().WithMessage("Tên buồng bệnh không được để trống.");
+            RuleFor(x => x.WardCode).NotEmpty().WithMessage("Mã buồng bệnh không được để trống.");
+            RuleFor(x => x.DepartmentId).NotEmpty().WithMessage("Vui lòng chọn Khoa trực thuộc.");
+        }
     }
 }

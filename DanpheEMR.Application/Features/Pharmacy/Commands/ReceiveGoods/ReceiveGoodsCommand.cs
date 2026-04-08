@@ -1,12 +1,25 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.ReceiveGoods
 {
-    internal class ReceiveGoodsCommand
-    {
-    }
+    public record ReceiveGoodsCommand(
+        Guid SupplierId,
+        string InvoiceNo,
+        DateTime ReceiptDate,
+        string Remarks,
+        List<ReceiptItemDto> Items
+    ) : IRequest<Result<Guid>>;
+
+    public record ReceiptItemDto(
+        Guid ItemId,
+        string BatchNo,
+        DateTime ExpiryDate,
+        int ReceivedQuantity,
+        int FreeQuantity,
+        decimal PurchaseRate,
+        decimal Margin
+    );
 }

@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Application.Common;
+using MediatR;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Commands.TransferStock
 {
-    internal class TransferStockCommand
-    {
-    }
+    public record TransferStockCommand(
+        Guid FromStoreId,
+        Guid ToStoreId,
+        string Remarks,
+        List<TransferItemDto> Items
+    ) : IRequest<Result<Guid>>;
+
+    public record TransferItemDto(Guid ItemId, string BatchNo, int Quantity);
 }

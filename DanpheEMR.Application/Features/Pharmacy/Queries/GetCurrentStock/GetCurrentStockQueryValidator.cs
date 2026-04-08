@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Pharmacy.Queries.GetCurrentStock
 {
-    internal class GetCurrentStockQueryValidator
+    public class GetCurrentStockQueryValidator : AbstractValidator<GetCurrentStockQuery>
     {
+        public GetCurrentStockQueryValidator()
+        {
+        
+        }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using MediatR;
+using System;
 
-namespace DanpheEMR.Application.Features.Wards.Commands.AddBed
+namespace DanpheEMR.Application.Features.Inpatient.Commands.AddBed
 {
-    internal class AddBedCommand
-    {
-    }
+    public record AddBedCommand(
+        string BedNumber,
+        string BedCode,
+        Guid WardId
+    ) : IRequest<Result<Guid>>;
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
-namespace DanpheEMR.Application.Features.Wards.Queries.GetWardOccupancy
+namespace DanpheEMR.Application.Features.Inpatient.Queries.GetWardOccupancy
 {
-    internal class GetWardOccupancyQueryValidator
+    public class GetWardOccupancyQueryValidator : AbstractValidator<GetWardOccupancyQuery>
     {
+        public GetWardOccupancyQueryValidator()
+        {
+            RuleFor(x => x.WardId).NotEmpty().WithMessage("Vui lòng truyền ID của Buồng bệnh.");
+        }
     }
 }
