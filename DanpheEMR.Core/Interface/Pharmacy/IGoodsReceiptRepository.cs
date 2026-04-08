@@ -1,21 +1,10 @@
 ﻿using DanpheEMR.Core.Domain.Pharmacy;
+using DanpheEMR.Core.Interface.Base;
 
-namespace DanpheEMR.Core.Interfaces.Pharmacy // Đã sửa lỗi chính tả Pharnacy -> Pharmacy
+namespace DanpheEMR.Core.Interfaces.Pharmacy 
 {
-    public interface IGoodsReceiptRepository
+    public interface IGoodsReceiptRepository : IGenericRepository<GoodsReceipt>
     {
-        // Thêm dấu ? vì có thể tìm không ra phiếu
-        Task<GoodsReceipt?> GetByIdAsync(Guid Id);
-
-        // Khi Kế toán kho tạo nháp phiếu nhập
-        Task<GoodsReceipt> AddAsync(GoodsReceipt goodsReceipt);
-
-        // Khi Trưởng khoa duyệt phiếu (Đổi Status từ Pending -> Approved)
-        Task UpdateAsync(GoodsReceipt goodsReceipt);
-
-        // --- ĐÃ THÊM: Cực kỳ quan trọng để truy vết kho ---
-        // Hủy phiếu nhập (Soft Delete) khi phát hiện sai sót hóa đơn, sai nhà cung cấp
-        Task CancelReceiptAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
 
         // Lấy danh sách các Phiếu chờ duyệt (Để hiện thông báo đỏ cho Trưởng khoa Dược)
         Task<IEnumerable<GoodsReceipt>> GetPendingReceiptsAsync();

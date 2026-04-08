@@ -1,19 +1,9 @@
 ﻿using DanpheEMR.Core.Domain.EMR;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+using DanpheEMR.Core.Interface.Base;
 namespace DanpheEMR.Core.Interface.EMR
 {
-    public interface IDiagnosisRepository
+    public interface IDiagnosisRepository : IGenericRepository<Diagnosis>
     {
-        Task<Diagnosis> GetByIdAsync(Guid Id);
-        Task<Diagnosis> AddAsync(Diagnosis diagnosis);
-        Task UpdateAsync(Diagnosis diagnosis);
-
-        // Hủy chẩn đoán 
-        Task VoidDiagnosisAsync(Guid diagnosisId, string reason, Guid VoidedBy);
-
         // Lấy theo lượt khám (1 lần khám cụ thể)
         Task<IEnumerable<Diagnosis>> GetDiagnosesByVisitIdAsync(Guid visitId);
 

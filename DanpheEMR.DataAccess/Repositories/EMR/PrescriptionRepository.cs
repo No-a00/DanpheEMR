@@ -26,7 +26,7 @@ namespace DanpheEMR.DataAccess.Repositories.EMR
         public async Task<Prescription?> GetPrescriptionWithItemsAsync(Guid id)
         {
             return await _dbSet.AsNoTracking()
-                .Include(p => p.Items) // Tên Collection Items của bạn quá chuẩn!
+                .Include(p => p.Items) 
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

@@ -1,16 +1,9 @@
 ﻿using DanpheEMR.Core.Domain.BloodBank;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+using DanpheEMR.Core.Interface.Base;
 namespace DanpheEMR.Core.Interface.BloodBank
 {
-    public interface IBloodIssueRepository
+    public interface IBloodIssueRepository : IGenericRepository<BloodIssue>
     {
-        Task AddAsync(BloodIssue issueRecord);
-
-        Task<BloodIssue?> GetByIdAsync(Guid id);
-
         Task<IEnumerable<BloodIssue>> GetIssuesByPatientAsync(Guid patientId);
     }
 }

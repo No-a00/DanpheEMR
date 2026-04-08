@@ -1,18 +1,10 @@
 ﻿using DanpheEMR.Core.Domain.Wards;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Wards
 {
-    public interface IBedFeatureRepository
+    public interface IBedFeatureRepository : IGenericRepository<BedFeature>
     {
-        Task<BedFeature?> GetByIdAsync(Guid Id);
-
-        Task<IEnumerable<BedFeature>> GetAllAsync();
-
-        Task<BedFeature> AddAsync(BedFeature bedFeature);
-
-        Task UpdateAsync(BedFeature bedFeature);
-
-        Task DeactivateBedFeatureAsync(Guid Id, string cancelReason, int cancelledByUserId);
         Task<IEnumerable<BedFeature>> GetActiveBedFeaturesAsync();
     }
 }

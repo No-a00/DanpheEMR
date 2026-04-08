@@ -1,17 +1,10 @@
 ﻿using DanpheEMR.Core.Domain.Pharmacy;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Pharmacy
 {
-    public interface ISubCategoryRepository
+    public interface ISubCategoryRepository : IGenericRepository <SubCategory>
     {
-        Task<SubCategory?> GetByIdAsync(Guid Id);
-
-        Task<SubCategory> AddAsync(SubCategory subCategory);
-
-        Task UpdateAsync(SubCategory subCategory);
-
-        Task DeactivateSubCategoryAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
-
         Task<IEnumerable<SubCategory>> GetActiveSubCategoriesAsync();
 
         Task<IEnumerable<SubCategory>> GetSubCategoriesByCategoryIdAsync(Guid categoryId);

@@ -1,5 +1,6 @@
 ﻿using DanpheEMR.Core.Domain.Billing;
 using DanpheEMR.Core.Enums;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Billing
 {
@@ -11,19 +12,12 @@ namespace DanpheEMR.Core.Interface.Billing
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
     }
-    public interface IBillingTransactionRepository
+    public interface IBillingTransactionRepository : IGenericRepository<BillingTransaction>
     {
-        Task AddAsync(BillingTransaction transaction);
-
-        // Cập nhật hóa đơn (Chỉ nên dùng khi hóa đơn đang ở trạng thái "Nháp" - Draft)
-        void Update(BillingTransaction transaction);
-        Task<BillingTransaction?> GetByIdAsync(Guid Id);
 
         // Lấy hóa đơn KÈM THEO danh sách chi tiết (Rất hay dùng khi In hóa đơn)
         Task<BillingTransaction?> GetTransactionWithDetailsAsync(Guid Id);
 
-        // Tuyệt đối KHÔNG có hàm Delete. Thay vào đó là hàm Hủy hóa đơn.
-        Task CancelTransactionAsync(Guid Id, string cancelReason, Guid cancelUserId);
         // Bắt buộc phải tìm kiếm có điều kiện (Filter) để tránh tải hàng triệu dòng
         //Lấy doanh thu theo ngày
         Task<IEnumerable<BillingTransaction>> GetPaidTransactionsByDateAsync(DateTime reportDate);

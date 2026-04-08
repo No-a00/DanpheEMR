@@ -1,23 +1,14 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
+using DanpheEMR.Core.Interface.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DanpheEMR.Core.Interface.Admin
 {
-    public interface IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> GetByIdAsync(Guid Id);
-        Task<IEnumerable<User>> GetAllAsync();
-
         Task<IEnumerable<User>> GetUsersWithRolesAsync();
-        Task<User> AddAsync(User user);
-        Task UpdateAsync(User user);
-
-        // Khóa tài khoản thay vì xóa
-        Task DeactivateUserAsync(Guid Id);
-
-
         Task<User> GetByUsernameAsync(string username);
         Task<User> GetUserWithRolesAndPermissionsAsync(Guid userId);
         Task<bool> CheckUserPermissionAsync(Guid userId, string action, string resource);

@@ -1,16 +1,11 @@
 ﻿using DanpheEMR.Core.Domain.EMR;
+using DanpheEMR.Core.Interface.Base;
 
 
 namespace DanpheEMR.Core.Interface.EMR
 {
-    public interface IDoctorOrderRepository
+    public interface IDoctorOrderRepository : IGenericRepository<DoctorOrder>   
     {
-        
-        Task<DoctorOrder> GetByIdAsync(Guid Id);
-        Task<DoctorOrder> AddAsync(DoctorOrder order);
-        Task UpdateAsync(DoctorOrder order);
-        Task CancelOrderAsync(Guid orderId, string cancelReason, Guid cancelledByUserId);
-        // Xem toàn bộ y lệnh của một lượt khám (Dành cho màn hình chi tiết bệnh án)
         Task<IEnumerable<DoctorOrder>> GetOrdersByVisitIdAsync(Guid visitId);
 
         Task<IEnumerable<DoctorOrder>> GetPendingOrdersAsync();

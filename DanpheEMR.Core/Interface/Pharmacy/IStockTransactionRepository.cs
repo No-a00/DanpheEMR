@@ -1,13 +1,11 @@
 ﻿
 using DanpheEMR.Core.Domain.Pharmacy;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Pharmacy
 {
-    public interface IStockTransactionRepository
+    public interface IStockTransactionRepository : IGenericRepository<StockTransaction>
     {
-        // Hệ thống sẽ tự động gọi hàm này mỗi khi có 1 giao dịch Xuất/Nhập xảy ra
-        Task<StockTransaction> AddAsync(StockTransaction transaction);
-        Task<StockTransaction> GetByIdAsync(Guid Id);
         // Xem Thẻ kho của 1 loại thuốc cụ thể (Ví dụ: Giám đốc muốn xem biến động của Paracetamol trong tháng này)
         Task<IEnumerable<StockTransaction>> GetTransactionsByItemAsync(Guid itemId, DateTime fromDate, DateTime toDate);
         // Xem toàn bộ lịch sử xuất/nhập của 1 Kho cụ thể trong ngày hôm nay

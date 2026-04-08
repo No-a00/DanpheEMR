@@ -1,8 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.OT;
-using DanpheEMR.Core.Interface.Base; // Nhớ using IGenericRepository
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using DanpheEMR.Core.Interface.Base; 
 
 namespace DanpheEMR.Core.Interface.OT
 {

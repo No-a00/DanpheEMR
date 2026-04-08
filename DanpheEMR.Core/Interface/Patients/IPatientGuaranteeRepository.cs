@@ -1,14 +1,9 @@
 ﻿using DanpheEMR.Core.Domain.Patients;
+using DanpheEMR.Core.Interface.Base;
 namespace DanpheEMR.Core.Interface.Patients
 {
-    public interface IPatientGuaranteeRepository
+    public interface IPatientGuaranteeRepository : IGenericRepository<PatientGuarantee>
     {
-        Task<PatientGuarantee> GetByIdAsync(Guid Id);
-        Task<PatientGuarantee> AddAsync(PatientGuarantee guarantee);
-        Task UpdateAsync(PatientGuarantee guarantee);
-        Task CancelGuaranteeAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
-
-
         // Xem TOÀN BỘ lịch sử bảo lãnh của bệnh nhân này từ trước đến nay
         Task<IEnumerable<PatientGuarantee>> GetAllGuaranteesByPatientIdAsync(Guid patientId);
 

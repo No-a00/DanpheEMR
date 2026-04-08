@@ -1,14 +1,11 @@
 ﻿
 using DanpheEMR.Core.Domain.Pharmacy;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Pharmacy
 {
-    public interface IItemRepository
+    public interface IItemRepository : IGenericRepository<Item>
     {
-        Task<Item> GetByIdAsync(Guid Id);
-        Task<Item> AddAsync(Item item);
-        Task UpdateAsync(Item item);
-        Task DeactivateItemAsync(Guid Id,string cancelReason, Guid cancelUserId);
 
         // Lọc danh sách theo Nhóm thuốc 
         Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(Guid subCategoryId);

@@ -1,22 +1,12 @@
 ﻿using DanpheEMR.Core.Domain.Wards;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Wards
 {
-    public interface IWardRepository
+    public interface IWardRepository : IGenericRepository<Ward>
     {
-        Task<Ward?> GetByIdAsync(Guid Id);
-
-        Task<IEnumerable<Ward>> GetAllAsync();
-
-        Task<Ward> AddAsync(Ward ward);
-
-        Task UpdateAsync(Ward ward);
-        Task DeactivateWardAsync(Guid Id, string cancelReason, int cancelledByUserId);
-
         Task<IEnumerable<Ward>> GetActiveWardsAsync();
-
-        // CỰC KỲ HỮU ÍCH: Lấy thông tin 1 Khoa (số ít) KÈM THEO toàn bộ danh sách Giường 
-        // (Dùng để Điều dưỡng trưởng vẽ "Bản đồ sơ đồ giường bệnh" trực quan trên màn hình)
+        // Dùng để Điều dưỡng trưởng vẽ "Bản đồ sơ đồ giường bệnh" trực quan trên màn hình
         Task<Ward?> GetWardWithBedsAsync(Guid Id);
     }
 }

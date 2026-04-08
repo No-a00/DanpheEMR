@@ -1,20 +1,12 @@
 ﻿
 
 using DanpheEMR.Core.Domain.EMR;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.EMR
 {
-    public interface IPrescriptionItemRepository
+    public interface IPrescriptionItemRepository : IGenericRepository<PrescriptionItem>
     {
-    
-        Task<PrescriptionItem> GetByIdAsync(Guid Id);
-
-        
-        Task<PrescriptionItem> AddAsync(PrescriptionItem item);
-
-       
-        Task UpdateAsync(PrescriptionItem item);
-        Task CancelItemAsync(Guid Id, string cancelReason,Guid userIdCancel);
         //  Lấy toàn bộ các loại thuốc CỦA MỘT TỜ ĐƠN cụ thể
         Task<IEnumerable<PrescriptionItem>> GetItemsByPrescriptionIdAsync(Guid prescriptionId);
 

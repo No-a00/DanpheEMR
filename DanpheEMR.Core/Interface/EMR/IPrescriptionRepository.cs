@@ -1,18 +1,14 @@
 ﻿using DanpheEMR.Core.Domain.EMR;
+using DanpheEMR.Core.Interface.Base;
 
 
 namespace DanpheEMR.Core.Interface.EMR
 {
-    public interface IPrescriptionRepository
+    public interface IPrescriptionRepository : IGenericRepository<Prescription>
     {
         
-        Task<Prescription> GetByIdAsync(Guid Id);
-        // Cực kỳ quan trọng: Lấy Đơn thuốc KÈM THEO danh sách các loại thuốc bên trong (Eager Loading)
+        //  Lấy Đơn thuốc KÈM THEO danh sách các loại thuốc bên trong (Eager Loading)
         Task<Prescription> GetPrescriptionWithItemsAsync(Guid Id);
-        Task<Prescription> AddAsync(Prescription prescription);
-        Task UpdateAsync(Prescription prescription);
-        // Bác sĩ lỡ tay kê nhầm, hoặc bệnh nhân dị ứng thuốc -> Hủy đơn
-        Task CancelPrescriptionAsync(Guid prescriptionId, string cancelReason, Guid userIdCancel);
 
         // Mở hồ sơ bệnh án của ngày hôm nay lên xem có kê đơn gì không
         Task<IEnumerable<Prescription>> GetPrescriptionsByVisitIdAsync(Guid visitId);

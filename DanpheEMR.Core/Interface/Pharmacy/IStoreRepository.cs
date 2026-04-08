@@ -1,18 +1,10 @@
 ﻿using DanpheEMR.Core.Domain.Pharmacy;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Pharmacy
 {
-    public interface IStoreRepository
+    public interface IStoreRepository : IGenericRepository<Store>
     {
-        Task<Store?> GetByIdAsync(Guid Id);
-
-        Task<IEnumerable<Store>> GetAllAsync();
-
-        Task<Store> AddAsync(Store store);
-
-        Task UpdateAsync(Store store);
-
-        Task DeactivateStoreAsync(Guid Id, string cancelReason, Guid cancelledByUserId);
         Task<IEnumerable<Store>> GetActiveStoresAsync();
     }
 }

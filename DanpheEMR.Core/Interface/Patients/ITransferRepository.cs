@@ -1,11 +1,10 @@
 ﻿using DanpheEMR.Core.Domain.Patients;
+using DanpheEMR.Core.Interface.Base;
 
 namespace DanpheEMR.Core.Interface.Patients
 {
-    public interface ITransferRepository
+    public interface ITransferRepository : IGenericRepository<Transfer>
     {
-        Task<Transfer> GetByIdAsync(Guid Id);
-        Task<Transfer> AddAsync(Transfer transfer);
         Task UpdateAsync(Transfer transfer);
         Task CancelTransferAsync(Guid Id, string cancelReason, Guid voidedByUserId);
         // Xem lịch sử luân chuyển của 1 bệnh nhân trong đợt nằm viện này 
