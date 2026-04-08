@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Domain.Patients;
 using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Interface;

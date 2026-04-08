@@ -1,11 +1,17 @@
-﻿namespace Application.Abstractions.Infrastructure;
+﻿
+using System.Linq.Expressions;
 
-public interface IBackgroundJob
+namespace DanpheEMR.Application.Abstractions.Infrastructure
 {
-    void Enqueue(
-        Func<Task> job);
+    public interface IBackgroundJob
+    {
+        // Thực thi một task ngay lập tức (Fire-and-forget)
+        string Enqueue(Expression<Action> methodCall);
 
-    void Schedule(
-        Func<Task> job,
-        TimeSpan delay);
+        // Thực thi một task sau một khoảng thời gian delay
+        string Schedule(Expression<Action> methodCall, TimeSpan delay);
+
+        // Thực thi một task định kỳ (Cron job)
+        void AddOrUpdate(string recurringJobId, Expression<Action> methodCall, string cronExpression);
+    }
 }

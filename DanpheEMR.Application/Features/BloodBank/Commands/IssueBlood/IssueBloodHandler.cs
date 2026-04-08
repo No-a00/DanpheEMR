@@ -1,12 +1,10 @@
 ﻿using Application.Common;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.BloodBank;
 using DanpheEMR.Core.Interfaces.Base;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.BloodBank.Commands.IssueBlood
 {

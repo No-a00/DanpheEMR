@@ -1,9 +1,8 @@
-﻿
-namespace DanpheEMR.Application.Abstractions.Services.CrossCutting
+﻿namespace DanpheEMR.Application.Abstractions.Services.CrossCutting
 {
     public interface IPaymentService
     {
-        Task<bool> ProcesspaymentAsync(Guid invoiceId, decimal amount);
-        Task<bool> ReFundAsync(Guid invoiceId);
+        Task<string> CreatePaymentUrlAsync(Guid invoiceId, decimal amount, string description, CancellationToken cancellationToken = default);
+        Task<bool> VerifyPaymentSignatureAsync(string data, string signature);
     }
 }

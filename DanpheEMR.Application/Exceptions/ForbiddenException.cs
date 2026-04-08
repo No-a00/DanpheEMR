@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//403
 
 namespace DanpheEMR.Application.Exceptions
 {
-    internal class ForbiddenException
+    public class ForbiddenException : Exception
     {
+        public ForbiddenException() : base("Bạn không có quyền thực hiện hành động này.") { }
+
+        public ForbiddenException(string message) : base(message) { }
     }
 }

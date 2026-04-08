@@ -1,5 +1,5 @@
-﻿using DanpheEMR.Core.Domain.Billing;
-using DanpheEMR.Core.Interface;
+﻿using DanpheEMR.Application.Abstractions.Persistence;
+using DanpheEMR.Core.Domain.Billing;
 using DanpheEMR.Core.Interface.Billing;
 using MediatR;
 namespace DanpheEMR.Application.Features.Billing.Commands.GenerateInvoice

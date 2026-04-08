@@ -1,12 +1,10 @@
 ﻿
 using Application.Features.Appointments.Commands.BookAppointment;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Application.Features.Appointments.Commands.BookAppointment;
-using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Appointments;
 using DanpheEMR.Core.Interface.Patients;
 using DanpheEMR.Core.Interfaces.Appointment;
-
-
 namespace Application.Features.Appointment.Commands.BookAppointment;
 
 public sealed class BookAppointmentCommandHandler

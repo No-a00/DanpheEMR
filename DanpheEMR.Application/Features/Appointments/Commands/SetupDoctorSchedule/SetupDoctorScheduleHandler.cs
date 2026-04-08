@@ -1,11 +1,8 @@
 ﻿using Application.Common;
-using DanpheEMR.Core.Interface;
-using DanpheEMR.Core.Interface.Appointments; // Chứa IDoctorScheduleRepository
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interfaces.Appointment;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.Application.Features.Appointments.Commands.SetupDoctorSchedule
 {

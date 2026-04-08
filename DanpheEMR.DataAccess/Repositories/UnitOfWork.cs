@@ -1,8 +1,9 @@
-﻿using DanpheEMR.Core.Domain.Admin;
-using DanpheEMR.Core.Interface;
+﻿using DanpheEMR.Application.Abstractions.Persistence;
+using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interfaces.Base;
 using DanpheEMR.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 
 namespace DanpheEMR.Infrastructure.Data
@@ -11,6 +12,7 @@ namespace DanpheEMR.Infrastructure.Data
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ICurrentUserService _currentUserService;
+        private IDbContextTransaction _currentTransaction;
 
         public UnitOfWork(
             ApplicationDbContext dbContext,
@@ -54,19 +56,57 @@ namespace DanpheEMR.Infrastructure.Data
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task BeginTransactionAsync()
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
-            await _dbContext.Database.BeginTransactionAsync(cancellationToken: default);
+            if (_currentTransaction != null)
+            {
+                return;
+            }
+
+            _currentTransaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
+        }
+        public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                await SaveChangesAsync(cancellationToken);
+                if (_currentTransaction != null)
+                {
+                    await _currentTransaction.CommitAsync(cancellationToken);
+                }
+            }
+            catch
+            {
+                await RollbackTransactionAsync(cancellationToken);
+                throw;
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
         }
 
-        public async Task CommitTransactionAsync()
+        public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
         {
-            await _dbContext.Database.CommitTransactionAsync(cancellationToken: default);
-        }
-
-        public async Task RollbackTransactionAsync()
-        {
-            await _dbContext.Database.RollbackTransactionAsync(cancellationToken: default);
+            try
+            {
+                if (_currentTransaction != null)
+                {
+                    await _currentTransaction.RollbackAsync(cancellationToken);
+                }
+            }
+            finally
+            {
+                if (_currentTransaction != null)
+                {
+                    _currentTransaction.Dispose();
+                    _currentTransaction = null;
+                }
+            }
         }
 
         public void Dispose()

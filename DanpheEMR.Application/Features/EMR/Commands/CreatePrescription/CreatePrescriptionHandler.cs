@@ -1,4 +1,5 @@
 ﻿
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.EMR; 
 using MediatR;

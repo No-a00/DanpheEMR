@@ -1,9 +1,6 @@
-﻿using DanpheEMR.Core.Interface;
+﻿using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface.BloodBank;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.BloodBank.Commands.RegisterDonor
 {

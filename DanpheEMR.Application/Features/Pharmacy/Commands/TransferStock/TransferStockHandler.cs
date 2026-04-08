@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Domain.Pharmacy; // Giả định Entity StockTransfer
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Base;

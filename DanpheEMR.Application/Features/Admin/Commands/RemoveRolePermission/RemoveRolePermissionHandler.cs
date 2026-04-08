@@ -1,5 +1,5 @@
 ﻿using Application.Common;
-using DanpheEMR.Core.Interface;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface.Admin;
 using MediatR;
 namespace DanpheEMR.Application.Features.Admin.Commands.RemoveRolePermission

@@ -1,11 +1,8 @@
 ﻿using Application.Common; // Đảm bảo đúng namespace chứa Result<>
-using DanpheEMR.Core.Interface;
-using DanpheEMR.Core.Interface.EMR; // Nơi chứa IClinicalNoteRepository
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interfaces.EMR;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.Application.Features.EMR.Commands.AddClinicalNote
 {

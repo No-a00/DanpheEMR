@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//400 || 422 
 namespace DanpheEMR.Application.Exceptions
 {
-    internal class BusinessException
+    public class BusinessException : Exception
     {
+        public BusinessException() : base("Yêu cầu không hợp lệ do vi phạm quy tắc nghiệp vụ.") { }
+
+        public BusinessException(string message) : base(message) { }
+
+        public BusinessException(string message, Exception innerException) : base(message, innerException) { }
     }
 }

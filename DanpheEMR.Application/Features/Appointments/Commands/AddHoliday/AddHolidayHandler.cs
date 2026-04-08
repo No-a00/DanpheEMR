@@ -1,10 +1,7 @@
-﻿using Application.Common;
-using DanpheEMR.Core.Interface;
+﻿
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interfaces.Appointment;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Features.Appointment.Commands.AddHoliday
 {

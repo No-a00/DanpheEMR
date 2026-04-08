@@ -1,14 +1,10 @@
-﻿using Application.Common;
+﻿
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Enums;
-using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Appointments;
 using DanpheEMR.Core.Interfaces.Base;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-// TẠO BÍ DANH CHỐNG LỖI
-using DomainAppointment = DanpheEMR.Core.Domain.Appointments.Appointment;
+
 
 namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppointment
 {

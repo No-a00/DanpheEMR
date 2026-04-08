@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Patients;
 using MediatR;

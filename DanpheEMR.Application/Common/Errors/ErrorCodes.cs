@@ -1,8 +1,17 @@
-﻿public static class ErrorCodes
+﻿namespace DanpheEMR.Application.Common.Errors
 {
-    public const string NotFound = "NOT_FOUND";
+    public static class ErrorCodes
+    {
+        public static class Patients
+        {
+            public const string NotFound = "Patient.NotFound";
+            public const string CodeAlreadyExists = "Patient.CodeAlreadyExists";
+        }
 
-    public const string ValidationError = "VALIDATION_ERROR";
-
-    public const string BusinessRule = "BUSINESS_RULE";
+        public static class Pharmacy
+        {
+            public const string OutOfStock = "Pharmacy.OutOfStock";
+            public const string BatchExpired = "Pharmacy.BatchExpired";
+        }
+    }
 }

@@ -1,6 +1,6 @@
 ﻿
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Application.Features.Appointments.Commands.CancelAppointment;
-using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Appointments; 
 using DanpheEMR.Core.Interfaces.Base;
 using MediatR;

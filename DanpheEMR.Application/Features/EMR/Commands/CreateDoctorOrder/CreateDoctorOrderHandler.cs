@@ -1,10 +1,7 @@
-﻿using Application.Common;
-using DanpheEMR.Core.Interface;
+﻿
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface.EMR; // Nơi chứa IDoctorOrderRepository
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.EMR.Commands.CreateDoctorOrder
 {

@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Admin; 

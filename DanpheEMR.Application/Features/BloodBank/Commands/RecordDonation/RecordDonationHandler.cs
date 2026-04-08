@@ -1,10 +1,8 @@
 ﻿using Application.Common;
-using DanpheEMR.Core.Interface;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface.BloodBank; // Nơi chứa IBloodInventoryRepository và IBloodDonorRepository
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.Application.Features.BloodBank.Commands.RecordDonation
 {

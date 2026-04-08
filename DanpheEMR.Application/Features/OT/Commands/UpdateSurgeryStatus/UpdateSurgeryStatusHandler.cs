@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.OT; // Chứa IOTScheduleRepository
