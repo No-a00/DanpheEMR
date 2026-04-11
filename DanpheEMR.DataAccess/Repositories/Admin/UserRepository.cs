@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.Admin
 {
-    public class UserRepository : GenericRepository<User>,IUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
         public UserRepository(ApplicationDbContext context) : base(context) { }
 
-      
+
         public async Task<IEnumerable<User>> GetUsersWithRolesAsync()
         {
             return await _context.Set<User>()
@@ -19,7 +19,7 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                     .ThenInclude(ur => ur.Role)
                 .AsNoTracking()
                 .ToListAsync();
-        } 
+        }
         public async Task<User?> GetByUsernameAsync(string username)
         {
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == username);
@@ -82,6 +82,10 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         public void RemoveUserRole(UserRole userRole)
         {
             _context.Set<UserRole>().Remove(userRole);
+        }
+        public async Task<User?> GetByRefreshTokenAsync(string refreshToken)
+        {
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
         }
     }
 }

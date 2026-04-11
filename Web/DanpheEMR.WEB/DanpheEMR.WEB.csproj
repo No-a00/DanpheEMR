@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\DanpheEMR.DataAccess\DanpheEMR.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\NewFolder\" />
+  </ItemGroup>
+
 </Project>

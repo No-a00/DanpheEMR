@@ -23,5 +23,7 @@ namespace DanpheEMR.Core.Interface.Admin
 
         Task<UserRole> GetUserRoleAsync(Guid userId, Guid roleId);
         void RemoveUserRole(UserRole userRole);
+        //token
+        Task<User> GetByRefreshTokenAsync(string refreshToken);
     }
 }

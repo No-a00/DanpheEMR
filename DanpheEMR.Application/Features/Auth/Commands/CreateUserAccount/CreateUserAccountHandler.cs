@@ -20,14 +20,14 @@ namespace DanpheEMR.Application.Features.Auth.Commands.CreateUserAccount
         {
             try
             {
-                // 1. Kiểm tra Username đã tồn tại chưa
+             
                 bool isUsernameExist = await _userRepository.IsUsernameUniqueAsync(request.UserName) == false;
                 if (isUsernameExist)
                 {
                     return Result<Guid>.Failure(CreateUserAccountErrors.UsernameExists);
                 }
 
-                // 2. Kiểm tra Email đã tồn tại chưa
+               
                 bool isEmailExist = await _userRepository.IsEmailUniqueAsync(request.Email) == false;
                 if (isEmailExist)
                 {

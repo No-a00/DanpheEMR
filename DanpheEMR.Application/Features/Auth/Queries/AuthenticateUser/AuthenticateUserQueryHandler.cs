@@ -1,6 +1,4 @@
-﻿
-using DanpheEMR.Core.Interface.Admin; 
-using DanpheEMR.Core.Interface.Auth;
+﻿using DanpheEMR.Application.Abstractions.Services.Admin; 
 using MediatR;
 
 
@@ -8,49 +6,23 @@ namespace DanpheEMR.Application.Features.Auth.Queries.AuthenticateUser
 {
     public class AuthenticateUserQueryHandler : IRequestHandler<AuthenticateUserQuery, Result<AuthenticateUserResponse>>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IJwtProvider _jwtProvider;
+        private readonly IAuthService _authService; 
 
-        public AuthenticateUserQueryHandler(
-            IUserRepository userRepository,
-            IJwtProvider jwtProvider)
+        public AuthenticateUserQueryHandler(IAuthService authService)
         {
-            _userRepository = userRepository;
-            _jwtProvider = jwtProvider;
+            _authService = authService;
         }
 
         public async Task<Result<AuthenticateUserResponse>> Handle(AuthenticateUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByUsernameAsync(request.Username);
+            
+            var response = await _authService.LoginAsync(request.Username, request.Password, cancellationToken);
 
-            if (user == null)
+            if (response == null)
             {
+              
                 return Result<AuthenticateUserResponse>.Failure(AuthenticateUserErrors.InvalidCredentials);
             }
-
-            if (!user.IsActive)
-            {
-                return Result<AuthenticateUserResponse>.Failure(AuthenticateUserErrors.AccountLocked);
-            }
-
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash);
-
-            if (!isPasswordValid)
-            {
-                return Result<AuthenticateUserResponse>.Failure(AuthenticateUserErrors.InvalidCredentials);
-            }
-
-           
-            string token = _jwtProvider.GenerateToken(user);
-
-          
-            var response = new AuthenticateUserResponse
-            {
-                UserId = user.Id,
-                Username = user.UserName,
-                EmployeeId = user.EmployeeId,
-                Token = token
-            };
 
             return Result<AuthenticateUserResponse>.Success(response);
         }
