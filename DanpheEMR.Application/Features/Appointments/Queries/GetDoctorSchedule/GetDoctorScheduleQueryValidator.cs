@@ -9,8 +9,10 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
             RuleFor(x => x.DoctorId)
                 .NotEmpty().WithMessage("Vui lòng chọn bác sĩ để xem lịch.");
 
-            RuleFor(x => x.Date)
-                .NotEmpty().WithMessage("Vui lòng chọn ngày cần xem lịch.");
+            RuleFor(x => x.StartDate)
+                .NotEmpty().WithMessage("Vui lòng chọn ngày bắt đầu.");
+            RuleFor(x => x.EndDate)
+                .NotEmpty().WithMessage("Vui lòng chọn ngày kết thúc.");
         }
     }
 }

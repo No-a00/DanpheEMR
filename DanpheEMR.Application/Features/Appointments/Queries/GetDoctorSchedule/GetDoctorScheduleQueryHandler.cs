@@ -22,7 +22,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
             GetDoctorScheduleQuery request,
             CancellationToken cancellationToken)
         {
-            var schedules = await _scheduleRepo.GetSchedulesByProviderIdAsync(request.DoctorId, request.Date);
+            var schedules = await _scheduleRepo.GetSchedulesByProviderIdAsync(request.DoctorId, request.StartDate, request.EndDate);
             if (schedules == null)
             {
                 return Result.Success(new List<DoctorScheduleResponse>());

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails
 {
-    internal class GetTransactionDetailsQueryValidator
+    public class GetTransactionDetailsQueryValidator : AbstractValidator<GetTransactionDetailsQuery>
     {
+        public GetTransactionDetailsQueryValidator()
+        {
+            RuleFor(x => x.TransactionId)
+                .NotEmpty().WithMessage("Mã giao dịch (TransactionId) không được để trống.");
+        }
     }
 }

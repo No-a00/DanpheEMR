@@ -7,10 +7,7 @@ namespace DanpheEMR.Core.Domain.Billing
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid BillingTransactionId { get; set; }
-        public virtual BillingTransaction BillingTransaction { get; set; }
-        public Guid ServiceItemId { get; set; }
-        public virtual ServiceItem ServiceItem { get; set; }
+     
 
         [Required]
         public string ItemName { get; set; }
@@ -24,5 +21,9 @@ namespace DanpheEMR.Core.Domain.Billing
 
         public Guid? ProviderId { get; set; }
         public virtual Employee Provider { get; set; }
+        public Guid BillingTransactionId { get; set; }
+        public virtual BillingTransaction BillingTransaction { get; set; }
+        public Guid ServiceItemId { get; set; }
+        public virtual ServiceItem ServiceItem { get; set; }
     }
 }

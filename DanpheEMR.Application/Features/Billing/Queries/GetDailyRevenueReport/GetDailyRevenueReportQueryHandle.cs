@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetDailyRevenueReport
 {
-    // 1. Đã đổi thành public và thêm chữ 'r'
+    
     public class GetDailyRevenueReportQueryHandler : IRequestHandler<GetDailyRevenueReportQuery, Result<GetDailyRevenueReportResponse>>
     {
         private readonly IBillingTransactionRepository _billingRepository;

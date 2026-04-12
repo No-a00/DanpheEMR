@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using MediatR;
 
 namespace DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails
 {
-    internal class GetTransactionDetailsQuery
+    public class GetTransactionDetailsQuery : IRequest<Result<GetTransactionDetailsResponse>>
     {
+        public Guid TransactionId { get; set; }
+
+        public GetTransactionDetailsQuery(Guid transactionId)
+        {
+            TransactionId = transactionId;
+        }
     }
 }

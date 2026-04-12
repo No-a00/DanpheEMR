@@ -23,13 +23,20 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                     ds.StartTime <= time &&
                     ds.EndTime > time);
         }
-        public async Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime date)
+        public async Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime? startDate, DateTime? endDate)
         {
-            var targetDayOfWeek = date.DayOfWeek;
-
-            return await _dbSet
-                .Where(ds => ds.ProviderId == providerId && ds.DayOfWeek == targetDayOfWeek)
-                .ToListAsync();
+            var schedulesQuery = _dbSet.Where(ds => ds.ProviderId == providerId);
+            if (startDate.HasValue)
+            {
+                var startDayOfWeek = startDate.Value.DayOfWeek;
+                schedulesQuery = schedulesQuery.Where(ds => ds.DayOfWeek >= startDayOfWeek);
+            }
+            if (endDate.HasValue)
+            {
+                var endDayOfWeek = endDate.Value.DayOfWeek;
+                schedulesQuery = schedulesQuery.Where(ds => ds.DayOfWeek <= endDayOfWeek);
+            }
+            return await schedulesQuery.ToListAsync();
         }
         public async Task<DoctorSchedule?> GetScheduleByProviderIdAndTimeAsync(Guid providerId, DateTime date, TimeSpan time)
         {

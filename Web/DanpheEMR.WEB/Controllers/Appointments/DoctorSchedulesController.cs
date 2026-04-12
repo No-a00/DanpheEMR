@@ -1,11 +1,8 @@
-﻿using DanpheEMR.Application.Features.Appointments.Commands.AddHoliday;
-using DanpheEMR.Application.Features.Appointments.Commands.SetupDoctorSchedule;
+﻿using DanpheEMR.Application.Features.Appointments.Commands.SetupDoctorSchedule;
 using DanpheEMR.Application.Features.Appointments.Queries.GetDoctorDailySchedule;
 using DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule;
 using DanpheEMR.Features.Appointment.Commands.AddHoliday;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.WEB.Controllers.Appointments
 {

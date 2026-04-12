@@ -9,9 +9,9 @@ namespace DanpheEMR.Core.Interfaces.Appointment
         Task<DoctorSchedule?> GetDoctorScheduleAsync(Guid doctorId, DateTime appointmentDate);
 
         // 2. Lấy danh sách tất cả lịch của bác sĩ trong một ngày cụ thể
-        Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime date);
+        Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime? startDate, DateTime? endDate);
 
-        // 3. Tìm lịch theo Bác sĩ và Khoảng thời gian (Đã sửa int -> Guid)
+        // 3. Tìm lịch theo Bác sĩ và Khoảng thời gian
         Task<DoctorSchedule?> GetScheduleByProviderIdAndTimeAsync(Guid providerId, DateTime date, TimeSpan time);
 
         // 4. Kiểm tra xem bác sĩ đã có lịch trong khoa vào khoảng thời gian đó chưa
