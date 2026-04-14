@@ -1,9 +1,9 @@
-﻿using DanpheEMR.Application.Abstractions.Persistence;
+﻿using DanpheEMR.Api.Services;
+using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface.Auth;
 using DanpheEMR.Core.Interfaces.Base;
 using DanpheEMR.DataAccess.Repositories.Patients;
 using DanpheEMR.Infrastructure.Data;
-using DanpheEMR.Infrastructure.Services;
 using DanpheEMR.WEB.Authentication;
 using DanpheEMR.WEB.Configurations; 
 

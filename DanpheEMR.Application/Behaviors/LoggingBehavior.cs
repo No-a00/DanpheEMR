@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using DanpheEMR.Application.Abstractions.Infrastructure; // Mở nếu dùng ICurrentUser
+using DanpheEMR.Application.Abstractions.Infrastructure;
 
 namespace DanpheEMR.Application.Behaviors
 {

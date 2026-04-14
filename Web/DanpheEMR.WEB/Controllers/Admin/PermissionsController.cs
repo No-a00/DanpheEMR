@@ -1,12 +1,12 @@
 ﻿using DanpheEMR.Application.Features.Admin.Commands.AssignRolePermission;
 using DanpheEMR.Application.Features.Admin.Commands.RemoveRolePermission;
 using DanpheEMR.Application.Features.Admin.Queries.GetPermissions;
+using DanpheEMR.WEB.Security;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-
 namespace DanpheEMR.WEB.Controllers.Admin
 {
     [Route("api/admin/permissions")]
+    [RequirePermission("Admin", "Full")]
     public class PermissionsController : ApiControllerBase
     {
         // GET: api/admin/permissions

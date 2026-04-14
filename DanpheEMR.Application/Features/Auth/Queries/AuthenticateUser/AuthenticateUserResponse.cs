@@ -9,5 +9,6 @@ namespace DanpheEMR.Application.Features.Auth.Queries.AuthenticateUser
         public Guid? EmployeeId { get; set; }
 
         public string Token { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

@@ -17,40 +17,45 @@ namespace DanpheEMR.WEB.Authentication
             _options = options.Value;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(User user, IEnumerable<string> permissions)
         {
-            // 1. Tạo các thông tin đính kèm trong Token (Claims)
+            // Tạo các thông tin cơ bản
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), 
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty)
             };
 
-            // Nếu User này là một Nhân viên (Bác sĩ, Y tá...), nhét luôn EmployeeId vào Token
             if (user.EmployeeId.HasValue)
             {
                 claims.Add(new Claim("EmployeeId", user.EmployeeId.Value.ToString()));
             }
 
-            // 2. Lấy Khóa bí mật (SecretKey) và thuật toán mã hóa
+
+            if (permissions != null)
+            {
+                foreach (var permission in permissions)
+                {
+                    
+                    claims.Add(new Claim("Permission", permission));
+                }
+            }
+
+            
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
                 SecurityAlgorithms.HmacSha256);
 
-            // 3. Tiến hành "nhào nặn" Token
             var token = new JwtSecurityToken(
                 _options.Issuer,
                 _options.Audience,
                 claims,
                 null,
-                DateTime.UtcNow.AddMinutes(_options.ExpirationInMinutes), // Thời gian sống của Token
+                DateTime.UtcNow.AddMinutes(_options.ExpirationInMinutes),
                 signingCredentials);
 
-            // 4. Xuất ra chuỗi string để gửi về Frontend
-            string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return tokenValue;
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

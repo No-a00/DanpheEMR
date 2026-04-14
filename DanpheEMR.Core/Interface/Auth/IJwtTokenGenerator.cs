@@ -4,6 +4,6 @@ namespace DanpheEMR.Core.Interface.Auth
 {
     public interface IJwtProvider
     {
-        string GenerateToken(User user);
+        string GenerateToken(User user, IEnumerable<string> permissions);
     }
 }
