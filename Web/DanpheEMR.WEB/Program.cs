@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     ));
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
-builder.Services.Configure<JwtOptions>(jwtSection);
+builder.Services.Configure<JwtOptions>(jwtSection); 
 var jwtOptions = jwtSection.Get<JwtOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -36,6 +36,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructureServices();
+
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -61,10 +65,26 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 // Gắn header bảo mật chống XSS, Clickjacking...
 app.UseMiddleware<SecurityHeadersMiddleware>();
 
-if (!app.Environment.IsDevelopment())
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseHsts();
+//}
+
+
+// Chỉ bật Swagger trong môi trường Phát triển (Development)
+// Thêm dịch vụ Swagger vào Container
+
+
+if (app.Environment.IsDevelopment())
 {
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "DanpheEMR API V1");
+        c.RoutePrefix = "swagger"; // Đường dẫn sẽ là localhost:xxxx/swagger
+    });
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
