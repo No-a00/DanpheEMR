@@ -1,7 +1,9 @@
 ﻿using DanpheEMR.Application.Features.Admin.Commands.AssignUserRole;
 using DanpheEMR.Application.Features.Admin.Commands.RemoveUserRole;
 using DanpheEMR.Application.Features.Admin.Queries.GetUsersWithRoles;
+using DanpheEMR.WEB.Security; 
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace DanpheEMR.WEB.Controllers.Admin
 {
@@ -10,6 +12,7 @@ namespace DanpheEMR.WEB.Controllers.Admin
     {
         // GET: api/admin/users/with-roles
         [HttpGet("with-roles")]
+        [RequirePermission("Admin", "Read")] 
         public async Task<IActionResult> GetUsersWithRoles([FromQuery] GetUsersWithRolesQuery query)
         {
             var result = await Mediator.Send(query);
@@ -18,6 +21,7 @@ namespace DanpheEMR.WEB.Controllers.Admin
 
         // POST: api/admin/users/{userId}/roles
         [HttpPost("{userId}/roles")]
+        [RequirePermission("Admin", "Write")] 
         public async Task<IActionResult> AssignUserRole(Guid userId, [FromBody] AssignUserRoleCommand command)
         {
             if (userId != command.UserId)
@@ -31,6 +35,7 @@ namespace DanpheEMR.WEB.Controllers.Admin
 
         // DELETE: api/admin/users/{userId}/roles
         [HttpDelete("{userId}/roles")]
+        [RequirePermission("Admin", "Full")]
         public async Task<IActionResult> RemoveUserRole(Guid userId, [FromBody] RemoveUserRoleCommand command)
         {
             if (userId != command.UserId)

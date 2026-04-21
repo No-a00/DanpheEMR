@@ -3,8 +3,9 @@ using DanpheEMR.Application.Features.BloodBank.Commands.RecordDonation;
 using DanpheEMR.Application.Features.BloodBank.Commands.RegisterDonor;
 using DanpheEMR.Application.Features.BloodBank.Queries.GetBloodInventory;
 using DanpheEMR.Application.Features.BloodBank.Queries.GetEligibleDonors;
+using DanpheEMR.WEB.Security; 
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.WEB.Controllers.BloodBank
 {
@@ -13,6 +14,7 @@ namespace DanpheEMR.WEB.Controllers.BloodBank
     {
         // POST: api/blood-bank/donors
         [HttpPost("donors")]
+        [RequirePermission("BloodBank", "Write")] 
         public async Task<IActionResult> RegisterDonor([FromBody] RegisterDonorCommand command)
         {
             var result = await Mediator.Send(command);
@@ -21,6 +23,7 @@ namespace DanpheEMR.WEB.Controllers.BloodBank
 
         // POST: api/blood-bank/donations
         [HttpPost("donations")]
+        [RequirePermission("BloodBank", "Write")] 
         public async Task<IActionResult> RecordDonation([FromBody] RecordDonationCommand command)
         {
             var result = await Mediator.Send(command);
@@ -29,6 +32,7 @@ namespace DanpheEMR.WEB.Controllers.BloodBank
 
         // POST: api/blood-bank/issues
         [HttpPost("issues")]
+        [RequirePermission("BloodBank", "Write")]
         public async Task<IActionResult> IssueBlood([FromBody] IssueBloodCommand command)
         {
             var result = await Mediator.Send(command);
@@ -37,6 +41,7 @@ namespace DanpheEMR.WEB.Controllers.BloodBank
 
         // GET: api/blood-bank/inventory?bloodGroup=O+
         [HttpGet("inventory")]
+        [RequirePermission("BloodBank", "Read")] 
         public async Task<IActionResult> GetBloodInventory([FromQuery] GetBloodInventoryQuery query)
         {
             var result = await Mediator.Send(query);
@@ -45,6 +50,7 @@ namespace DanpheEMR.WEB.Controllers.BloodBank
 
         // GET: api/blood-bank/donors/eligible?bloodGroup=A+
         [HttpGet("donors/eligible")]
+        [RequirePermission("BloodBank", "Read")] 
         public async Task<IActionResult> GetEligibleDonors([FromQuery] GetEligibleDonorsQuery query)
         {
             var result = await Mediator.Send(query);

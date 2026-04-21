@@ -123,6 +123,23 @@ namespace DanpheEMR.DataAccess.Data
                     ?.MakeGenericMethod(entityType.ClrType);
                 method?.Invoke(this, new object[] { modelBuilder });
             }
+
+
+
+
+            var entityTypes = modelBuilder.Model.GetEntityTypes().ToList();
+            foreach (var entityType in entityTypes)
+            {
+                var foreignKeys = entityType.GetForeignKeys();
+                foreach (var fk in foreignKeys)
+                {
+
+                    if (typeof(ISoftDelete).IsAssignableFrom(fk.PrincipalEntityType.ClrType))
+                    {
+                        fk.IsRequired = false;
+                    }
+                }
+            }
         }
         private void ApplySoftDeleteFilter<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete
         {

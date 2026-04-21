@@ -5,7 +5,7 @@ using DanpheEMR.Core.Interfaces.Base;
 using DanpheEMR.DataAccess.Repositories.Patients;
 using DanpheEMR.Infrastructure.Data;
 using DanpheEMR.WEB.Authentication;
-using DanpheEMR.WEB.Configurations; 
+using DanpheEMR.WEB.Configurations;
 
 namespace DanpheEMR.WEB.DependencyInjection
 {
@@ -13,16 +13,24 @@ namespace DanpheEMR.WEB.DependencyInjection
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-
             services.AddAutoMapperConfiguration();
             services.AddMediatRConfiguration();
             services.AddValidationConfiguration();
 
             services.AddHttpContextAccessor();
             services.AddMemoryCache();
+
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IJwtProvider, JwtProvider>(); 
+            services.AddScoped<IJwtProvider, JwtProvider>();
+
+         
+            services.AddScoped(typeof(DanpheEMR.Core.Interface.Base.IGenericRepository<>),
+                               typeof(DanpheEMR.DataAccess.Repositories.Base.GenericRepository<>));
+
+            services.AddScoped<DanpheEMR.Application.Abstractions.Services.Admin.IAuthService,
+                               DanpheEMR.DataAccess.Services.Admin.AuthService>();
+
             var repositoryAssembly = typeof(PatientRepository).Assembly;
             var repositoryTypes = repositoryAssembly.GetTypes()
                 .Where(type => type.IsClass && !type.IsAbstract && type.Name.EndsWith("Repository"));

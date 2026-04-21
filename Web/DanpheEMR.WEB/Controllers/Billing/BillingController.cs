@@ -4,9 +4,9 @@ using DanpheEMR.Application.Features.Billing.Queries.GetDailyRevenueReport;
 using DanpheEMR.Application.Features.Billing.Queries.GetProviderRevenueReport;
 using DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails;
 using DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient;
+using DanpheEMR.WEB.Security;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+
 
 namespace DanpheEMR.WEB.Controllers
 {
@@ -15,6 +15,7 @@ namespace DanpheEMR.WEB.Controllers
     {
         // POST: api/billing/invoices
         [HttpPost("invoices")]
+        [RequirePermission("Billing", "Write")] 
         public async Task<IActionResult> GenerateInvoice([FromBody] GenerateInvoiceCommand command)
         {
             var result = await Mediator.Send(command);
@@ -23,6 +24,7 @@ namespace DanpheEMR.WEB.Controllers
 
         // POST: api/billing/payments
         [HttpPost("payments")]
+        [RequirePermission("Billing", "Write")] 
         public async Task<IActionResult> ProcessPayment([FromBody] ProcessPaymentCommand command)
         {
             var result = await Mediator.Send(command);
@@ -31,6 +33,7 @@ namespace DanpheEMR.WEB.Controllers
 
         // GET: api/billing/transactions/{id}
         [HttpGet("transactions/{id}")]
+        [RequirePermission("Billing", "Read")] 
         public async Task<IActionResult> GetTransactionDetails(Guid id)
         {
             var result = await Mediator.Send(new GetTransactionDetailsQuery(id));
@@ -39,6 +42,7 @@ namespace DanpheEMR.WEB.Controllers
 
         // GET: api/billing/patients/{patientId}/unpaid-bills
         [HttpGet("patients/{patientId}/unpaid-bills")]
+        [RequirePermission("Billing", "Read")] 
         public async Task<IActionResult> GetUnpaidBillsByPatient(Guid patientId)
         {
             var result = await Mediator.Send(new GetUnpaidBillsByPatientQuery(patientId));
@@ -47,6 +51,7 @@ namespace DanpheEMR.WEB.Controllers
 
         // GET: api/billing/reports/daily-revenue?date=2023-10-25
         [HttpGet("reports/daily-revenue")]
+        [RequirePermission("Billing", "Read")] 
         public async Task<IActionResult> GetDailyRevenueReport([FromQuery] DateTime date)
         {
             var result = await Mediator.Send(new GetDailyRevenueReportQuery(date));
@@ -55,9 +60,9 @@ namespace DanpheEMR.WEB.Controllers
 
         // GET: api/billing/reports/provider-revenue?providerId=...&startDate=...&endDate=...
         [HttpGet("reports/provider-revenue")]
+        [RequirePermission("Billing", "Read")] 
         public async Task<IActionResult> GetProviderRevenueReport([FromQuery] GetProviderRevenueReportQuery query)
         {
-            // Truyền thẳng object query từ URL parameter vào Mediator
             var result = await Mediator.Send(query);
             return Ok(result);
         }

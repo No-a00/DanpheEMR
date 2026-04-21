@@ -2,7 +2,10 @@
 using DanpheEMR.Application.Features.Appointments.Commands.CancelAppointment;
 using DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppointment;
 using DanpheEMR.Application.Features.Appointments.Queries.GetPatientAppointments;
+using DanpheEMR.WEB.Security; 
 using Microsoft.AspNetCore.Mvc;
+
+
 namespace DanpheEMR.WEB.Controllers.Appointments
 {
     [Route("api/appointments")]
@@ -10,6 +13,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
     {
         // GET: api/appointments/patient/{patientId}
         [HttpGet("patient/{patientId}")]
+        [RequirePermission("Appointment", "Read")] 
         public async Task<IActionResult> GetPatientAppointments(Guid patientId)
         {
             var result = await Mediator.Send(new GetPatientAppointmentsQuery(patientId));
@@ -18,6 +22,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
 
         // POST: api/appointments
         [HttpPost]
+        [RequirePermission("Appointment", "Write")]
         public async Task<IActionResult> BookAppointment([FromBody] BookAppointmentCommand command)
         {
             var result = await Mediator.Send(command);
@@ -26,6 +31,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
 
         // PUT: api/appointments/{id}/reschedule
         [HttpPut("{id}/reschedule")]
+        [RequirePermission("Appointment", "Write")] 
         public async Task<IActionResult> RescheduleAppointment(Guid id, [FromBody] RescheduleAppointmentCommand command)
         {
             if (id != command.Id)
@@ -39,6 +45,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
 
         // PUT: api/appointments/{id}/cancel
         [HttpPut("{id}/cancel")]
+        [RequirePermission("Appointment", "Write")] 
         public async Task<IActionResult> CancelAppointment(Guid id, [FromBody] CancelAppointmentCommand command)
         {
             if (id != command.Id)

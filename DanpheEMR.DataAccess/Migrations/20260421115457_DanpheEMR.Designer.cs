@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DanpheEMR.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260328124215_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260421115457_DanpheEMR")]
+    partial class DanpheEMR
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,16 +118,13 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("DepartmentName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("HeadOfDepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HeadOfDepartmentId1")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -138,17 +135,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("ParentDepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeadOfDepartmentId1");
-
-                    b.HasIndex("ParentDepartmentId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Departments");
                 });
@@ -167,8 +159,8 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
@@ -177,11 +169,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -193,6 +180,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -250,13 +242,24 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -345,8 +348,18 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AvatarUrl")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -355,6 +368,16 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<Guid?>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -366,6 +389,24 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -391,11 +432,19 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
@@ -435,6 +484,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -454,9 +506,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("ReasonUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -543,16 +592,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("CancelUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("DiscountAmount")
                         .HasPrecision(18, 2)
@@ -563,9 +607,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -573,12 +614,15 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PaymentMode")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<int>("PaymentStatus")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
@@ -601,7 +645,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TransactionType")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -696,25 +739,22 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("BillingtransactionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("CancelUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("PaymentMode")
                         .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("ReceiptDate")
                         .HasColumnType("datetime2");
@@ -796,6 +836,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("DonorName")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -814,6 +857,11 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<DateTime?>("LastDonatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("TotalDonations")
                         .HasColumnType("int");
@@ -961,6 +1009,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ExaminationNotes")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -970,9 +1021,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -986,18 +1034,15 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("VisitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("VoidReason")
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid>("VoidedByUserId")
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("VisitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1019,6 +1064,9 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -1056,9 +1104,6 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("VisitId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("VoidedBy")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
@@ -1076,19 +1121,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1103,6 +1140,11 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -1139,13 +1181,13 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("DosageGiven")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1156,6 +1198,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("PrescriptionItemId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("Remarks")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1163,14 +1210,6 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("VoidReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("VoidedByUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -1189,16 +1228,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1217,6 +1251,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("PrescriptionDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1224,9 +1263,6 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserIdCancel")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VisitId")
                         .HasColumnType("uniqueidentifier");
@@ -1248,13 +1284,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Dosage")
                         .IsRequired()
@@ -1268,9 +1302,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1286,11 +1317,13 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("PrescriptionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserIdCancel")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -1318,8 +1351,8 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1340,6 +1373,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("Subjective")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1352,14 +1390,6 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("VoidReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("VoidedByUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -1388,6 +1418,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("HeartRate")
                         .HasColumnType("int");
 
@@ -1395,14 +1428,16 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("RecordedAt")
                         .HasColumnType("datetime2");
@@ -1427,14 +1462,6 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<decimal>("Weight")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("voidReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("voidedByUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -1490,28 +1517,25 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid?>("AnesthetistId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("OTRoomId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
@@ -1571,14 +1595,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("AdmittingDoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CancelUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1586,7 +1607,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ReasonCancel")
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -1623,6 +1644,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("DischargeCondition")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1636,25 +1660,19 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VoidReason")
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid>("VoidedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1683,6 +1701,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1697,9 +1718,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1719,16 +1737,13 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VoidReason")
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid>("VoidedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1741,10 +1756,24 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AddressType")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -1756,17 +1785,17 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid>("patientId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("patientId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("PatientAddresses");
                 });
@@ -1782,16 +1811,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("GuaranteeAmount")
                         .HasPrecision(18, 2)
@@ -1807,14 +1831,16 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Relationship")
                         .IsRequired()
@@ -1845,15 +1871,23 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("KinName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("RelationShip")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Relation")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -1861,12 +1895,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("patientId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("patientId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("PatientKins");
                 });
@@ -1883,24 +1914,22 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FromDepartmentId")
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FromDeptId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Reason")
+                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("ToDepartmentId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ToDeptId")
                         .HasColumnType("uniqueidentifier");
@@ -1908,27 +1937,21 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("TransferDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("TransferReason")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<int>("TransferStatus")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("VoidedByUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("cancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AdmissionId");
 
-                    b.HasIndex("FromDepartmentId");
-
-                    b.HasIndex("ToDepartmentId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Transfers");
                 });
@@ -1939,11 +1962,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("ChiefComplaint")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1952,11 +1970,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DepartmentId")
+                    b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1967,17 +1985,19 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("QueueNo")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("QueueNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserIdCancel")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("VisitCode")
                         .IsRequired()
@@ -2009,11 +2029,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("CategoryCode")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -2027,22 +2042,24 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("UserIdCancel")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -2055,16 +2072,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("GoodsReceiptNo")
                         .IsRequired()
@@ -2076,11 +2088,13 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("ReceiptDate")
                         .HasColumnType("datetime2");
@@ -2181,24 +2195,16 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("CancelUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GernericName")
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("GenericName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -2209,6 +2215,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -2257,6 +2268,9 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -2314,6 +2328,9 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<int>("StockBalance")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("StoreId")
                         .HasColumnType("uniqueidentifier");
 
@@ -2343,16 +2360,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -2361,6 +2373,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -2378,7 +2395,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Stores");
                 });
@@ -2403,6 +2425,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -2413,6 +2438,11 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("SubCategoryCode")
                         .IsRequired()
@@ -2445,14 +2475,6 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ContactNumber")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -2466,6 +2488,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -2476,6 +2501,11 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("SupplierCode")
                         .IsRequired()
@@ -2514,25 +2544,22 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("CancelledByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsOccupied")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -2562,16 +2589,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<int?>("CancelledByUserId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -2588,11 +2610,13 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -2608,22 +2632,19 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CancelReason")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<int?>("CancelledByUserId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("TotalBeds")
                         .HasColumnType("int");
@@ -2663,6 +2684,9 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -2677,6 +2701,11 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
@@ -2698,28 +2727,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.User", "User")
                         .WithMany("AuditLogs")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("DanpheEMR.Core.Domain.Admin.Department", b =>
                 {
-                    b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "HeadOfDepartment")
-                        .WithMany()
-                        .HasForeignKey("HeadOfDepartmentId1")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DanpheEMR.Core.Domain.Admin.Department", "ParentDepartment")
+                    b.HasOne("DanpheEMR.Core.Domain.Admin.Department", null)
                         .WithMany("SubDepartments")
-                        .HasForeignKey("ParentDepartmentId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("HeadOfDepartment");
-
-                    b.Navigation("ParentDepartment");
                 });
 
             modelBuilder.Entity("DanpheEMR.Core.Domain.Admin.Employee", b =>
@@ -2744,8 +2762,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Permission");
 
@@ -2767,14 +2784,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Role");
 
@@ -2792,14 +2807,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Department");
 
@@ -2823,14 +2836,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany()
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
 
@@ -2842,8 +2853,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Billing.BillingTransaction", "BillingTransaction")
                         .WithMany("TransactionItems")
                         .HasForeignKey("BillingTransactionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
@@ -2868,8 +2878,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Billing.BillingTransaction", "BillingTransaction")
                         .WithMany()
                         .HasForeignKey("BillingtransactionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("BillingTransaction");
                 });
@@ -2925,8 +2934,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("BloodInventory");
 
@@ -2938,20 +2946,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany("ClinicalNotes")
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
 
@@ -2965,20 +2970,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany("Diagnoses")
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
 
@@ -2992,14 +2994,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany("DoctorOrders")
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Provider");
 
@@ -3011,20 +3011,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Admission", "Admission")
                         .WithMany()
                         .HasForeignKey("AdmissionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Nurse")
                         .WithMany()
                         .HasForeignKey("NurseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.EMR.PrescriptionItem", "PrescriptionItem")
                         .WithMany()
                         .HasForeignKey("PrescriptionItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Admission");
 
@@ -3038,20 +3035,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Prescriber")
                         .WithMany()
                         .HasForeignKey("PrescriberId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany("Prescriptions")
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
 
@@ -3065,14 +3059,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Item", "Medicine")
                         .WithMany()
                         .HasForeignKey("MedicineId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.EMR.Prescription", "Prescription")
                         .WithMany("Items")
                         .HasForeignKey("PrescriptionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Medicine");
 
@@ -3084,14 +3076,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Admission", "Admission")
                         .WithMany()
                         .HasForeignKey("AdmissionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Admission");
 
@@ -3103,14 +3093,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany("Vitals")
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
 
@@ -3133,14 +3121,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Surgeon")
                         .WithMany()
                         .HasForeignKey("SurgeonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("patientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Anesthetist");
 
@@ -3156,20 +3142,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "AdmittingDoctor")
                         .WithMany()
                         .HasForeignKey("AdmittingDoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany("Admissions")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Visit", "Visit")
                         .WithMany("Admissions")
                         .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("AdmittingDoctor");
 
@@ -3181,16 +3164,14 @@ namespace DanpheEMR.DataAccess.Migrations
             modelBuilder.Entity("DanpheEMR.Core.Domain.Patients.Discharge", b =>
                 {
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Admission", "Admission")
-                        .WithOne("Discharges")
+                        .WithOne("Discharge")
                         .HasForeignKey("DanpheEMR.Core.Domain.Patients.Discharge", "AdmissionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Admission");
 
@@ -3201,9 +3182,8 @@ namespace DanpheEMR.DataAccess.Migrations
                 {
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany("Addresses")
-                        .HasForeignKey("patientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
                 });
@@ -3213,8 +3193,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
                 });
@@ -3223,9 +3202,8 @@ namespace DanpheEMR.DataAccess.Migrations
                 {
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany("Kins")
-                        .HasForeignKey("patientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Patient");
                 });
@@ -3235,26 +3213,17 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Admission", "Admission")
                         .WithMany("Transfers")
                         .HasForeignKey("AdmissionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("DanpheEMR.Core.Domain.Admin.Department", "FromDepartment")
+                    b.HasOne("DanpheEMR.Core.Domain.Admin.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("FromDepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DanpheEMR.Core.Domain.Admin.Department", "ToDepartment")
-                        .WithMany()
-                        .HasForeignKey("ToDepartmentId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Admission");
 
-                    b.Navigation("FromDepartment");
-
-                    b.Navigation("ToDepartment");
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("DanpheEMR.Core.Domain.Patients.Visit", b =>
@@ -3268,14 +3237,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Patients.Patient", "Patient")
                         .WithMany("Visits")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Department");
 
@@ -3289,14 +3256,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Store", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Store");
 
@@ -3308,14 +3273,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.GoodsReceipt", "GoodsReceipt")
                         .WithMany("GoodsReceiptItems")
                         .HasForeignKey("GoodsReceiptId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("GoodsReceipt");
 
@@ -3327,8 +3290,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.SubCategory", "SubCategory")
                         .WithMany("Items")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("SubCategory");
                 });
@@ -3338,14 +3300,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Store", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Item");
 
@@ -3357,18 +3317,26 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Store", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Item");
 
                     b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("DanpheEMR.Core.Domain.Pharmacy.Store", b =>
+                {
+                    b.HasOne("DanpheEMR.Core.Domain.Admin.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DanpheEMR.Core.Domain.Pharmacy.SubCategory", b =>
@@ -3376,8 +3344,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Pharmacy.Category", "Category")
                         .WithMany("SubCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
                 });
@@ -3387,14 +3354,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Wards.BedFeature", "BedFeature")
                         .WithMany("Beds")
                         .HasForeignKey("BedFeatureId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DanpheEMR.Core.Domain.Wards.Ward", "Ward")
                         .WithMany("Beds")
                         .HasForeignKey("WardId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("BedFeature");
 
@@ -3412,8 +3377,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.HasOne("DanpheEMR.Core.Domain.Admin.Employee", "Provider")
                         .WithMany("Schedules")
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Department");
 
@@ -3477,7 +3441,7 @@ namespace DanpheEMR.DataAccess.Migrations
 
             modelBuilder.Entity("DanpheEMR.Core.Domain.Patients.Admission", b =>
                 {
-                    b.Navigation("Discharges")
+                    b.Navigation("Discharge")
                         .IsRequired();
 
                     b.Navigation("Transfers");

@@ -1,6 +1,7 @@
 ﻿using DanpheEMR.Application.Features.OT.Commands.ScheduleSurgery;
 using DanpheEMR.Application.Features.OT.Commands.UpdateSurgeryStatus;
 using DanpheEMR.Application.Features.OT.Queries.GetDailySurgerySchedule;
+using DanpheEMR.WEB.Security; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanpheEMR.WEB.Controllers.OT
@@ -10,6 +11,7 @@ namespace DanpheEMR.WEB.Controllers.OT
     {
         // GET: api/surgeries/daily?date=2023-10-25
         [HttpGet("daily")]
+        [RequirePermission("OT", "Read")]
         public async Task<IActionResult> GetDailySurgerySchedule([FromQuery] GetDailySurgeryScheduleQuery query)
         {
             var result = await Mediator.Send(query);
@@ -18,6 +20,7 @@ namespace DanpheEMR.WEB.Controllers.OT
 
         // POST: api/surgeries
         [HttpPost]
+        [RequirePermission("OT", "Write")] 
         public async Task<IActionResult> ScheduleSurgery([FromBody] ScheduleSurgeryCommand command)
         {
             var result = await Mediator.Send(command);
@@ -26,6 +29,7 @@ namespace DanpheEMR.WEB.Controllers.OT
 
         // PUT: api/surgeries/{id}/status
         [HttpPut("{id}/status")]
+        [RequirePermission("OT", "Write")] 
         public async Task<IActionResult> UpdateSurgeryStatus(Guid id, [FromBody] UpdateSurgeryStatusCommand command)
         {
             if (id != command.ScheduleId) return BadRequest("ID ca phẫu thuật không khớp.");
