@@ -16,7 +16,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         // Thông tin xóa mềm
         public bool IsDeleted { get; set; }
 
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         public Guid? DeletedBy { get; set; }
 
         public Guid SupplierId { get; set; } //  nhà cung cấp 

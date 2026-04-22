@@ -59,7 +59,7 @@ namespace DanpheEMR.DataAccess.Services.Admin
 
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddHours(7); 
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddHours(0.5); 
 
             _userRepository.Update(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -11,7 +11,7 @@ namespace DanpheEMR.Core.Domain.Admin
         public string Description { get; set; } 
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public bool IsDelete { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         public Guid? DeletedBy { get; set; }
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
         public Role()

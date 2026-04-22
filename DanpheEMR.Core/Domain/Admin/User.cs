@@ -13,9 +13,9 @@ namespace DanpheEMR.Core.Domain.Admin
         public string Gender { get; set; }
 
 
-        public string PasswordHash { get; set; }
+        public string?   PasswordHash { get; set; }
         //token để refresh access token khi access token hết hạn, mỗi lần đăng nhập sẽ tạo mới refresh token và lưu vào database
-        public string RefreshToken { get; set; }
+        public string?   RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; } = DateTime.MinValue;
 
 
@@ -26,7 +26,7 @@ namespace DanpheEMR.Core.Domain.Admin
 
         // Thông tin xóa mềm
         public bool IsDeleted { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         public Guid? DeletedBy { get; set; }
 
         public Guid? EmployeeId { get; set; }

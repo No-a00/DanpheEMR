@@ -41,8 +41,8 @@ namespace DanpheEMR.Infrastructure.Data
                     Id = Guid.NewGuid(),
                     TableName = entry.Entity.GetType().Name,
                     Action = entry.State.ToString(),
-                    Timestamp = DateTime.UtcNow, 
-                    UserId = _currentUserService.UserId
+                    Timestamp = DateTime.UtcNow,
+                    UserId = _currentUserService.UserId == Guid.Empty ? (Guid?)null : _currentUserService.UserId,
                 };
 
                 auditLogs.Add(auditLog);

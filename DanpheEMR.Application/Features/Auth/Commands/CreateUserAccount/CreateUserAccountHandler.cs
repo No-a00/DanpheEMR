@@ -2,6 +2,7 @@
 using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface.Admin; 
 using MediatR;
+using Application.Common;
 
 namespace DanpheEMR.Application.Features.Auth.Commands.CreateUserAccount
 {
@@ -47,9 +48,13 @@ namespace DanpheEMR.Application.Features.Auth.Commands.CreateUserAccount
 
                 return Result<Guid>.Failure(CreateUserAccountErrors.DatabaseError);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Result<Guid>.Failure(CreateUserAccountErrors.DatabaseError);
+                // Lấy lỗi gốc từ Entity Framework (nếu có)
+                string realError = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+
+                // Tạm thời trả về lỗi này để debug
+                return Result<Guid>.Failure(new Error("Debug.SQL_Error", realError));
             }
         }
     }

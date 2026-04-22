@@ -12,6 +12,11 @@ namespace DanpheEMR.Application.Features.Auth.Commands.CreateUserAccount
                 Id = Guid.NewGuid(),
                 UserName = command.UserName,
                 Email = command.Email,
+                PhoneNumber = command.PhoneNumber,
+                FullName = command.FullName,
+                Gender = command.Gender,
+                DateOfBirth = command.DateOfBirth,
+                AvatarUrl = command.AvatarUrl,
                 PasswordHash = hashedPassword, 
                 IsActive = true, 
                 EmployeeId = command.EmployeeId

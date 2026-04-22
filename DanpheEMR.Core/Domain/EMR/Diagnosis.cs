@@ -17,7 +17,7 @@ namespace DanpheEMR.Core.Domain.EMR
         // Thông tin xóa mềm
         public bool IsDeleted { get; set; }
 
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         public Guid? DeletedBy { get; set; }
 
         public Guid VisitId { get; set; } 

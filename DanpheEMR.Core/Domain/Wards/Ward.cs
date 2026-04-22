@@ -13,7 +13,7 @@ namespace DanpheEMR.Core.Domain.Wards
         // Thông tin xóa mềm
         public bool IsDeleted { get; set; }
 
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
 
         public Guid? DeletedBy { get; set; }
         public ICollection<Bed> Beds { get; set; } = new List<Bed>();

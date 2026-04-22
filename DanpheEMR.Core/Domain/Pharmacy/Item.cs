@@ -15,7 +15,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 
         public bool IsDeleted { get; set; }
         
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         
         public Guid? DeletedBy { get; set; }
 
