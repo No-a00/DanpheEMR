@@ -25,14 +25,17 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
             return await _dbSet.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == username);
         }
 
-        public async Task<User?> GetUserWithRolesAndPermissionsAsync(Guid userId)
+        public async Task<IEnumerable<Permission>> GetPermissionsByUserIdAsync(Guid userId)
         {
-            return await _dbSet.AsNoTracking()
-                .Include(u => u.UserRoles)
-                    .ThenInclude(ur => ur.Role)
-                        .ThenInclude(r => r.RolePermissions)
-                            .ThenInclude(rp => rp.Permission)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+            return await _context.Users
+                .AsNoTracking()
+                .Where(u => u.Id == userId)
+                .SelectMany(u => u.UserRoles)
+                .Select(ur => ur.Role)
+                .SelectMany(r => r.RolePermissions)
+                .Select(rp => rp.Permission)
+                .Distinct()
+                .ToListAsync();
         }
 
         public async Task<bool> CheckUserPermissionAsync(Guid userId, string action, string resource)

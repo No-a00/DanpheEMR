@@ -19,8 +19,8 @@ namespace DanpheEMR.Application.Features.Auth.Queries.GetMyProfile
         {
            
             var user = await _userRepository.GetByIdAsync(request.UserId);
+            var permissions = await _userRepository.GetPermissionsByUserIdAsync(user.Id);
 
-            
             if (user == null)
             {
                 return ApiResponse<UserProfileDto>.Failure(new List<Error> {
@@ -31,16 +31,18 @@ namespace DanpheEMR.Application.Features.Auth.Queries.GetMyProfile
             var dto = new UserProfileDto
             {
                 Id = user.Id,
-                Username = user.UserName, 
-                Email = user.Email ?? string.Empty, 
+                Username = user.UserName,
+                Email = user.Email ?? string.Empty,
                 FullName = user.FullName ?? string.Empty,
                 PhoneNumber = user.PhoneNumber ?? string.Empty,
                 AvatarUrl = user.AvatarUrl ?? string.Empty,
-                DateOfBirth = user.DateOfBirth ,
-                Gender = user.Gender ,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                IsActive = user.IsActive,
 
 
-                IsActive = user.IsActive
+                Permissions = permissions.ToList()
+
             };
 
             return ApiResponse<UserProfileDto>.Success(dto, "Lấy dữ liệu thành công");

@@ -1,4 +1,5 @@
 using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Extensions;
 using DanpheEMR.WEB.Authentication;
 using DanpheEMR.WEB.DependencyInjection;
 using DanpheEMR.WEB.Middleware;
@@ -135,6 +136,10 @@ app.UseRouting();
 // Xác thực & Phân quyền 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+// Khởi tạo seeder
+await app.ApplyMigrationsAndSeed();
 
 // Ghi log thời gian chạy và User gọi API
 // ID của User từ JWT Token!

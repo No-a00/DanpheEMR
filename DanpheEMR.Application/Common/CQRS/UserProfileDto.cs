@@ -1,5 +1,7 @@
 ﻿
 
+using DanpheEMR.Core.Domain.Admin;
+
 namespace DanpheEMR.Application.Common.Models
 {
     public class UserProfileDto
@@ -15,5 +17,6 @@ namespace DanpheEMR.Application.Common.Models
         public string Gender { get; set; }
 
         public bool IsActive { get; set; }
+        public List<Permission> Permissions { get; set; } = new();
     }
 }

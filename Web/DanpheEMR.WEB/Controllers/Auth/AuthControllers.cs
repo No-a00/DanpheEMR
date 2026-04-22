@@ -12,8 +12,8 @@ namespace DanpheEMR.WEB.Controllers.Auth
     public class AuthController : ApiControllerBase
     {
         [HttpPost("register")]
-        //[AllowAnonymous]
-        [RequirePermission("Admin", "Write")]
+        [AllowAnonymous]
+        //[RequirePermission("Admin", "Write")]
         public async Task<IActionResult> Register([FromBody] CreateUserAccountCommand command)
         {
             var result = await Mediator.Send(command);

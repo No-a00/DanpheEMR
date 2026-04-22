@@ -7,7 +7,7 @@ namespace DanpheEMR.DataAccess.Data
     {
         public static async Task SeedDataAsync(ApplicationDbContext context)
         {
-           
+            // 1. Kiểm tra nếu đã có dữ liệu thì không làm gì cả
             if (await context.Roles.AnyAsync())
             {
                 return;
@@ -17,11 +17,18 @@ namespace DanpheEMR.DataAccess.Data
             var receptionistRole = new Role { Id = Guid.NewGuid(), RoleName = "Receptionist", Description = "Lễ tân" };
             var doctorRole = new Role { Id = Guid.NewGuid(), RoleName = "Doctor", Description = "Bác sĩ" };
             var nurseRole = new Role { Id = Guid.NewGuid(), RoleName = "Nurse", Description = "Điều dưỡng" };
+            var accountantRole = new Role { Id = Guid.NewGuid(), RoleName = "Accountant", Description = "Kế toán" };
+            var pharmacistRole = new Role { Id = Guid.NewGuid(), RoleName = "Pharmacist", Description = "Dược sĩ" };
+            var techRole = new Role { Id = Guid.NewGuid(), RoleName = "Tech", Description = "KTV Xét nghiệm" };
 
-            var roles = new List<Role> { adminRole, receptionistRole, doctorRole, nurseRole };
+
+            var roles = new List<Role> {
+                adminRole, receptionistRole, doctorRole, nurseRole,
+                accountantRole, pharmacistRole, techRole
+            };
             await context.Roles.AddRangeAsync(roles);
 
-  
+
             var resources = new[] { "Admin", "Patient", "Appointment", "EMR", "Wards", "Pharmacy", "Billing", "BloodBank", "OT", "Base" };
             var actions = new[] { "Full", "Write", "Read" };
 
@@ -41,6 +48,8 @@ namespace DanpheEMR.DataAccess.Data
             }
             await context.Permissions.AddRangeAsync(allPermissions);
 
+            // Phải lưu Roles và Permissions trước để SQL Server xác nhận các ID này tồn tại
+            await context.SaveChangesAsync();
 
             var rolePermissions = new List<RolePermission>();
 
@@ -56,27 +65,19 @@ namespace DanpheEMR.DataAccess.Data
                 });
             }
 
-            // 1. Bơm quyền cho ADMIN (Full tất cả trừ EMR)
-            Assign(adminRole, "Admin", "Full");
-            Assign(adminRole, "Patient", "Full");
-            Assign(adminRole, "Appointment", "Full");
-            Assign(adminRole, "Wards", "Full");
-            Assign(adminRole, "Pharmacy", "Full");
-            Assign(adminRole, "Billing", "Full");
-            Assign(adminRole, "BloodBank", "Full");
-            Assign(adminRole, "OT", "Full");
-            Assign(adminRole, "Base", "Full");
+            //  Admin (Full tất cả trừ EMR)
+            foreach (var res in resources.Where(x => x != "EMR")) Assign(adminRole, res, "Full");
 
-            // 2. Bơm quyền cho DOCTOR (Bác sĩ)
+            // Doctor (Bác sĩ)
             Assign(doctorRole, "Patient", "Read");
             Assign(doctorRole, "Appointment", "Read");
-            Assign(doctorRole, "EMR", "Full"); 
+            Assign(doctorRole, "EMR", "Full");
             Assign(doctorRole, "Wards", "Write");
             Assign(doctorRole, "Pharmacy", "Read");
             Assign(doctorRole, "BloodBank", "Read");
             Assign(doctorRole, "OT", "Full");
 
-            // 3. Bơm quyền cho NURSE (Điều dưỡng)
+            //  Nurse (Điều dưỡng)
             Assign(nurseRole, "Patient", "Read");
             Assign(nurseRole, "Appointment", "Read");
             Assign(nurseRole, "EMR", "Write");
@@ -85,11 +86,20 @@ namespace DanpheEMR.DataAccess.Data
             Assign(nurseRole, "BloodBank", "Read");
             Assign(nurseRole, "OT", "Write");
 
-          
+            //  Accountant (Kế toán)
+            Assign(accountantRole, "Patient", "Read");
+            Assign(accountantRole, "Billing", "Full");
+
+            //  Pharmacist (Dược sĩ)
+            Assign(pharmacistRole, "Patient", "Read");
+            Assign(pharmacistRole, "Pharmacy", "Full");
+
+            //  Tech (KTV Xét nghiệm)
+            Assign(techRole, "Patient", "Read");
+            Assign(techRole, "BloodBank", "Full");
+
 
             await context.RolePermissions.AddRangeAsync(rolePermissions);
-
-        
             await context.SaveChangesAsync();
         }
     }

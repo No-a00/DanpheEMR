@@ -10,7 +10,7 @@ namespace DanpheEMR.Core.Interface.Admin
     {
         Task<IEnumerable<User>> GetUsersWithRolesAsync();
         Task<User> GetByUsernameAsync(string username);
-        Task<User> GetUserWithRolesAndPermissionsAsync(Guid userId);
+        Task <IEnumerable<Permission>> GetPermissionsByUserIdAsync(Guid userId);
         Task<bool> CheckUserPermissionAsync(Guid userId, string action, string resource);
         Task<User> GetUserWithEmployeeDetailsAsync(Guid userId);
 
