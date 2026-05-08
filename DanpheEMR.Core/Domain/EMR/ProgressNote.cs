@@ -2,12 +2,15 @@
 
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
+using System.ComponentModel.DataAnnotations;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
     public class ProgressNote : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public string Title { get; set; }
         public DateTime NoteDate { get; set; }
         public string Subjective { get; set; }

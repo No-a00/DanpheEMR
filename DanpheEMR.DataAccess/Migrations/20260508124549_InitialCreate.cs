@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DanpheEMR.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class DanpheEMR : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     BedPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -95,7 +95,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     CategoryName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -136,7 +136,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     IdCardNumber = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     BloodGroup = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -171,7 +171,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     RoleName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -212,7 +212,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -249,7 +249,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     WardLocation = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     TotalBeds = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -267,7 +267,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     DonorName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Contact = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
@@ -295,6 +295,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -327,7 +328,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CancelReason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     CancelledByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -383,7 +384,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     GuaranteeAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -491,7 +492,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     WardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BedFeatureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -551,6 +552,9 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppointmentCode = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    PatientCode = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    DoctorCode = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AppointmentTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -558,7 +562,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CancelReason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -593,12 +597,13 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     MaxPatients = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -628,7 +633,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     IsGlobal = table.Column<bool>(type: "bit", nullable: false),
                     ProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -648,6 +653,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     SurgeryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
@@ -655,7 +661,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     Remarks = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     patientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OTRoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -699,6 +705,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
@@ -706,12 +713,12 @@ namespace DanpheEMR.DataAccess.Migrations
                     AvatarUrl = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    RefreshToken = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    RefreshToken = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -740,7 +747,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     VisitDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -782,7 +789,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     UOM = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ReorderLevel = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SubCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -835,13 +842,13 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecordId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    TableName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Action = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    OldValues = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    NewValues = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    RecordId = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    TableName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Action = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    OldValues = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    NewValues = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -867,7 +874,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Location = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -891,7 +898,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -920,11 +927,12 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     AdmissionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AdmissionNotes = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -960,12 +968,13 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     InvoiceNumber = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaymentMode = table.Column<int>(type: "int", nullable: false),
                     TransactionType = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SubTotal = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
@@ -1000,12 +1009,13 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     NoteDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ChiefComplaint = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     HistoryOfPresentIllness = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ExaminationNotes = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     VisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1046,7 +1056,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsPrimary = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     VisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1087,7 +1097,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Status = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     VisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1115,11 +1125,12 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     PrescriptionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     VisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1155,6 +1166,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     RecordedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HeartRate = table.Column<int>(type: "int", nullable: false),
                     BloodPressure = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
@@ -1165,7 +1177,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Height = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     BMI = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     VisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1201,7 +1213,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Remarks = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SupplierId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StoreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1230,6 +1242,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     BatchNo = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AvailableQuantity = table.Column<int>(type: "int", nullable: false),
@@ -1303,7 +1316,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     DischargeCondition = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     DischargeNotes = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AdmissionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1332,6 +1345,7 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     NoteDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Subjective = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
@@ -1339,7 +1353,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     Assessment = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Plan = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AdmissionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1372,7 +1386,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     TransferReason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     TransferStatus = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AdmissionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FromDeptId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1448,7 +1462,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     ReceiptNumber = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ReceiptDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AmountPaid = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     PaymentMode = table.Column<int>(type: "int", nullable: false),
@@ -1477,7 +1491,7 @@ namespace DanpheEMR.DataAccess.Migrations
                     DurationInDays = table.Column<int>(type: "int", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PrescriptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MedicineId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1542,11 +1556,12 @@ namespace DanpheEMR.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     AdministeredTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DosageGiven = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Remarks = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AdmissionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PrescriptionItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),

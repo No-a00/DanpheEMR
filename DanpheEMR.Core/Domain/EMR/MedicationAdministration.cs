@@ -1,12 +1,15 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
+using System.ComponentModel.DataAnnotations;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
     public class MedicationAdministration : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public DateTime AdministeredTime { get; set; }
         public string DosageGiven { get; set; }// Liều lượng đã cho
 

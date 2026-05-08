@@ -6,7 +6,7 @@ namespace DanpheEMR.Core.Interfaces.Appointment
     public interface IDoctorScheduleRepository : IGenericRepository<DoctorSchedule>
     {
         // 1. Lấy lịch của bác sĩ tại một thời điểm cụ thể (Dùng cho Handler)
-        Task<DoctorSchedule?> GetDoctorScheduleAsync(Guid doctorId, DateTime appointmentDate);
+        Task<DoctorSchedule?> GetDoctorScheduleByCodeAsync(string DoctorCode, DateTime appointmentDate);
 
         // 2. Lấy danh sách tất cả lịch của bác sĩ trong một ngày cụ thể
         Task<List<DoctorSchedule>> GetSchedulesByProviderIdAsync(Guid providerId, DateTime? startDate, DateTime? endDate);

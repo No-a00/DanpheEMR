@@ -7,7 +7,7 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppoint
     {
         public RescheduleAppointmentValidator()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.AppointmentCode)
                 .NotEmpty().WithMessage("Mã lịch hẹn không được để trống.");
 
             RuleFor(x => x.NewAppointmentDate)

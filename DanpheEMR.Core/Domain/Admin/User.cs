@@ -1,9 +1,12 @@
 ﻿using DanpheEMR.Core.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 namespace DanpheEMR.Core.Domain.Admin
 {
     public class User : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }

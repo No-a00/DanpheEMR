@@ -143,6 +143,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("ContactNumber")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -343,6 +348,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -457,6 +467,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AppointmentCode")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime2");
 
@@ -477,11 +492,21 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("DoctorCode")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PatientCode")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
@@ -576,6 +601,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -988,6 +1018,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -1157,6 +1192,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("AdmissionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -1205,6 +1245,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1324,6 +1369,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -1386,6 +1436,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("BloodPressure")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -1491,6 +1546,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid?>("AnesthetistId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -1567,6 +1627,11 @@ namespace DanpheEMR.DataAccess.Migrations
 
                     b.Property<Guid>("AdmittingDoctorId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -2223,6 +2288,11 @@ namespace DanpheEMR.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<decimal>("CostPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
@@ -2635,6 +2705,11 @@ namespace DanpheEMR.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

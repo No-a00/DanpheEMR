@@ -9,6 +9,8 @@ namespace DanpheEMR.Core.Domain.Billing
     {
         [Key]
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime TransactionDate { get; set; }
         [Required]

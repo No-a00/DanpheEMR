@@ -9,10 +9,10 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.BookAppointment
     {
         public BookAppointmentCommandValidator()
         {
-            RuleFor(x => x.PatientId)
+            RuleFor(x => x.PatientCode)
                 .NotEmpty().WithMessage("Vui lòng chọn bệnh nhân."); // Thêm câu báo lỗi thân thiện
 
-            RuleFor(x => x.DoctorId)
+            RuleFor(x => x.DocTorCode)
                 .NotEmpty().WithMessage("Vui lòng chọn bác sĩ.");
 
             RuleFor(x => x.AppointmentDate)

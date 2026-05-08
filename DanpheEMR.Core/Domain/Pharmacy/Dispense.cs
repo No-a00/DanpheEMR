@@ -1,5 +1,6 @@
 ﻿using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace DanpheEMR.Core.Domain.Pharmacy
@@ -7,7 +8,8 @@ namespace DanpheEMR.Core.Domain.Pharmacy
     public class Dispense : BaseEntity
     {
         public Guid Id { get; set; }
-
+        [Required]
+        public string Code { get; set; }
         public Guid? PatientId { get; set; }
         public Guid? PrescriptionId { get; set; }
 

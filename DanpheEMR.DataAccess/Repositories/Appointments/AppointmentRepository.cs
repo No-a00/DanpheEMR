@@ -37,11 +37,14 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
                 .Include(a => a.Department)
                 .ToListAsync();
         }
-
-        public async Task<bool> IsDoctorBusy(Guid doctorId, DateTime appointmentDate)
+        public Task<Appointment?> GetByCodeAsync(string appointmentCode) 
+        {
+            return _dbSet.FirstOrDefaultAsync(a => a.AppointmentCode == appointmentCode && !a.IsDeleted);
+        }
+        public async Task<bool> IsDoctorBusy(string DoctorCode, DateTime appointmentDate)
         {
             return await _dbSet.AnyAsync(a =>
-                a.ProviderId == doctorId &&
+                a.DoctorCode == DoctorCode &&
                 a.AppointmentDate == appointmentDate &&
                 a.Status != VisitStatus.Cancelled); 
         }

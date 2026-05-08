@@ -1,5 +1,6 @@
 ﻿
 using DanpheEMR.Core.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace DanpheEMR.Core.Domain.Pharmacy
@@ -7,6 +8,8 @@ namespace DanpheEMR.Core.Domain.Pharmacy
     public class Stock : BaseEntity
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public string BatchNo { get; set; }  // Số lô hàng
         public DateTime ExpiryDate { get; set; }
         public int AvailableQuantity { get; set; }

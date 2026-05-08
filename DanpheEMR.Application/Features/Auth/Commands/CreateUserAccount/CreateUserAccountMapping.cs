@@ -10,6 +10,7 @@ namespace DanpheEMR.Application.Features.Auth.Commands.CreateUserAccount
             return new User
             {
                 Id = Guid.NewGuid(),
+                Code = command.Code,
                 UserName = command.UserName,
                 Email = command.Email,
                 PhoneNumber = command.PhoneNumber,
@@ -19,7 +20,6 @@ namespace DanpheEMR.Application.Features.Auth.Commands.CreateUserAccount
                 AvatarUrl = command.AvatarUrl,
                 PasswordHash = hashedPassword, 
                 IsActive = true, 
-                EmployeeId = command.EmployeeId
             };
         }
     }

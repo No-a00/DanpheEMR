@@ -46,26 +46,26 @@ public sealed class BookAppointmentCommandHandler
     public override async Task<Result<BookAppointmentResponse>> Handle(BookAppointmentCommand request, CancellationToken cancellationToken)
     {
         // 1. Kiểm tra bệnh nhân (Đảm bảo IRepository dùng Guid)
-        var patient = await _patientRepo.GetByIdAsync(request.PatientId);
+        var patient = await _patientRepo.GetByPatientCodeAsync(request.PatientCode);
         if (patient == null)
             return Result<BookAppointmentResponse>.Failure(BookAppointmentErrors.PatientNotFound);
 
         // 2. Kiểm tra lịch bác sĩ
-        var doctorSchedule = await _scheduleRepo.GetDoctorScheduleAsync(request.DoctorId, request.AppointmentDate);
+        var doctorSchedule = await _scheduleRepo.GetDoctorScheduleByCodeAsync(request.DocTorCode, request.AppointmentDate);
         if (doctorSchedule == null)
             return Result<BookAppointmentResponse>.Failure(BookAppointmentErrors.DoctorNotFound);
 
         // 3. Kiểm tra bác sĩ bận (Phải khai báo hàm này trong Interface)
-        bool isBusy = await _appointmentRepo.IsDoctorBusy(request.DoctorId, request.AppointmentDate);
+        bool isBusy = await _appointmentRepo.IsDoctorBusy(request.DocTorCode, request.AppointmentDate);
         if (isBusy)
             return Result<BookAppointmentResponse>.Failure(BookAppointmentErrors.ScheduleConflict);
 
         // 4. Tạo Entity (Đảm bảo Class Appointment ở Core có đủ các trường này)
         var appointment = new DanpheEMR.Core.Domain.Appointments.Appointment
         {
-            Id = Guid.NewGuid(), // Nếu DB dùng int thì bỏ dòng này
-            PatientId = request.PatientId,
-            ProviderId = request.DoctorId,
+            Id = Guid.NewGuid(),
+            PatientCode =  request.PatientCode,
+            DoctorCode = request.DocTorCode,
             AppointmentDate = request.AppointmentDate,
             Reason = request.Reason,
             CreatedAt = DateTime.UtcNow

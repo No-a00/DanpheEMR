@@ -49,7 +49,7 @@ namespace DanpheEMR.DataAccess.Services.Admin
             // Truy vấn lấy danh sách chuỗi quyền dạng "TàiNguyên:HànhĐộng"
             var permissions = await _dbContext.RolePermissions
                 .Include(rp => rp.Permission)     
-                .Where(rp => rp.Role.UserRoles.Any(u => u.Id == user.Id) && rp.IsActive)
+                .Where(rp => rp.Role.UserRoles.Any(u => u.UserId == user.Id) && rp.IsActive)
                 .Select(rp => $"{rp.Permission.Resource}:{rp.Permission.Action}")
                 .Distinct()
                 .ToListAsync(cancellationToken);
@@ -59,7 +59,7 @@ namespace DanpheEMR.DataAccess.Services.Admin
 
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddHours(0.5); 
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddHours(1); 
 
             _userRepository.Update(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

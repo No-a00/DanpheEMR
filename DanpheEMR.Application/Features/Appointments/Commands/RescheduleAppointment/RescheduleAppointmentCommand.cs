@@ -5,7 +5,7 @@ using System;
 namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppointment
 {
     public record RescheduleAppointmentCommand(
-        Guid Id,
+        string AppointmentCode,
         DateTime NewAppointmentDate,
         TimeSpan NewAppointmentTime,
         string Reason

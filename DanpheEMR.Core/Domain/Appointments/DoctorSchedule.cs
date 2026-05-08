@@ -1,9 +1,14 @@
 ﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 
 public class DoctorSchedule : BaseEntity, ISoftDelete
 {
     public Guid Id { get; set; }
+
+    [Required]
+    public string Code { get; set; }
+
     public System.DayOfWeek DayOfWeek { get; set; }
 
     public TimeSpan StartTime { get; set; }

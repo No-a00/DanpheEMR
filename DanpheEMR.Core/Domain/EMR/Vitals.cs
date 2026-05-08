@@ -1,12 +1,15 @@
 ﻿
 using DanpheEMR.Core.Domain.Base;
 using DanpheEMR.Core.Domain.Patients;
+using System.ComponentModel.DataAnnotations;
 
 namespace DanpheEMR.Core.Domain.EMR
 {
     public class Vitals : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public DateTime RecordedAt { get; set; }  // Thời điểm ghi nhận
         public int HeartRate { get; set; } // Nhịp tim (bpm)
         public string BloodPressure { get; set; } // Huyết áp (ví dụ: "120/80 mmHg")

@@ -28,7 +28,7 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppoint
         {
             try
             {
-                var appointment = await _appointmentRepository.GetByIdAsync(request.Id);
+                var appointment = await _appointmentRepository.GetByCodeAsync(request.AppointmentCode);
                 if (appointment == null)
                 {
                     return Result<Guid>.Failure(RescheduleAppointmentErrors.NotFound);
@@ -40,7 +40,7 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppoint
                 }
 
 
-                bool isBusy = await _appointmentRepository.IsDoctorBusy(appointment.ProviderId, request.NewAppointmentDate);
+                bool isBusy = await _appointmentRepository.IsDoctorBusy(appointment.DoctorCode, request.NewAppointmentDate);
                 if (isBusy)
                 {
                     return Result<Guid>.Failure(RescheduleAppointmentErrors.DoctorBusy);

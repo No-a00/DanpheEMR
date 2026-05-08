@@ -42,6 +42,7 @@ namespace DanpheEMR.WEB.Controllers.Patients
         // POST: api/patients
         [HttpPost]
         [RequirePermission("Patient", "Write")] 
+        // lập hồ sơ bệnh nhân
         public async Task<IActionResult> RegisterPatient([FromBody] RegisterPatientCommand command)
         {
             var result = await Mediator.Send(command);

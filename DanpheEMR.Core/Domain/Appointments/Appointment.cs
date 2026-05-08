@@ -8,6 +8,16 @@ namespace DanpheEMR.Core.Domain.Appointments
     public class Appointment : BaseEntity,ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string AppointmentCode { get; set; }
+        
+        [Required]
+        public string PatientCode { get; set; }
+
+        [Required]
+        public string DoctorCode { get; set; }
+
+
         public DateTime AppointmentDate { get; set; }
         public TimeSpan AppointmentTime { get; set; }
         public VisitStatus Status { get; set; }

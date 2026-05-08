@@ -4,6 +4,7 @@ using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Interface;
 using DanpheEMR.Core.Interface.Patients;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using PatientModel = DanpheEMR.Core.Domain.Patients.Patient;
 
 namespace DanpheEMR.Application.Features.Patients.Commands.RegisterPatient
@@ -13,12 +14,14 @@ namespace DanpheEMR.Application.Features.Patients.Commands.RegisterPatient
         private readonly IPatientRepository _patientRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILogger<RegisterPatientHandler> _logger;
 
-        public RegisterPatientHandler(IPatientRepository patientRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public RegisterPatientHandler(IPatientRepository patientRepository, IUnitOfWork unitOfWork, IMapper mapper,ILogger<RegisterPatientHandler> logger)
         {
             _patientRepository = patientRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<Result<RegisterPatientResponse>> Handle(RegisterPatientCommand request, CancellationToken cancellationToken)
@@ -57,8 +60,9 @@ namespace DanpheEMR.Application.Features.Patients.Commands.RegisterPatient
 
                 return Result<RegisterPatientResponse>.Failure(new Error("RegisterPatient.DatabaseError", "Không thể lưu hồ sơ bệnh nhân."));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Lỗi nghiêm trọng khi lưu bệnh nhân CCCD: {IdCard}", request.IdCardNumber);
                 return Result<RegisterPatientResponse>.Failure(new Error("RegisterPatient.DatabaseError", "Không thể lưu hồ sơ bệnh nhân."));
             }
         }

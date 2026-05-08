@@ -1,6 +1,7 @@
-﻿using DanpheEMR.Core.Enums;
-using DanpheEMR.Core.Domain.Admin;
+﻿using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Domain.Base;
+using DanpheEMR.Core.Enums;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace DanpheEMR.Core.Domain.Patients
@@ -9,6 +10,8 @@ namespace DanpheEMR.Core.Domain.Patients
     public class Admission : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
         public DateTime AdmissionDate { get; set; }
         public string AdmissionNotes { get; set; }
         public AdmissionStatus Status { get; set; }

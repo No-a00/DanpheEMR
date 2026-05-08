@@ -11,14 +11,14 @@ namespace DanpheEMR.DataAccess.Repositories.Appointments
         public DoctorScheduleRepository(ApplicationDbContext context) : base(context)
         {
         }
-        public async Task<DoctorSchedule?> GetDoctorScheduleAsync(Guid doctorId, DateTime appointmentDate)
+        public async Task<DoctorSchedule?> GetDoctorScheduleByCodeAsync(string DoctorCode, DateTime appointmentDate)
         {
             var time = appointmentDate.TimeOfDay;
             var targetDayOfWeek = appointmentDate.DayOfWeek; 
 
             return await _dbSet
                 .FirstOrDefaultAsync(ds =>
-                    ds.ProviderId == doctorId &&
+                    ds.Code == DoctorCode &&
                     ds.DayOfWeek == targetDayOfWeek && 
                     ds.StartTime <= time &&
                     ds.EndTime > time);

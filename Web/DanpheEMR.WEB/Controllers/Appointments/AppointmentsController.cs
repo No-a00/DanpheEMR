@@ -12,6 +12,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
     public class AppointmentsController : ApiControllerBase
     {
         // GET: api/appointments/patient/{patientId}
+        // yêu cầu lịch hẹn khám bệnh của 1 bệnh nhân cụ thể
         [HttpGet("patient/{patientId}")]
         [RequirePermission("Appointment", "Read")] 
         public async Task<IActionResult> GetPatientAppointments(Guid patientId)
@@ -21,6 +22,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
         }
 
         // POST: api/appointments
+        // tạo lịch hẹn với doctor
         [HttpPost]
         [RequirePermission("Appointment", "Write")]
         public async Task<IActionResult> BookAppointment([FromBody] BookAppointmentCommand command)
@@ -30,13 +32,14 @@ namespace DanpheEMR.WEB.Controllers.Appointments
         }
 
         // PUT: api/appointments/{id}/reschedule
-        [HttpPut("{id}/reschedule")]
+        //thay đổi lịch hẹn 
+        [HttpPut("{code}/reschedule")]
         [RequirePermission("Appointment", "Write")] 
-        public async Task<IActionResult> RescheduleAppointment(Guid id, [FromBody] RescheduleAppointmentCommand command)
+        public async Task<IActionResult> RescheduleAppointment(string code, [FromBody] RescheduleAppointmentCommand command)
         {
-            if (id != command.Id)
+            if (code != command.AppointmentCode)
             {
-                return BadRequest(new { Message = "ID cuộc hẹn không khớp." });
+                return BadRequest(new { Message = "Mã  cuộc hẹn không khớp." });
             }
 
             var result = await Mediator.Send(command);
@@ -44,6 +47,7 @@ namespace DanpheEMR.WEB.Controllers.Appointments
         }
 
         // PUT: api/appointments/{id}/cancel
+        //hủy cuộc hẹn 
         [HttpPut("{id}/cancel")]
         [RequirePermission("Appointment", "Write")] 
         public async Task<IActionResult> CancelAppointment(Guid id, [FromBody] CancelAppointmentCommand command)

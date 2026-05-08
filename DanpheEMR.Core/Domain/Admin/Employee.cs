@@ -1,4 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace DanpheEMR.Core.Domain.Admin
@@ -6,6 +7,9 @@ namespace DanpheEMR.Core.Domain.Admin
     public class Employee : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
+        public string Code { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";

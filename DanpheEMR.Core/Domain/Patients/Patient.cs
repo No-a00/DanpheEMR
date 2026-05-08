@@ -1,4 +1,5 @@
 ﻿using DanpheEMR.Core.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DanpheEMR.Core.Domain.Patients
@@ -6,6 +7,7 @@ namespace DanpheEMR.Core.Domain.Patients
     public class Patient : BaseEntity, ISoftDelete
     {
         public Guid Id { get; set; }
+        [Required]
         public string PatientCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
