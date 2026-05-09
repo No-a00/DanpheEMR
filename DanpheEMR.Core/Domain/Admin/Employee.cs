@@ -9,6 +9,7 @@ namespace DanpheEMR.Core.Domain.Admin
         public Guid Id { get; set; }
         [Required]
         public string Code { get; set; }
+        public string Workforce { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,9 +17,7 @@ namespace DanpheEMR.Core.Domain.Admin
         public bool IsActive { get; set; }//kiểm tra xem nhân viên có đang làm việc hay không, nếu nghỉ việc thì sẽ không được phép tạo lịch khám
 
         public bool IsDeleted { get; set; }
-        [Required]
-        public  string Reason { get; set; }
-        [Required]
+        public  string? Reason { get; set; }
         public Guid? DeletedBy { get; set; }
 
         public string ContactNumber { get; set; }

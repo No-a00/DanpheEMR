@@ -31,6 +31,7 @@ namespace DanpheEMR.Application.Features.Auth.Queries.GetMyProfile
             var dto = new UserProfileDto
             {
                 Id = user.Id,
+                Code = user.Code,
                 Username = user.UserName,
                 Email = user.Email ?? string.Empty,
                 FullName = user.FullName ?? string.Empty,

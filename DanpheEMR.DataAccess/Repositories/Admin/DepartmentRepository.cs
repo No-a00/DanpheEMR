@@ -20,11 +20,18 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .AsNoTracking()
                 .ToListAsync();
         }
-     
+
+        public async Task<Department?> GetByCodeAsync(string departmentCode)
+        {
+            return await _dbSet.AsNoTracking()
+                               .Where(x => x.DepartmentCode == departmentCode)
+                               .FirstOrDefaultAsync();
+        }
+
         public async Task<Department?> GetDepartmentWithEmployeesAsync(Guid departmentId)
         {
             return await _context.Set<Department>()
-                .Include(d => d.Employees) 
+                .Include(d => d.Employees)
                 .FirstOrDefaultAsync(d => d.Id == departmentId);
         }
 

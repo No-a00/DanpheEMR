@@ -6,7 +6,8 @@ namespace DanpheEMR.Application.Features.Admin.Commands.RegisterEmployee
     {
         public static readonly Error DepartmentNotFound = new Error(
             "RegisterEmployee.DepartmentNotFound",
-            "Phòng ban (Department) bạn chọn không tồn tại trong hệ thống.");
+            "Phòng ban bạn chọn không tồn tại trong hệ thống.");
+
 
         public static readonly Error DatabaseError = new Error(
             "RegisterEmployee.DatabaseError",

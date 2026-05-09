@@ -46,6 +46,20 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
                 .AsNoTracking()            
                 .ToListAsync();
         }
-
+        public async Task<string> GenerateEmployeeCodeAsync(string workforce)
+        {
+            string currentYear = DateTime.UtcNow.ToString("yy");
+            string prefix = $"{workforce}{currentYear}"; 
+            var lastEmployee = await _dbSet
+                .Where(e => e.Code != null && e.Code.StartsWith(prefix))
+                .OrderByDescending(e => e.Code)
+                .FirstOrDefaultAsync();
+            if (lastEmployee == null)
+            {
+                return $"{prefix}0001";
+            }
+            int lastNumber = int.Parse(lastEmployee.Code.Substring(prefix.Length));
+            return $"{prefix}{(lastNumber + 1).ToString("D4")}";
+        }
     }
 }

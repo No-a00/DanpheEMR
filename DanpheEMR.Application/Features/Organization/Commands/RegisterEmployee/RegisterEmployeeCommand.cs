@@ -7,9 +7,11 @@ namespace DanpheEMR.Application.Features.Admin.Commands.RegisterEmployee
     public record RegisterEmployeeCommand(
         string FirstName,
         string LastName,
+        string Workforce,
+        string DepartmentCode,
         DateTime DOB,
         string Gender,
-        string ContactNumber,
-        Guid DepartmentId
+        string ContactNumber
+        
     ) : IRequest<Result<Guid>>; 
 }
