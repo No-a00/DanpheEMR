@@ -7,6 +7,6 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
 {
     public record GetEmployeesQuery(
         string SearchTerm = null, 
-        Guid? DepartmentId = null 
+        string DepartmentCode = null
     ) : IRequest<Result<List<GetEmployeesResponse>>>;
 }

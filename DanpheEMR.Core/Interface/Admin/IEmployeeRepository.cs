@@ -5,6 +5,7 @@ namespace DanpheEMR.Core.Interface.Admin
     public interface IEmployeeRepository : IGenericRepository<Employee>
     {
         Task<IEnumerable<Employee>> SearchByNameOrContactAsync(string keyword);
+        Task<List<Employee>> GetEmployeesWithDepartmentAsync(string searchTerm, string departmentCode);
         Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(Guid departmentId);
         Task<Employee> GetEmployeeByUserIdAsync(Guid userId);
         Task<Employee> GetEmployeeWithDetailsAsync(Guid Id);

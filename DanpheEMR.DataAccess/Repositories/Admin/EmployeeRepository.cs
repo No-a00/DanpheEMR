@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DanpheEMR.DataAccess.Repositories.Admin
 {
-    public  class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
         public EmployeeRepository(ApplicationDbContext context) : base(context)
         {
@@ -17,11 +17,38 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
             var query = _dbSet.Where(e => e.FirstName.Contains(keyword) || e.LastName.Contains(keyword) || e.ContactNumber.Contains(keyword));
             return await Task.FromResult(query.AsEnumerable());
         }
-        public async Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(Guid departmentId) { 
+        public async Task<List<Employee>> GetEmployeesWithDepartmentAsync(string searchTerm, string departmentCode)
+        {
+            var query = _dbSet
+                .Include(e => e.Department)
+                .Where(e => e.IsDeleted == false)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var search = searchTerm.ToLower();
+
+                query = query.Where(e =>
+                    (e.FirstName + " " + e.LastName).ToLower().Contains(search) ||
+                    e.ContactNumber.Contains(search)
+                );
+            }
+
+            if (!string.IsNullOrWhiteSpace(departmentCode))
+            {
+    
+                var depCode = departmentCode.Trim().ToLower();
+                query = query.Where(e => e.Department.DepartmentCode.ToLower() == depCode);
+            }
+
+            return await query.ToListAsync();
+        }
+        public async Task<IEnumerable<Employee>> GetEmployeesByDepartmentAsync(Guid departmentId)
+        {
             return await _dbSet
                 .AsNoTracking()
                 .Where(e => e.DepartmentId == departmentId)
-                .ToListAsync(); 
+                .ToListAsync();
         }
 
         public async Task<Employee?> GetEmployeeByUserIdAsync(Guid userId)
@@ -42,14 +69,14 @@ namespace DanpheEMR.DataAccess.Repositories.Admin
         public async Task<IEnumerable<Employee>> GetEmployeesWithDepartmentAsync()
         {
             return await _context.Set<Employee>()
-                .Include(e => e.Department) 
-                .AsNoTracking()            
+                .Include(e => e.Department)
+                .AsNoTracking()
                 .ToListAsync();
         }
         public async Task<string> GenerateEmployeeCodeAsync(string workforce)
         {
             string currentYear = DateTime.UtcNow.ToString("yy");
-            string prefix = $"{workforce}{currentYear}"; 
+            string prefix = $"{workforce}{currentYear}";
             var lastEmployee = await _dbSet
                 .Where(e => e.Code != null && e.Code.StartsWith(prefix))
                 .OrderByDescending(e => e.Code)

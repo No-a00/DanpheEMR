@@ -6,6 +6,8 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
     {
         public Guid Id { get; set; }
         public string FullName { get; set; }
+        public string Workforce { get; set; }
+
         public DateTime DOB { get; set; }
         public string Gender { get; set; }
         public string ContactNumber { get; set; }

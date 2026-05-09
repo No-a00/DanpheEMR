@@ -14,6 +14,10 @@ namespace DanpheEMR.Core.Domain.Admin
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+
+        public DateTime DOB { get; set; }
+        public string Gender { get; set; }
+
         public bool IsActive { get; set; }//kiểm tra xem nhân viên có đang làm việc hay không, nếu nghỉ việc thì sẽ không được phép tạo lịch khám
 
         public bool IsDeleted { get; set; }

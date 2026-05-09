@@ -1,11 +1,7 @@
 ﻿using Application.Common;
 using AutoMapper;
-using DanpheEMR.Core.Interface.Admin; // Chứa IEmployeeRepository
+using DanpheEMR.Core.Interface.Admin;
 using MediatR;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
 {
@@ -21,25 +17,35 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
         }
 
         public async Task<Result<List<GetEmployeesResponse>>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
-        {  
-            var employees = await _employeeRepository.GetEmployeesWithDepartmentAsync();
-            var query = employees.AsEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+        {
+            try        
             {
-                var search = request.SearchTerm.ToLower();
-                query = query.Where(e => e.FullName.ToLower().Contains(search) ||
-                                         e.ContactNumber.Contains(search));
-            }
 
-            if (request.DepartmentId.HasValue)
+                var employees = await _employeeRepository.GetEmployeesWithDepartmentAsync(
+                    request.SearchTerm,
+                    request.DepartmentCode
+                );
+
+                var result = _mapper.Map<List<GetEmployeesResponse>>(employees);
+
+                if(result == null || result.Count == 0)
+                {
+                    return Result<List<GetEmployeesResponse>>.Failure(new Error(
+                        "lỗi khi lấy danh sách nhân viên",
+                        "Không tìm thấy nhân viên nào"
+                    ));
+                }
+
+                return Result<List<GetEmployeesResponse>>.Success(result);
+
+            }
+            catch (Exception ex)
             {
-                query = query.Where(e => e.DepartmentId == request.DepartmentId.Value);
+                return Result<List<GetEmployeesResponse>>.Failure(new Error(
+                    "lỗi khi lấy danh sách nhân viên",
+                    $"An error occurred while retrieving employees: {ex.Message}"
+                    ));
             }
-
-            var result = _mapper.Map<List<GetEmployeesResponse>>(query.ToList());
-
-            return Result<List<GetEmployeesResponse>>.Success(result);
         }
     }
 }
