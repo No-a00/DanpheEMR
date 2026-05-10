@@ -28,13 +28,7 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetEmployees
 
                 var result = _mapper.Map<List<GetEmployeesResponse>>(employees);
 
-                if(result == null || result.Count == 0)
-                {
-                    return Result<List<GetEmployeesResponse>>.Failure(new Error(
-                        "lỗi khi lấy danh sách nhân viên",
-                        "Không tìm thấy nhân viên nào"
-                    ));
-                }
+                
 
                 return Result<List<GetEmployeesResponse>>.Success(result);
 

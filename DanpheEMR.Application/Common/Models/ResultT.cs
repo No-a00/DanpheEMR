@@ -10,7 +10,7 @@ public class Result<TValue> : Result
     {
         _value = value;
     }
-    [JsonIgnore]
+    //[JsonIgnore]
     public TValue Value => IsSuccess
         ? _value!
         : throw new InvalidOperationException("Không thể lấy giá trị của một Result thất bại.");
