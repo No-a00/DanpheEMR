@@ -6,8 +6,8 @@ namespace DanpheEMR.Application.Features.Patients.Commands.CheckInPatient
     {
         public CheckInPatientValidator()
         {
-            RuleFor(x => x.PatientId).NotEmpty().WithMessage("Bệnh nhân không hợp lệ.");
-            RuleFor(x => x.DepartmentId).NotEmpty().WithMessage("Vui lòng chọn Phòng/Khoa khám.");
+            RuleFor(x => x.PatientCode).NotEmpty().WithMessage("Bệnh nhân không hợp lệ.");
+            RuleFor(x => x.DepartmentCode).NotEmpty().WithMessage("Vui lòng chọn Phòng/Khoa khám.");
             RuleFor(x => x.ChiefComplaint).NotEmpty().WithMessage("Vui lòng nhập lý do khám bệnh.");
         }
     }

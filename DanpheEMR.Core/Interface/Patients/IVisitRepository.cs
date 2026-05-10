@@ -19,6 +19,6 @@ namespace DanpheEMR.Core.Interface.Patients
         Task<string> GenerateVisitCodeAsync();
 
         // Cấp số thứ tự bốc số theo từng khoa trong một ngày
-        Task<int> GenerateQueueNoAsync(Guid departmentId, DateTime date);
+        Task<int> GenerateQueueNoAsync(string departmentCode, DateTime date);
     }
 }

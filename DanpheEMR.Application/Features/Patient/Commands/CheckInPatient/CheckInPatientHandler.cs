@@ -2,14 +2,14 @@
 using AutoMapper;
 using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Domain.Patients;
-using DanpheEMR.Core.Interface;
+using Application.Common;
 using DanpheEMR.Core.Interface.Patients; 
 using MediatR;
 
 
 namespace DanpheEMR.Application.Features.Patients.Commands.CheckInPatient
 {
-    public class CheckInPatientHandler : IRequestHandler<CheckInPatientCommand, Result<Guid>>
+    public class CheckInPatientHandler : IRequestHandler<CheckInPatientCommand, Result<string>>
     {
         private readonly IPatientRepository _patientRepository;
         private readonly IVisitRepository _visitRepository;
@@ -21,28 +21,25 @@ namespace DanpheEMR.Application.Features.Patients.Commands.CheckInPatient
             _patientRepository = patientRepository; _visitRepository = visitRepository; _unitOfWork = unitOfWork; _mapper = mapper;
         }
 
-        public async Task<Result<Guid>> Handle(CheckInPatientCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(CheckInPatientCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var patient = await _patientRepository.GetByIdAsync(request.PatientId);
-                if (patient == null) return Result<Guid>.Failure(CheckInPatientErrors.PatientNotFound);
+                var patient = await _patientRepository.GetByPatientCodeAsync(request.PatientCode);
+                if (patient == null) return Result<string>.Failure(CheckInPatientErrors.PatientNotFound);
 
                 var visit = _mapper.Map<Visit>(request);
                 visit.VisitCode = await _visitRepository.GenerateVisitCodeAsync();
-                visit.QueueNo = await _visitRepository.GenerateQueueNoAsync(request.DepartmentId, DateTime.Now);
+                visit.QueueNo = await _visitRepository.GenerateQueueNoAsync(request.DepartmentCode, DateTime.Now);
 
                 await _visitRepository.AddAsync(visit);
 
                 var saveResult = await _unitOfWork.SaveChangesAsync(cancellationToken);
-                return saveResult > 0 ? Result<Guid>.Success(visit.Id) : Result<Guid>.Failure(CheckInPatientErrors.DatabaseError);
+                return saveResult > 0 ? Result<string>.Success(visit.VisitCode) : Result<string>.Failure(CheckInPatientErrors.DatabaseError);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return Result<Guid>.Failure(CheckInPatientErrors.DatabaseError);
-
-
+                return Result<string>.Failure(new Error("CheckIn.Exception", $"Lỗi chi tiết: {ex.Message}"));
             }
         }
     }

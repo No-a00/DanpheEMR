@@ -11,9 +11,7 @@ public class Result<TValue> : Result
         _value = value;
     }
     //[JsonIgnore]
-    public TValue Value => IsSuccess
-        ? _value!
-        : throw new InvalidOperationException("Không thể lấy giá trị của một Result thất bại.");
+    public TValue? Value => IsSuccess ? _value : default;
 
     // Chỉnh sửa hàm Failure ở đây nữa
     public static new Result<TValue> Failure(Error error) => new(default, false, error);

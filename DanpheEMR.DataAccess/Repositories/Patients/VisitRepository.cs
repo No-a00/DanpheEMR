@@ -58,13 +58,22 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
         }
 
 
-        public async Task<int> GenerateQueueNoAsync(Guid departmentId, DateTime date)
+        public async Task<int> GenerateQueueNoAsync(string departmentCode, DateTime date)
         {
-            var maxQueue = await _context.Set<Visit>()
-                .Where(v => v.DepartmentId == departmentId && v.VisitDate.Date == date.Date)
-                .MaxAsync(v => (int?)v.QueueNo) ?? 0;
+            var startDate = date.Date;
+            var endDate = startDate.AddDays(1);
 
-            return maxQueue + 1;
+            // Tìm số QueueNo lớn nhất hiện tại của phòng ban trong ngày hôm đó
+            var maxQueueNo = await _dbSet
+                .Where(x =>
+                         x.Department.DepartmentCode == departmentCode
+                         && x.VisitDate >= startDate
+                         && x.VisitDate < endDate
+                         && x.IsDeleted == false
+                       )
+                .MaxAsync(x => (int?)x.QueueNo);
+
+            return (maxQueueNo ?? 0) + 1;
         }
     }
 }
