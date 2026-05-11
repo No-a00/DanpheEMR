@@ -2,6 +2,7 @@
 using DanpheEMR.Core.Interface.Base;
 using DanpheEMR.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DanpheEMR.DataAccess.Repositories.Base
 {
@@ -54,6 +55,11 @@ namespace DanpheEMR.DataAccess.Repositories.Base
                     _dbSet.Remove(entity);
                 }
             }
+        }
+
+        public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(predicate);
         }
     }
 }

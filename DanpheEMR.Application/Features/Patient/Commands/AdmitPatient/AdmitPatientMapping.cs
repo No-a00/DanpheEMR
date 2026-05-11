@@ -11,7 +11,8 @@ namespace DanpheEMR.Application.Features.Patients.Commands.AdmitPatient
             CreateMap<AdmitPatientCommand, Admission>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.AdmissionDate, opt => opt.MapFrom(src => DateTime.Now))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => AdmissionStatus.Active));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => AdmissionStatus.Active))
+                .ForMember(dest => dest.AdmissionNotes, opt => opt.MapFrom(src => src.InitialDiagnosis));
         }
     }
 }

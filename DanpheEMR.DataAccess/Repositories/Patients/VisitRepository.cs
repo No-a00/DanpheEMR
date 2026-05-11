@@ -68,7 +68,7 @@ namespace DanpheEMR.DataAccess.Repositories.Patients
                 .Where(x =>
                          x.Department.DepartmentCode == departmentCode
                          && x.VisitDate >= startDate
-                         && x.VisitDate < endDate
+                         && x.VisitDate < endDate 
                          && x.IsDeleted == false
                        )
                 .MaxAsync(x => (int?)x.QueueNo);

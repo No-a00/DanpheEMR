@@ -25,11 +25,11 @@ namespace DanpheEMR.Core.Domain.Patients
 
         public Guid PatientId { get; set; }
         public Guid DepartmentId { get; set; }
-        public Guid ProviderId { get; set; }
+        public Guid? ProviderId { get; set; }
 
         public virtual Patient Patient { get; set; }
         public virtual Department Department { get; set; }
-        public virtual Employee Provider { get; set; }
+        public virtual Employee? Provider { get; set; }
 
         public virtual ICollection<ClinicalNote> ClinicalNotes { get; set; }
         public virtual ICollection<Diagnosis> Diagnoses { get; set; }

@@ -5,11 +5,11 @@ using System;
 namespace DanpheEMR.Application.Features.Patients.Commands.AdmitPatient
 {
     public record AdmitPatientCommand(
-        Guid PatientId,
-        Guid AdmittingDoctorId, 
-        Guid DepartmentId,      
-        Guid? WardId,          
-        Guid? BedId,           
+        string PatientCode,
+        string AdmittingDoctorCode, 
+        string DepartmentCode,      
+        string? WardCode,          
+        string? BedCode,           
         string InitialDiagnosis 
     ) : IRequest<Result<Guid>>; 
 }
