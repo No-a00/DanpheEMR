@@ -11,6 +11,7 @@ namespace DanpheEMR.WEB.Controllers.Wards
     public class WardsController : ApiControllerBase
     {
         // POST: api/wards
+        // khởi  tạo thêm phongf mới 
         [HttpPost]
         [RequirePermission("Wards", "Write")] 
         public async Task<IActionResult> SetupWard([FromBody] SetupWardCommand command)

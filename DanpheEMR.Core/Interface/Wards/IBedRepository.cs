@@ -16,5 +16,7 @@ namespace DanpheEMR.Core.Interface.Wards
         Task<IEnumerable<Bed>> GetBedsByWardIdAsync(Guid wardId);
         // Tổ trưởng Tổ Vệ sinh tìm danh sách các giường đang dơ để đi dọn dẹp
         Task<IEnumerable<Bed>> GetBedsByStatusAsync(BedStatus status);
+
+        Task<string> GenerateBedCodeAsync();
     }
 }

@@ -7,6 +7,8 @@ namespace DanpheEMR.Application.Features.Inpatient.Commands.SetupWard
     public record SetupWardCommand(
         string WardName,
         string WardCode,
-        Guid DepartmentId
+        string DepartmentCode,
+        string WardLocation
+
     ) : IRequest<Result<Guid>>;
 }

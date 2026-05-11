@@ -51,5 +51,28 @@ namespace DanpheEMR.DataAccess.Repositories.Wards
                 .OrderBy(b => b.Ward.WardName).ThenBy(b => b.BedNumber)
                 .ToListAsync();
         }
+        
+        public async Task<string> GenerateBedCodeAsync()
+        {
+            string currentYear = DateTime.UtcNow.ToString("yy");
+            string prefix = $"G{currentYear}";
+            var lastPatient = await _dbSet
+                .Where(p => p.BedCode != null && p.BedCode.StartsWith(prefix))
+                .OrderByDescending(p => p.BedCode)
+                .FirstOrDefaultAsync();
+            if (lastPatient == null)
+            {
+                return $"{prefix}0001";
+            }
+            string lastSequenceStr = lastPatient.BedCode.Substring(prefix.Length);
+
+            //  Cộng thêm 1 và format lại thành 4 chữ số
+            if (int.TryParse(lastSequenceStr, out int lastSequence))
+            {
+                int nextSequence = lastSequence + 1;
+                return $"{prefix}{nextSequence.ToString("D4")}";
+            }
+            return $"{prefix}0001";
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace DanpheEMR.Application.Features.Inpatient.Commands.AddBed
     public record AddBedCommand(
         string BedNumber,
         string BedCode,
-        Guid WardId
+        string WardCode,
+        string FeatureCode
     ) : IRequest<Result<Guid>>;
 }

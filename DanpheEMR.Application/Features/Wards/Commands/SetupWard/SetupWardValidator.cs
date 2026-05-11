@@ -8,7 +8,7 @@ namespace DanpheEMR.Application.Features.Inpatient.Commands.SetupWard
         {
             RuleFor(x => x.WardName).NotEmpty().WithMessage("Tên buồng bệnh không được để trống.");
             RuleFor(x => x.WardCode).NotEmpty().WithMessage("Mã buồng bệnh không được để trống.");
-            RuleFor(x => x.DepartmentId).NotEmpty().WithMessage("Vui lòng chọn Khoa trực thuộc.");
+            RuleFor(x => x.DepartmentCode).NotEmpty().WithMessage("Vui lòng chọn Khoa trực thuộc.");
         }
     }
 }
