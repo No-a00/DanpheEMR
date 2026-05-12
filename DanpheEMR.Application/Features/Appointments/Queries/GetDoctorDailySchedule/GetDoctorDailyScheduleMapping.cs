@@ -9,7 +9,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorDailySche
         {
             return new AppointmentItemDto
             {
-                Id = appointment.Id,
+                Code = appointment.AppointmentCode,
                 AppointmentTime = appointment.AppointmentTime,
                 PatientName = appointment.Patient != null ? $"{appointment.Patient.FirstName} {appointment.Patient.LastName}" : "Bệnh nhân ẩn danh",
 

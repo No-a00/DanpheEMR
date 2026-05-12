@@ -40,6 +40,7 @@ namespace DanpheEMR.DataAccess.Data
                     allPermissions.Add(new Permission
                     {
                         Id = Guid.NewGuid(),
+                        PerCode = $"{r}-{a}",
                         Resource = r,
                         Action = a,
                         Description = $"Quyền {a} phân hệ {r}"

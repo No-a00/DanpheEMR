@@ -6,7 +6,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorDailySche
     {
         public GetDoctorDailyScheduleQueryValidator()
         {
-            RuleFor(x => x.DoctorId)
+            RuleFor(x => x.DoctorCode)
                 .NotEmpty().WithMessage("Mã bác sĩ không được để trống.");
 
             RuleFor(x => x.Date)

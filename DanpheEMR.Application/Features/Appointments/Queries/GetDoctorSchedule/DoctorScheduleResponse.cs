@@ -4,7 +4,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
 {
     public sealed class DoctorScheduleResponse
     {
-        public Guid Id { get; set; }
+        public string DoctorScheduleCode { get; set; }
         public string StartTime { get; set; } 
         public string EndTime { get; set; }
         public int MaxPatients { get; set; }

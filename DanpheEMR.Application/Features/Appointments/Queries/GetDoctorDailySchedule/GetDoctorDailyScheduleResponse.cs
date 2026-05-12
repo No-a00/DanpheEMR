@@ -6,7 +6,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorDailySche
 {
     public class GetDoctorDailyScheduleResponse
     {
-        public Guid DoctorId { get; set; }
+        public string DoctorCode { get; set; }
         public DateTime Date { get; set; }
         public int TotalAppointments { get; set; }
 
@@ -17,7 +17,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorDailySche
     // Lớp DTO để hiển thị thông tin rút gọn cho từng dòng trên màn hình
     public class AppointmentItemDto
     {
-        public Guid Id { get; set; }
+        public string Code { get; set; }
         public TimeSpan AppointmentTime { get; set; }
         public string PatientName { get; set; }
         public VisitStatus Status { get; set; }

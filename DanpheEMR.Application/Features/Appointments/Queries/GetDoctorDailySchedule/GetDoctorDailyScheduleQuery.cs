@@ -3,7 +3,7 @@
 namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorDailySchedule
 {
     public record GetDoctorDailyScheduleQuery(
-        Guid DoctorId,
+        string DoctorCode,
         DateTime Date
     ) : IRequest<Result<GetDoctorDailyScheduleResponse>>;
 }

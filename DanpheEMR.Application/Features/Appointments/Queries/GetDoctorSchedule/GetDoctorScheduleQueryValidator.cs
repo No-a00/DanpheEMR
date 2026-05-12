@@ -6,7 +6,7 @@ namespace DanpheEMR.Application.Features.Appointments.Queries.GetDoctorSchedule
     {
         public GetDoctorScheduleQueryValidator()
         {
-            RuleFor(x => x.DoctorId)
+            RuleFor(x => x.DoctorCode)
                 .NotEmpty().WithMessage("Vui lòng chọn bác sĩ để xem lịch.");
 
             RuleFor(x => x.StartDate)
