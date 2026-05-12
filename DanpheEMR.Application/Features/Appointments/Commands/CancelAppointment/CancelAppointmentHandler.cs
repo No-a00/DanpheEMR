@@ -1,46 +1,54 @@
 ﻿
+using Application.Common;
 using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Application.Features.Appointments.Commands.CancelAppointment;
+using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface.Appointments; 
+using DanpheEMR.Core.Interface.Base;
 using DanpheEMR.Core.Interfaces.Base;
 using MediatR;
 
 
 namespace DanpheEMR.Application.Features.Appointment.Commands.CancelAppointment
 {
-    public class CancelAppointmentHandler : IRequestHandler<CancelAppointmentCommand, Result<Guid>>
+    public class CancelAppointmentHandler : IRequestHandler<CancelAppointmentCommand, Result<string>>
     {
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IGenericRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICurrentUserService _currentUserService;
 
         public CancelAppointmentHandler(
             IAppointmentRepository appointmentRepository,
+            IGenericRepository<User> userRepository,
             IUnitOfWork unitOfWork,
             ICurrentUserService currentUserService)
         {
             _appointmentRepository = appointmentRepository;
+            _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _currentUserService = currentUserService;
         }
 
-        public async Task<Result<Guid>> Handle(CancelAppointmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(CancelAppointmentCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var appointment = await _appointmentRepository.GetByIdAsync(request.Id);
+                var appointment = await _appointmentRepository.GetFirstOrDefaultAsync(p=>p.AppointmentCode == request.AppointmentCode);
                 if (appointment == null)
                 {
-                    return Result<Guid>.Failure(CancelAppointmentErrors.NotFound);
+                    return Result<string>.Failure(CancelAppointmentErrors.NotFound);
                 }
                 if (!appointment.IsActive)
                 {
-                    return Result<Guid>.Failure(CancelAppointmentErrors.AlreadyCanceled);
+                    return Result<string>.Failure(CancelAppointmentErrors.AlreadyCanceled);
                 }
 
                
                 var userId = _currentUserService.UserId; 
-                request.UpdateEntity(appointment, userId);
+
+                var user = await _userRepository.GetByIdAsync(userId);
+                request.UpdateEntity(appointment, user.Code);
 
                 
                  _appointmentRepository.Update(appointment);
@@ -49,14 +57,14 @@ namespace DanpheEMR.Application.Features.Appointment.Commands.CancelAppointment
 
                 if (saveResult > 0)
                 {
-                    return Result<Guid>.Success(appointment.Id);
+                    return Result<string>.Success(appointment.AppointmentCode);
                 }
 
-                return Result<Guid>.Failure(CancelAppointmentErrors.DatabaseError);
+                return Result<string>.Failure(CancelAppointmentErrors.DatabaseError);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Result<Guid>.Failure(CancelAppointmentErrors.DatabaseError);
+                return Result<string>.Failure(new Error("CancelAppointment.Exception",$"{ex.Message}"));
             }
         }
     }

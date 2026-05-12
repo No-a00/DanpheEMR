@@ -4,6 +4,9 @@ namespace DanpheEMR.Features.Appointment.Commands.AddHoliday
 {
     public static class AddHolidayErrors
     {
+        public static readonly Error ProviderNotFound = new Error(
+            "AddHoliday.ProviderNotFound",
+            "Không tìm thấy nhà cung cấp với mã đã cho.");
         public static readonly Error DatabaseError = new Error(
             "AddHoliday.DatabaseError",
             "Đã xảy ra lỗi khi lưu ngày nghỉ vào cơ sở dữ liệu.");

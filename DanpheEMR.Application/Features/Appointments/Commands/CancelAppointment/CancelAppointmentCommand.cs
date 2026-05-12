@@ -2,7 +2,7 @@
 namespace DanpheEMR.Application.Features.Appointments.Commands.CancelAppointment
 {
     public record CancelAppointmentCommand(
-        Guid Id,
+        string AppointmentCode,
         string CancelReason
-    ) : IRequest<Result<Guid>>;
+    ) : IRequest<Result<string>>;
 }

@@ -7,6 +7,6 @@ namespace DanpheEMR.Features.Appointment.Commands.AddHoliday
         DateTime Date,
         string Reason,
         bool IsGlobal,
-        Guid? ProviderId // Có thể null nếu là ngày lễ toàn quốc
+        string? ProviderCode // Có thể null nếu là ngày lễ toàn quốc
     ) : IRequest<Result<AddHolidayResponse>>;
 }

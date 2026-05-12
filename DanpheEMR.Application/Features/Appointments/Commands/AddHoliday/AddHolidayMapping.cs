@@ -12,7 +12,7 @@ namespace DanpheEMR.Features.Appointment.Commands.AddHoliday
                 Date = command.Date.Date, 
                 Reason = command.Reason,
                 IsGlobal = command.IsGlobal,
-                ProviderId = command.ProviderId
+                
             };
         }
     }

@@ -14,9 +14,9 @@ namespace DanpheEMR.Features.Appointment.Commands.AddHoliday
             RuleFor(x => x.Reason)
                 .NotEmpty().WithMessage("Lý do nghỉ không được để trống.")
                 .MaximumLength(500).WithMessage("Lý do không được vượt quá 500 ký tự.");
-            RuleFor(x => x.ProviderId)
+            RuleFor(x => x.ProviderCode)
                 .NotNull().When(x => !x.IsGlobal)
-                .WithMessage("Nếu đây là ngày nghỉ cá nhân, bạn phải chọn bác sĩ (ProviderId).");
+                .WithMessage(x => $"Nếu đây là ngày nghỉ cá nhân, bạn phải chọn bác sĩ {x.ProviderCode}.");
         }
     }
 }
