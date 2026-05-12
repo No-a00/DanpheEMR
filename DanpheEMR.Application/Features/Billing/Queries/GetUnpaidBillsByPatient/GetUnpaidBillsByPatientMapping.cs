@@ -9,7 +9,7 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient
         {
             return new UnpaidBillDto
             {
-                TransactionId = transaction.Id,
+                TransactionCode = transaction.Code,
                 InvoiceNumber = transaction.InvoiceNumber,
                 TransactionDate = transaction.TransactionDate,
                 TotalAmount = transaction.TotalAmount

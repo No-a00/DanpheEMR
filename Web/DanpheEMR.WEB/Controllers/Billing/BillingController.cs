@@ -34,18 +34,18 @@ namespace DanpheEMR.WEB.Controllers
         // GET: api/billing/transactions/{id}
         [HttpGet("transactions/{id}")]
         [RequirePermission("Billing", "Read")] 
-        public async Task<IActionResult> GetTransactionDetails(Guid id)
+        public async Task<IActionResult> GetTransactionDetails(string Code)
         {
-            var result = await Mediator.Send(new GetTransactionDetailsQuery(id));
+            var result = await Mediator.Send(new GetTransactionDetailsQuery(Code));
             return Ok(result);
         }
 
         // GET: api/billing/patients/{patientId}/unpaid-bills
         [HttpGet("patients/{patientId}/unpaid-bills")]
         [RequirePermission("Billing", "Read")] 
-        public async Task<IActionResult> GetUnpaidBillsByPatient(Guid patientId)
+        public async Task<IActionResult> GetUnpaidBillsByPatient(string patientCode)
         {
-            var result = await Mediator.Send(new GetUnpaidBillsByPatientQuery(patientId));
+            var result = await Mediator.Send(new GetUnpaidBillsByPatientQuery(patientCode));
             return Ok(result);
         }
 

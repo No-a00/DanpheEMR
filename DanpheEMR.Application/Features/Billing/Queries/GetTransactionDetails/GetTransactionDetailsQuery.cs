@@ -5,11 +5,11 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails
 {
     public class GetTransactionDetailsQuery : IRequest<Result<GetTransactionDetailsResponse>>
     {
-        public Guid TransactionId { get; set; }
+        public string TransactionCode { get; set; }
 
-        public GetTransactionDetailsQuery(Guid transactionId)
+        public GetTransactionDetailsQuery(string transactionCode)
         {
-            TransactionId = transactionId;
+            TransactionCode = transactionCode;
         }
     }
 }

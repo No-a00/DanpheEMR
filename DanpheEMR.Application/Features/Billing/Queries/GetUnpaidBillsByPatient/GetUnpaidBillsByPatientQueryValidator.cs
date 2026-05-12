@@ -6,7 +6,7 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient
     {
         public GetUnpaidBillsByPatientQueryValidator()
         {
-            RuleFor(x => x.PatientId)
+            RuleFor(x => x.PatientCode)
                 .NotEmpty().WithMessage("Mã bệnh nhân không được để trống.");
         }
     }

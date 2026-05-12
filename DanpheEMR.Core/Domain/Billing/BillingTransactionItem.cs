@@ -18,7 +18,7 @@ namespace DanpheEMR.Core.Domain.Billing
 
         public decimal TaxAmount { get; set; } 
         public decimal TotalAmount { get; set; } 
-
+        
         public Guid? ProviderId { get; set; }
         public virtual Employee Provider { get; set; }
         public Guid BillingTransactionId { get; set; }

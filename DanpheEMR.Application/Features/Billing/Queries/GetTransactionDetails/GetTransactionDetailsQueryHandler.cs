@@ -23,12 +23,11 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails
         {
             try
             {
-                var transactionEntity = await _transactionRepository.GetTransactionWithDetailsAsync(request.TransactionId);
+                var transactionEntity = await _transactionRepository.GetFirstOrDefaultAsync(t => t.Code == request.TransactionCode);
 
                 if (transactionEntity == null)
                 {
-                    var error = new Error("Billing.NotFound", "Không tìm thấy giao dịch với ID đã cho.");
-
+                    var error = new Error("Billing.NotFound", "Không tìm thấy giao dịch với mã đã cho.");
                     return Result<GetTransactionDetailsResponse>.Failure(error);       
                   }
 

@@ -1,4 +1,6 @@
 ﻿using Application.Common;
+using DanpheEMR.Core.Domain.Patients;
+using DanpheEMR.Core.Interface.Base;
 using DanpheEMR.Core.Interface.Billing;
 using MediatR;
 
@@ -7,23 +9,27 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient
     public class GetUnpaidBillsByPatientQueryHandler : IRequestHandler<GetUnpaidBillsByPatientQuery, Result<GetUnpaidBillsByPatientResponse>>
     {
         private readonly IBillingTransactionRepository _billingRepository;
-
-        public GetUnpaidBillsByPatientQueryHandler(IBillingTransactionRepository billingRepository)
+        private readonly IGenericRepository<Patient> _patientRepo;
+        public GetUnpaidBillsByPatientQueryHandler(IBillingTransactionRepository billingRepository, IGenericRepository<Patient> patientRepo)
         {
             _billingRepository = billingRepository;
+            _patientRepo = patientRepo;
         }
 
         public async Task<Result<GetUnpaidBillsByPatientResponse>> Handle(GetUnpaidBillsByPatientQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var unpaidTransactions = await _billingRepository.GetUnpaidTransactionsByPatientAsync(request.PatientId);
+                var patient = await _patientRepo.GetFirstOrDefaultAsync(p=>p.PatientCode==request.PatientCode);
+                if(patient == null) return Result<GetUnpaidBillsByPatientResponse>.Failure(new Error("GetUnpaidBills.PatientNotFound", $"Không tìm thấy bệnh nhân với mã {request.PatientCode}."));
+
+                var unpaidTransactions = await _billingRepository.GetUnpaidTransactionsByPatientAsync(patient.Id);
 
                 var dtos = unpaidTransactions.ToDtoList();
 
                 var response = new GetUnpaidBillsByPatientResponse
                 {
-                    PatientId = request.PatientId,
+                    PatientCode = request.PatientCode,
                     TotalUnpaidBills = dtos.Count,
                     TotalUnpaidAmount = dtos.Sum(x => x.TotalAmount),
                     UnpaidBills = dtos

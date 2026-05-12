@@ -6,8 +6,8 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails
     {
         public GetTransactionDetailsQueryValidator()
         {
-            RuleFor(x => x.TransactionId)
-                .NotEmpty().WithMessage("Mã giao dịch (TransactionId) không được để trống.");
+            RuleFor(x => x.TransactionCode)
+                .NotEmpty().WithMessage("Mã giao dịch (TransactionCode) không được để trống.");
         }
     }
 }

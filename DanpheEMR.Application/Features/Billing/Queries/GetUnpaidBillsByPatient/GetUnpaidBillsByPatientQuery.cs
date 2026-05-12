@@ -5,6 +5,6 @@ using System;
 namespace DanpheEMR.Application.Features.Billing.Queries.GetUnpaidBillsByPatient
 {
     public record GetUnpaidBillsByPatientQuery(
-        Guid PatientId
+        string PatientCode
     ) : IRequest<Result<GetUnpaidBillsByPatientResponse>>;
 }

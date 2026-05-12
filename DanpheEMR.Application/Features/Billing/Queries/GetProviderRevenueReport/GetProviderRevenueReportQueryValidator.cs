@@ -7,7 +7,7 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetProviderRevenueRepor
     {
         public GetProviderRevenueReportQueryValidator()
         {
-            RuleFor(x => x.ProviderId)
+            RuleFor(x => x.ProviderCode)
                 .NotEmpty().WithMessage("Mã bác sĩ không được để trống.");
 
             RuleFor(x => x.FromDate)

@@ -4,7 +4,7 @@ using DanpheEMR.Core.Domain.Billing;
 using DanpheEMR.Core.Enums; 
 using DanpheEMR.Core.Interface.Billing;
 using MediatR;
-
+using Application.Common;
 
 namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
 {
@@ -21,43 +21,51 @@ namespace DanpheEMR.Application.Features.Billing.Commands.ProcessPayment
         public async Task<Result<ProcessPaymentResponse>> Handle(ProcessPaymentCommand request, CancellationToken cancellationToken)
         {
             // 2. Lấy hóa đơn gốc từ Database
-            var invoice = await _billingTransactionRepository.GetByIdAsync(request.InvoiceId);
-            if (invoice == null)
+            try
             {
-                return Result<ProcessPaymentResponse>.Failure(ProcessPaymentErrors.InvoiceNotFound);
+                var invoice = await _billingTransactionRepository.GetFirstOrDefaultAsync(p => p.Code == request.InvoiceCode);
+                if (invoice == null)
+                {
+                    return Result<ProcessPaymentResponse>.Failure(ProcessPaymentErrors.InvoiceNotFound);
+                }
+                if (invoice.PaymentStatus == PaymentStatus.Paid)
+                {
+                    return Result<ProcessPaymentResponse>.Failure(ProcessPaymentErrors.AlreadyPaid);
+                }
+
+                // 3. Tạo bản ghi giao dịch thanh toán
+                var payment = new BillingTransaction
+                {
+                    Id = Guid.NewGuid(),
+                    VisitId = invoice.VisitId,
+                    PatientId = invoice.PatientId,
+
+                    SubTotal = request.AmountPaid,
+                    TotalAmount = request.AmountPaid,
+
+                    PaymentMode = Enum.Parse<PaymentMode>(request.PaymentMethod),
+                    TransactionType = TransactionType.Sales,
+
+                    TransactionDate = DateTime.UtcNow,
+                    PaymentStatus = PaymentStatus.Paid,
+                    IsDeleted = false,
+                    InvoiceNumber = $"INV-{DateTime.Now:yyyyMMddHHmm}"
+                };
+                invoice.PaymentStatus = PaymentStatus.Paid;
+
+                await _billingTransactionRepository.AddAsync(payment);
+                await _uow.SaveChangesAsync(cancellationToken);
+                return Result.Success(new ProcessPaymentResponse
+                {
+                    PaymentId = payment.Id,
+                    NewInvoiceStatus = invoice.PaymentStatus.ToString()
+                });
             }
-            if (invoice.PaymentStatus == PaymentStatus.Paid)
+            catch (Exception ex)
             {
-                return Result<ProcessPaymentResponse>.Failure(ProcessPaymentErrors.AlreadyPaid);
+
+                return Result<ProcessPaymentResponse>.Failure(new Error("ProcessPayment.Exception", $"Lỗi khi xử lý thanh toán: {ex.Message}"));
             }
-
-            // 3. Tạo bản ghi giao dịch thanh toán
-            var payment = new BillingTransaction
-            {
-                Id = Guid.NewGuid(),
-                VisitId = invoice.VisitId,
-                PatientId = invoice.PatientId,
-
-                SubTotal = request.AmountPaid,
-                TotalAmount = request.AmountPaid,
-
-                PaymentMode = Enum.Parse<PaymentMode>(request.PaymentMethod),
-                TransactionType = TransactionType.Sales,
-
-                TransactionDate = DateTime.UtcNow,
-                PaymentStatus = PaymentStatus.Paid,
-                IsDeleted = false,
-                InvoiceNumber = $"INV-{DateTime.Now:yyyyMMddHHmm}"
-            };
-            invoice.PaymentStatus = PaymentStatus.Paid;
-            
-            await _billingTransactionRepository.AddAsync(payment);
-            await _uow.SaveChangesAsync(cancellationToken);
-            return Result.Success(new ProcessPaymentResponse
-            {
-                PaymentId = payment.Id,
-                NewInvoiceStatus = invoice.PaymentStatus.ToString()
-            });
         }
     }
 }

@@ -4,7 +4,7 @@ namespace DanpheEMR.Application.Features.Billing.Queries.GetTransactionDetails
 {
     public class GetTransactionDetailsResponse
     {
-        public Guid TransactionId { get; set; }
+        public string TransactionCode { get; set; }
         public string ReceiptNumber { get; set; } = string.Empty;
         public DateTime TransactionDate { get; set; }
         public Guid PatientId { get; set; }
