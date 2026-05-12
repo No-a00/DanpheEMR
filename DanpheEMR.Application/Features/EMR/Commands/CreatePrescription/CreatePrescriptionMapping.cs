@@ -22,7 +22,7 @@ namespace DanpheEMR.Application.Features.EMR.Commands.CreatePrescription
                 Status = "Active", // Hoặc "Pending" tùy quy trình của bạn
                 IsDeleted = false, 
                 Reason = null,
-                DeletedBy = Guid.Empty,
+                DeletedBy = null,
 
                
                 

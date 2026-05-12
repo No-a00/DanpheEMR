@@ -13,7 +13,7 @@ namespace DanpheEMR.Core.Domain.Billing
         public bool IsDeleted { get; set; }
 
         public string? Reason { get; set; }
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
         public decimal AmountPaid { get; set; }
         public PaymentStatus PaymentMode { get; set; }

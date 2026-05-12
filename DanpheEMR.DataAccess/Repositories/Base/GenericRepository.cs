@@ -37,7 +37,7 @@ namespace DanpheEMR.DataAccess.Repositories.Base
             _dbSet.Update(entity);
         }
 
-        public async Task DeleteAsync(Guid id, Guid? deletedBy = null, string? reason = null)
+        public async Task DeleteAsync(Guid id, string? deletedBy = null, string? reason = null)
         {
             var entity = await _dbSet.FindAsync(id);
 

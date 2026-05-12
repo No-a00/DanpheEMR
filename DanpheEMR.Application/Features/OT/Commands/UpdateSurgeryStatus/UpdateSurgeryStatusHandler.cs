@@ -2,26 +2,29 @@
 using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Enums;
 using DanpheEMR.Core.Interface;
+using DanpheEMR.Core.Interface.Base;
 using DanpheEMR.Core.Interface.OT; // Chứa IOTScheduleRepository
 using DanpheEMR.Core.Interfaces.Base; // Chứa ICurrentUserService
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
+using DanpheEMR.Core.Domain.Admin; 
 
 namespace DanpheEMR.Application.Features.OT.Commands.UpdateSurgeryStatus
 {
     public class UpdateSurgeryStatusHandler : IRequestHandler<UpdateSurgeryStatusCommand, Result<bool>>
     {
         private readonly IOTScheduleRepository _otScheduleRepository;
+        private readonly IGenericRepository<User> _userRepo;
         private readonly ICurrentUserService _currentUserService; // Lấy ID người đang đăng nhập để gán vào người hủy
         private readonly IUnitOfWork _unitOfWork;
 
         public UpdateSurgeryStatusHandler(
             IOTScheduleRepository otScheduleRepository,
+                IGenericRepository<User> userRepo,
             ICurrentUserService currentUserService,
             IUnitOfWork unitOfWork)
         {
             _otScheduleRepository = otScheduleRepository;
+            _userRepo = userRepo;
             _currentUserService = currentUserService;
             _unitOfWork = unitOfWork;
         }
@@ -39,7 +42,9 @@ namespace DanpheEMR.Application.Features.OT.Commands.UpdateSurgeryStatus
             {
                 schedule.IsDeleted = false;
                 schedule.Reason = request.CancelReason;
-                schedule.DeletedBy= _currentUserService.UserId; 
+                var userId = _currentUserService.UserId;
+                var user = await _userRepo.GetFirstOrDefaultAsync(u => u.Id == userId);
+                schedule.DeletedBy = user.Code;
             }
 
             _otScheduleRepository.Update(schedule);

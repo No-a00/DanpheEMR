@@ -21,7 +21,7 @@ namespace DanpheEMR.Core.Domain.EMR
         public bool IsDeleted { get; set; }
 
         public string? Reason { get; set; }
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
 
         public Guid AdmissionId { get; set; }

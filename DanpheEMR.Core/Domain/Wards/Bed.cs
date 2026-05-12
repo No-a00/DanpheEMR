@@ -25,6 +25,6 @@ namespace DanpheEMR.Core.Domain.Wards
 
         public string? Reason { get; set; }
 
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
     }
 }

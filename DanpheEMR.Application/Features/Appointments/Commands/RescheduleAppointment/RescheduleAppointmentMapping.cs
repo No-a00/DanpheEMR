@@ -5,7 +5,7 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppoint
 {
     public static class RescheduleAppointmentMapping
     {
-        public static void UpdateEntity(this RescheduleAppointmentCommand command, DomainAppointment appointment, Guid currentUserId)
+        public static void UpdateEntity(this RescheduleAppointmentCommand command, DomainAppointment appointment, string currentUserCode)
         {
 
             appointment.AppointmentDate = command.NewAppointmentDate;
@@ -13,7 +13,7 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.RescheduleAppoint
 
             appointment.IsDeleted = true;
             appointment.Reason = command.Reason;
-            appointment.DeletedBy = currentUserId;
+            appointment.DeletedBy = currentUserCode;  
         }
     }
 }

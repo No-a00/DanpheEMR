@@ -20,13 +20,13 @@ namespace DanpheEMR.WEB.Controllers.Admin
         }
 
         // POST: api/admin/users/{userId}/roles
-        [HttpPost("{userId}/roles")]
+        [HttpPost("{userCode}/roles")]
         [RequirePermission("Admin", "Write")] 
-        public async Task<IActionResult> AssignUserRole(Guid userId, [FromBody] AssignUserRoleCommand command)
+        public async Task<IActionResult> AssignUserRole(string userCode, [FromBody] AssignUserRoleCommand command)
         {
-            if (userId != command.UserId)
+            if (userCode != command.UserCode)
             {
-                return BadRequest(new { Message = "UserId không hợp lệ." });
+                return BadRequest(new { Message = "UserCode không hợp lệ." });
             }
 
             var result = await Mediator.Send(command);
@@ -36,11 +36,11 @@ namespace DanpheEMR.WEB.Controllers.Admin
         // DELETE: api/admin/users/{userId}/roles
         [HttpDelete("{userId}/roles")]
         [RequirePermission("Admin", "Full")]
-        public async Task<IActionResult> RemoveUserRole(Guid userId, [FromBody] RemoveUserRoleCommand command)
+        public async Task<IActionResult> RemoveUserRole(string userCode, [FromBody] RemoveUserRoleCommand command)
         {
-            if (userId != command.UserId)
+            if (userCode != command.UserCode)
             {
-                return BadRequest(new { Message = "UserId không hợp lệ." });
+                return BadRequest(new { Message = "UserCode không hợp lệ." });
             }
 
             var result = await Mediator.Send(command);

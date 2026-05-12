@@ -19,7 +19,7 @@ public class DoctorSchedule : BaseEntity, ISoftDelete
     public bool IsDeleted { get; set; }
 
     public string? Reason { get; set; }
-    public Guid? DeletedBy { get; set; }
+   public string? DeletedBy { get; set; }
 
     public Guid ProviderId { get; set; }
     public Guid DepartmentId { get; set; }

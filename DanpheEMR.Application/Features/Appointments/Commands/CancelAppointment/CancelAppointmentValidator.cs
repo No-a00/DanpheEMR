@@ -6,7 +6,7 @@ namespace DanpheEMR.Application.Features.Appointments.Commands.CancelAppointment
     {
         public CancelAppointmentValidator()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.AppointmentCode)
                 .NotEmpty().WithMessage("Mã lịch hẹn không được để trống.");
 
             RuleFor(x => x.CancelReason)

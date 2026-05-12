@@ -48,13 +48,13 @@ namespace DanpheEMR.WEB.Controllers.Appointments
 
         // PUT: api/appointments/{id}/cancel
         //hủy cuộc hẹn 
-        [HttpPut("{id}/cancel")]
+        [HttpPut("{code}/cancel")]
         [RequirePermission("Appointment", "Write")] 
-        public async Task<IActionResult> CancelAppointment(Guid id, [FromBody] CancelAppointmentCommand command)
+        public async Task<IActionResult> CancelAppointment(string code, [FromBody] CancelAppointmentCommand command)
         {
-            if (id != command.Id)
+            if (code != command.AppointmentCode)
             {
-                return BadRequest(new { Message = "ID cuộc hẹn không khớp." });
+                return BadRequest(new { Message = "Mã cuộc hẹn không khớp." });
             }
 
             var result = await Mediator.Send(command);

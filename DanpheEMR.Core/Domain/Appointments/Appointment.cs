@@ -28,7 +28,7 @@ namespace DanpheEMR.Core.Domain.Appointments
         public bool IsDeleted { get; set; }
 
         public string? Reason { get; set; }
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
 
 

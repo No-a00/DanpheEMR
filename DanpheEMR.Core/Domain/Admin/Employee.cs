@@ -22,7 +22,7 @@ namespace DanpheEMR.Core.Domain.Admin
 
         public bool IsDeleted { get; set; }
         public  string? Reason { get; set; }
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
         public string ContactNumber { get; set; }
         public Guid DepartmentId { get; set; }

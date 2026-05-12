@@ -17,7 +17,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
         
         public string? Reason { get; set; }
         
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
         public Guid SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }

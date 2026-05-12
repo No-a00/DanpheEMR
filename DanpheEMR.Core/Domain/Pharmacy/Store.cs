@@ -15,7 +15,7 @@ namespace DanpheEMR.Core.Domain.Pharmacy
 
         public string? Reason { get; set; }
 
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
        public Guid UserId { get; set; } // Người có quyền quản lý kho này
         public User User { get; set; }

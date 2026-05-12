@@ -14,7 +14,7 @@ namespace DanpheEMR.Core.Domain.Wards
 
         public string? Reason { get; set; }
 
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
         // Navigation Property: Một loại giường (VD: VIP) được áp dụng cho nhiều cái Giường thực tế khác nhau
         public ICollection<Bed> Beds { get; set; }

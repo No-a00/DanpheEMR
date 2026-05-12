@@ -31,7 +31,7 @@ namespace DanpheEMR.Core.Domain.Patients
         public bool IsDeleted { get; set; }
 
         public string? Reason { get; set; }
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
 
         public ICollection<PatientAddress> Addresses { get; set; }
         public ICollection<PatientKin> Kins { get; set; }

@@ -15,7 +15,7 @@ namespace DanpheEMR.Core.Domain.Wards
 
         public string? Reason { get; set; }
 
-        public Guid? DeletedBy { get; set; }
+       public string? DeletedBy { get; set; }
         public ICollection<Bed> Beds { get; set; } = new List<Bed>();
     }
 }

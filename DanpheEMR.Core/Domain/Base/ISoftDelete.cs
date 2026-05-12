@@ -8,6 +8,6 @@ namespace DanpheEMR.Core.Domain.Base
         [Required]
         string Reason { get; set; }
         [Required]
-        Guid? DeletedBy { get; set; }
+        string? DeletedBy { get; set; }
     }
 }

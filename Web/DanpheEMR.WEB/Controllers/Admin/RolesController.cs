@@ -23,9 +23,9 @@ namespace DanpheEMR.WEB.Controllers.Admin
         // GET: api/admin/roles/{id}
         [HttpGet("{id}")]
         [RequirePermission("Admin", "Read")] 
-        public async Task<IActionResult> GetRoleDetails(Guid id)
+        public async Task<IActionResult> GetRoleDetails(string Code)
         {
-            var result = await Mediator.Send(new GetRoleDetailsQuery(id));
+            var result = await Mediator.Send(new GetRoleDetailsQuery(Code));
             return Ok(result);
         }
 
@@ -41,11 +41,11 @@ namespace DanpheEMR.WEB.Controllers.Admin
         // PUT: api/admin/roles/{id}
         [HttpPut("{id}")]
         [RequirePermission("Admin", "Write")] 
-        public async Task<IActionResult> UpdateRole(Guid id, [FromBody] UpdateRoleCommand command)
+        public async Task<IActionResult> UpdateRole(string Code, [FromBody] UpdateRoleCommand command)
         {
-            if (id != command.Id)
+            if (Code != command.RoleName)
             {
-                return BadRequest(new { Message = "ID không khớp với dữ liệu." });
+                return BadRequest(new { Message = "Code không khớp với dữ liệu." });
             }
 
             var result = await Mediator.Send(command);
@@ -55,9 +55,9 @@ namespace DanpheEMR.WEB.Controllers.Admin
         // DELETE: api/admin/roles/{id}
         [HttpDelete("{id}")]
         [RequirePermission("Admin", "Full")] 
-        public async Task<IActionResult> DeleteRole(Guid id)
+        public async Task<IActionResult> DeleteRole(string Code)
         {
-            var result = await Mediator.Send(new DeleteRoleCommand(id));
+            var result = await Mediator.Send(new DeleteRoleCommand(Code));
             return Ok(result);
         }
     }
