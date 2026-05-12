@@ -1,4 +1,5 @@
 ﻿using DanpheEMR.DataAccess.Data;
+using DanpheEMR.DataAccess.Seeders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace DanpheEMR.DataAccess.Extensions
 
             // Tự động chạy Seeder
             await RoleSeeder.SeedDataAsync(context);
+
+            await BedFeatureSeeder.SeedDataAsync(context);
         }
     }
 }
