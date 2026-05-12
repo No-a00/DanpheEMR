@@ -6,8 +6,8 @@ namespace DanpheEMR.Application.Features.Admin.Commands.AssignRolePermission
     {
         public AssignRolePermissionValidator()
         {
-            RuleFor(x => x.RoleId).NotEmpty().WithMessage("Vui lòng chọn Vai trò (Role).");
-            RuleFor(x => x.PermissionId).NotEmpty().WithMessage("Vui lòng chọn Quyền (Permission) cần gán.");
+            RuleFor(x => x.RoleCode).NotEmpty().WithMessage("Vui lòng chọn Vai trò (Role).");
+            RuleFor(x => x.PermissionCode).NotEmpty().WithMessage("Vui lòng chọn Quyền (Permission) cần gán.");
         }
     }
 }

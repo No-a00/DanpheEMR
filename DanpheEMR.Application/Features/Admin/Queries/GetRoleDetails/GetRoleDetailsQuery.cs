@@ -11,5 +11,5 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetRoleDetails
         List<PermissionDto> Permissions
     );
 
-    public record GetRoleDetailsQuery(Guid Id) : IRequest<Result<RoleDetailsDto>>;
+    public record GetRoleDetailsQuery(string RoleCode) : IRequest<Result<RoleDetailsDto>>;
 }

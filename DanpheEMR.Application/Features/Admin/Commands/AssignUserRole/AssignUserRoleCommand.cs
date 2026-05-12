@@ -5,7 +5,7 @@ using System;
 namespace DanpheEMR.Application.Features.Admin.Commands.AssignUserRole
 {
     public record AssignUserRoleCommand(
-        Guid UserId,  
-        Guid RoleId   
+        string UserCode,  
+        string RoleCode   
     ) : IRequest<Result<bool>>;
 }

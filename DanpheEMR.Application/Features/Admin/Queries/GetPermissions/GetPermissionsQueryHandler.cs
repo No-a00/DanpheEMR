@@ -1,7 +1,7 @@
 ﻿
 using DanpheEMR.Core.Interface.Admin;
 using MediatR;
-
+using Application.Common;
 
 namespace DanpheEMR.Application.Features.Admin.Queries.GetPermissions
 {
@@ -16,16 +16,24 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetPermissions
 
         public async Task<Result<List<PermissionDto>>> Handle(GetPermissionsQuery request, CancellationToken cancellationToken)
         {
-            var permissions = await _permissionRepository.GetAllAsync();
+            try
+            {
+                var permissions = await _permissionRepository.GetAllAsync();
 
-            var permissionDtos = permissions.Select(p => new PermissionDto(
-                p.Id,
-                p.Resource,
-                p.Action,
-                p.Description
-            )).ToList();
+                var permissionDtos = permissions.Select(p => new PermissionDto(
+                    p.Id,
+                    p.Resource,
+                    p.Action,
+                    p.Description
+                )).ToList();
 
-            return Result<List<PermissionDto>>.Success(permissionDtos);
+                return Result<List<PermissionDto>>.Success(permissionDtos);
+            }
+            catch (Exception ex)
+            {
+
+                return Result<List<PermissionDto>>.Failure(new Error("GetPermissions.Exception", $"{ex.Message}"));
+            }
         }
     }
 }

@@ -7,7 +7,10 @@ namespace DanpheEMR.Application.Features.Admin.Commands.AssignUserRole
         public static readonly Error UserNotFound = new Error(
             "AssignUserRole.UserNotFound",
             "Không tìm thấy thông tin người dùng trong hệ thống.");
-
+        public static readonly Error RoleNotFound = new Error(
+            "AssignUserRole.RoleNotFound",
+            "không tìm thấy Role trong Hệ thống"
+            );
         public static readonly Error RoleAlreadyAssigned = new Error(
             "AssignUserRole.RoleAlreadyAssigned",
             "Người dùng này đã được gán vai trò này từ trước rồi.");

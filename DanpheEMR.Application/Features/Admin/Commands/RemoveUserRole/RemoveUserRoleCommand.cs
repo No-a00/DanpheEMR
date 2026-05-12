@@ -5,7 +5,7 @@ using System;
 namespace DanpheEMR.Application.Features.Admin.Commands.RemoveUserRole
 {
     public record RemoveUserRoleCommand(
-        Guid UserId,
-        Guid RoleId
+        string UserCode,
+        string RoleCode
     ) : IRequest<Result<bool>>;
 }

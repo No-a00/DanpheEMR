@@ -5,7 +5,7 @@ using System;
 namespace DanpheEMR.Application.Features.Admin.Commands.RemoveRolePermission
 {
     public record RemoveRolePermissionCommand(
-        Guid RoleId,
-        Guid PermissionId
+        string RoleCode,
+        string PermissionCode
     ) : IRequest<Result<bool>>;
 }

@@ -2,6 +2,7 @@
 using DanpheEMR.Application.Abstractions.Persistence;
 using DanpheEMR.Core.Domain.Admin;
 using DanpheEMR.Core.Interface.Admin;
+using DanpheEMR.Core.Interface.Base;
 using MediatR;
 
 
@@ -11,24 +12,28 @@ namespace DanpheEMR.Application.Features.Admin.Commands.AssignUserRole
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IGenericRepository<Role> _roleRepo;
 
-        public AssignUserRoleHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public AssignUserRoleHandler(IUserRepository userRepository, IUnitOfWork unitOfWork,IGenericRepository<Role> roleRepo)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _roleRepo = roleRepo;
         }
 
         public async Task<Result<bool>> Handle(AssignUserRoleCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var user = await _userRepository.GetByIdAsync(request.UserId);
+                var user = await _userRepository.GetFirstOrDefaultAsync(p=>p.Code == request.UserCode);
                 if (user == null)
                 {
                     return Result<bool>.Failure(AssignUserRoleErrors.UserNotFound);
                 }
+                var role = await _roleRepo.GetFirstOrDefaultAsync(p => p.RoleName == request.RoleCode);
+                if (role == null) return Result<bool>.Failure(AssignUserRoleErrors.RoleNotFound);
 
-                bool hasRole = await _userRepository.UserHasRoleAsync(request.UserId, request.RoleId);
+                bool hasRole = await _userRepository.UserHasRoleAsync(user.Id, role.Id);
                 if (hasRole)
                 {
                     return Result<bool>.Failure(AssignUserRoleErrors.RoleAlreadyAssigned);
@@ -37,8 +42,8 @@ namespace DanpheEMR.Application.Features.Admin.Commands.AssignUserRole
                 var userRole = new UserRole
                 {
                     Id = Guid.NewGuid(),
-                    UserId = request.UserId,
-                    RoleId = request.RoleId,
+                    UserId = user.Id,
+                    RoleId = role.Id,
                     IsActive = true
                 };
 

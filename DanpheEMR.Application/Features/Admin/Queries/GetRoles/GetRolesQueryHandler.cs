@@ -14,15 +14,24 @@ namespace DanpheEMR.Application.Features.Admin.Queries.GetRoles
 
         public async Task<Result<List<RoleDto>>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
         {
-            var roles = await _roleRepository.GetAllAsync();
+            try
+            {
 
-            var roleDtos = roles.Select(r => new RoleDto(
-                r.Id,
-                r.RoleName,
-                r.Description
-            )).ToList();
+                var roles = await _roleRepository.GetAllAsync();
 
-            return Result<List<RoleDto>>.Success(roleDtos);
+                var roleDtos = roles.Select(r => new RoleDto(
+                    r.Id,
+                    r.RoleName,
+                    r.Description
+                )).ToList();
+
+                return Result<List<RoleDto>>.Success(roleDtos);
+            }
+            catch (Exception ex)
+            {
+
+                return Result<List<RoleDto>>.Failure(new Error("GetRolesQuery.Exception", $"{ex.Message}"));
+            }
         }
     }
 }
